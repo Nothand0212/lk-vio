@@ -1,0 +1,77 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.10"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"name" : "Release",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "lvio",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "lvio::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-lvio-Release-9083f477e0e2b9cb0024.json",
+					"name" : "lvio",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "test_feature::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-test_feature-Release-190f01c69d1c2fa2ebc8.json",
+					"name" : "test_feature",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "test_frame::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-test_frame-Release-aa69157e3d36534dd698.json",
+					"name" : "test_frame",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/lin/Projects/vio_ws/src/lvio/build",
+		"source" : "/home/lin/Projects/vio_ws/src/lvio"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 0
+	}
+}

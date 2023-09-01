@@ -1,0 +1,48 @@
+cmake_minimum_required(VERSION 3.10)
+project(lvio)
+
+set(CMAKE_BUILD_TYPE Release)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_FLAGS "-w")
+set(CMAKE_CXX_FLAGS_RELEASE "-O3 -g -ggdb ${CMAKE_CXX_FLAGS} -lpthread")
+set(CMAKE_CXX_FLAGS_DEBUG "-g ${CMAKE_CXX_FLAGS}")
+
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/bin)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lib)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lib)
+
+
+include_directories(${PROJECT_SOURCE_DIR}/include)
+
+# OpenCV 
+find_package(OpenCV REQUIRED)
+include_directories(${OpenCV_INCLUDE_DIRS})
+
+# 链接pthread库
+find_package(Threads REQUIRED)
+
+# third party include path
+include_directories(${PROJECT_SOURCE_DIR}/thirdparty/eigen)
+include_directories(${PROJECT_SOURCE_DIR}/thirdparty/sophus)
+include_directories(${PROJECT_SOURCE_DIR}/thirdparty/g2o)
+include_directories(${PROJECT_SOURCE_DIR}/thirdparty)
+
+# GTest
+find_package(GTest REQUIRED)
+include_directories(${GTEST_INCLUDE_DIRS})
+
+add_library(lvio SHARED
+    src/frame.cpp
+)
+
+target_link_libraries(lvio glog)
+
+# 添加测试用例
+add_executable( test_frame test/test_frame.cpp )
+target_link_libraries( test_frame gtest gtest_main ${OpenCV_LIBS} Threads::Threads lvio)
+
+add_executable(test_feature test/test_feature.cpp)
+target_link_libraries(test_feature gtest gtest_main ${OpenCV_LIBS} Threads::Threads lvio)
+
+# 添加测试
+add_test( NAME test_frame COMMAND test_frame )

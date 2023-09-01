@@ -1,0 +1,1 @@
+/usr/bin/g++ -fPIC -w -O3 -g -ggdb -w -lpthread  -shared -Wl,-soname,liblvio.so -o ../lib/liblvio.so CMakeFiles/lvio.dir/src/frame.cpp.o  -lglog 
