@@ -1,0 +1,104 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.10"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5
+					]
+				}
+			],
+			"name" : "Release",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "lvio",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "lvio::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-lvio-Release-08f7b440aeb825012c7f.json",
+					"name" : "lvio",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "test_feature::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-test_feature-Release-18e4a7f8e781fd1e27ab.json",
+					"name" : "test_feature",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "test_frame::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-test_frame-Release-d77d38b542b0831dd389.json",
+					"name" : "test_frame",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "test_keyFrame::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-test_keyFrame-Release-ed2593b2f5fb23d1c6b8.json",
+					"name" : "test_keyFrame",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "test_map::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-test_map-Release-923947b1c1227ae8c8bf.json",
+					"name" : "test_map",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "test_mapPoint::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-test_mapPoint-Release-268579aa47721962b123.json",
+					"name" : "test_mapPoint",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/oem/Projects/lvio/build",
+		"source" : "/home/oem/Projects/lvio"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 0
+	}
+}

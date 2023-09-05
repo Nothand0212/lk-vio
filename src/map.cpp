@@ -162,7 +162,7 @@ void Map::removeOldActiveMapPoint()
 
   for ( auto iteration = active_map_points_.begin(); iteration != active_map_points_.end(); )
   {
-    if ( iteration->second->getObservedTimes == 0 )
+    if ( iteration->second->getObservedTimes() == 0 )
     {
       iteration = active_map_points_.erase( iteration );  // erase() 返回下一个元素的迭代器
     }

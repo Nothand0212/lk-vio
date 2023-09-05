@@ -20,3 +20,4 @@ public:
 };
 //
 }  // namespace lvio
+#endif  // LVIO_UTILITY_HPP

@@ -37,6 +37,7 @@ add_library(lvio SHARED
     src/feature.cpp
     src/mapPoint.cpp
     src/keyFrame.cpp
+    src/map.cpp
 )
 set(dbow_libs ${PROJECT_SOURCE_DIR}/thirdparty/DBoW2/lib/libDBoW2.so)
 target_link_libraries(lvio glog)
@@ -51,8 +52,11 @@ target_link_libraries(test_keyFrame gtest gtest_main ${OpenCV_LIBS} Threads::Thr
 add_executable(test_feature test/test_feature.cpp)
 target_link_libraries(test_feature gtest gtest_main ${OpenCV_LIBS} Threads::Threads lvio ${dbow_libs})
 
-# add_executable(test_mapPoint test/test_mapPoint.cpp)
-# target_link_libraries(test_mapPoint gtest gtest_main ${OpenCV_LIBS} Threads::Threads lvio ${dbow_libs})
+add_executable(test_mapPoint test/test_mapPoint.cpp)
+target_link_libraries(test_mapPoint gtest gtest_main ${OpenCV_LIBS} Threads::Threads lvio ${dbow_libs})
+
+add_executable(test_map test/test_map.cpp)
+target_link_libraries(test_map gtest gtest_main ${OpenCV_LIBS} Threads::Threads lvio ${dbow_libs})
 
 # 添加测试
 add_test( NAME test_frame COMMAND test_frame )

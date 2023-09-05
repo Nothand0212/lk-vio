@@ -22,7 +22,7 @@ public:
   typedef std::unordered_map<unsigned long, std::shared_ptr<KeyFrame>> KeyFramesUnorderedMap;
   typedef std::unordered_map<unsigned long, std::shared_ptr<MapPoint>> MapPointsUnorderedMap;
 
-  Map() = default;
+  Map();
 
   // @brief insert key frame
   void insertKeyFrame( std::shared_ptr<KeyFrame> key_frame );

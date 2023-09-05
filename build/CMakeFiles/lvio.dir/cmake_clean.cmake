@@ -4,6 +4,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/lvio.dir/src/feature.cpp.o"
   "CMakeFiles/lvio.dir/src/frame.cpp.o"
   "CMakeFiles/lvio.dir/src/keyFrame.cpp.o"
+  "CMakeFiles/lvio.dir/src/map.cpp.o"
   "CMakeFiles/lvio.dir/src/mapPoint.cpp.o"
 )
 

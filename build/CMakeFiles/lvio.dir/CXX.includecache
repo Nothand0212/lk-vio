@@ -52,6 +52,18 @@ sophus/se3.hpp
 thirdparty/orb/orbVocabulary.hpp
 ../include/thirdparty/orb/orbVocabulary.hpp
 
+../include/map.hpp
+list
+-
+memory
+-
+mutex
+-
+unordered_map
+-
+vector
+-
+
 ../include/mapPoint.hpp
 Eigen/Core
 -
@@ -65,6 +77,16 @@ DBoW2/DBoW2/FORB.h
 ../include/thirdparty/orb/DBoW2/DBoW2/FORB.h
 DBoW2/DBoW2/TemplatedVocabulary.h
 ../include/thirdparty/orb/DBoW2/DBoW2/TemplatedVocabulary.h
+
+../include/utility.hpp
+glog/logging.h
+-
+Eigen/Core
+-
+Eigen/Dense
+-
+opencv2/core/core.hpp
+-
 
 ../thirdparty/DBoW2/DBoW2/BowVector.h
 iostream
@@ -1248,27 +1270,17 @@ type_traits
 common.hpp
 ../thirdparty/sophus/sophus/common.hpp
 
-/home/oem/Projects/lvio/src/feature.cpp
-feature.hpp
-/home/oem/Projects/lvio/src/feature.hpp
-
-/home/oem/Projects/lvio/src/frame.cpp
-frame.hpp
-/home/oem/Projects/lvio/src/frame.hpp
-
-/home/oem/Projects/lvio/src/keyFrame.cpp
+/home/oem/Projects/lvio/src/map.cpp
 feature.hpp
 /home/oem/Projects/lvio/src/feature.hpp
 keyFrame.hpp
 /home/oem/Projects/lvio/src/keyFrame.hpp
+map.hpp
+/home/oem/Projects/lvio/src/map.hpp
 mapPoint.hpp
 /home/oem/Projects/lvio/src/mapPoint.hpp
-
-/home/oem/Projects/lvio/src/mapPoint.cpp
-feature.hpp
-/home/oem/Projects/lvio/src/feature.hpp
-mapPoint.hpp
-/home/oem/Projects/lvio/src/mapPoint.hpp
+utility.hpp
+/home/oem/Projects/lvio/src/utility.hpp
 
 /usr/include/opencv4/opencv2/calib3d.hpp
 opencv2/core.hpp

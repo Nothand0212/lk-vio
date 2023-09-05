@@ -7,6 +7,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "/home/oem/Projects/lvio/src/feature.cpp" "/home/oem/Projects/lvio/build/CMakeFiles/lvio.dir/src/feature.cpp.o"
   "/home/oem/Projects/lvio/src/frame.cpp" "/home/oem/Projects/lvio/build/CMakeFiles/lvio.dir/src/frame.cpp.o"
   "/home/oem/Projects/lvio/src/keyFrame.cpp" "/home/oem/Projects/lvio/build/CMakeFiles/lvio.dir/src/keyFrame.cpp.o"
+  "/home/oem/Projects/lvio/src/map.cpp" "/home/oem/Projects/lvio/build/CMakeFiles/lvio.dir/src/map.cpp.o"
   "/home/oem/Projects/lvio/src/mapPoint.cpp" "/home/oem/Projects/lvio/build/CMakeFiles/lvio.dir/src/mapPoint.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")

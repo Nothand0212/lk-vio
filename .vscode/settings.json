@@ -76,7 +76,8 @@
         "any": "cpp",
         "codecvt": "cpp",
         "span": "cpp",
-        "valarray": "cpp"
+        "valarray": "cpp",
+        "forward_list": "cpp"
     },
     "ros.distro": "noetic"
 }

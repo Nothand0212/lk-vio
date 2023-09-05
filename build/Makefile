@@ -111,6 +111,19 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named test_mapPoint
+
+# Build rule for target.
+test_mapPoint: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test_mapPoint
+.PHONY : test_mapPoint
+
+# fast build rule for target.
+test_mapPoint/fast:
+	$(MAKE) -f CMakeFiles/test_mapPoint.dir/build.make CMakeFiles/test_mapPoint.dir/build
+.PHONY : test_mapPoint/fast
+
+#=============================================================================
 # Target rules for targets named test_feature
 
 # Build rule for target.
@@ -122,6 +135,19 @@ test_feature: cmake_check_build_system
 test_feature/fast:
 	$(MAKE) -f CMakeFiles/test_feature.dir/build.make CMakeFiles/test_feature.dir/build
 .PHONY : test_feature/fast
+
+#=============================================================================
+# Target rules for targets named test_map
+
+# Build rule for target.
+test_map: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test_map
+.PHONY : test_map
+
+# fast build rule for target.
+test_map/fast:
+	$(MAKE) -f CMakeFiles/test_map.dir/build.make CMakeFiles/test_map.dir/build
+.PHONY : test_map/fast
 
 #=============================================================================
 # Target rules for targets named test_frame
@@ -243,6 +269,33 @@ src/keyFrame.cpp.s:
 	$(MAKE) -f CMakeFiles/lvio.dir/build.make CMakeFiles/lvio.dir/src/keyFrame.cpp.s
 .PHONY : src/keyFrame.cpp.s
 
+src/map.o: src/map.cpp.o
+
+.PHONY : src/map.o
+
+# target to build an object file
+src/map.cpp.o:
+	$(MAKE) -f CMakeFiles/lvio.dir/build.make CMakeFiles/lvio.dir/src/map.cpp.o
+.PHONY : src/map.cpp.o
+
+src/map.i: src/map.cpp.i
+
+.PHONY : src/map.i
+
+# target to preprocess a source file
+src/map.cpp.i:
+	$(MAKE) -f CMakeFiles/lvio.dir/build.make CMakeFiles/lvio.dir/src/map.cpp.i
+.PHONY : src/map.cpp.i
+
+src/map.s: src/map.cpp.s
+
+.PHONY : src/map.s
+
+# target to generate assembly for a file
+src/map.cpp.s:
+	$(MAKE) -f CMakeFiles/lvio.dir/build.make CMakeFiles/lvio.dir/src/map.cpp.s
+.PHONY : src/map.cpp.s
+
 src/mapPoint.o: src/mapPoint.cpp.o
 
 .PHONY : src/mapPoint.o
@@ -351,6 +404,60 @@ test/test_keyFrame.cpp.s:
 	$(MAKE) -f CMakeFiles/test_keyFrame.dir/build.make CMakeFiles/test_keyFrame.dir/test/test_keyFrame.cpp.s
 .PHONY : test/test_keyFrame.cpp.s
 
+test/test_map.o: test/test_map.cpp.o
+
+.PHONY : test/test_map.o
+
+# target to build an object file
+test/test_map.cpp.o:
+	$(MAKE) -f CMakeFiles/test_map.dir/build.make CMakeFiles/test_map.dir/test/test_map.cpp.o
+.PHONY : test/test_map.cpp.o
+
+test/test_map.i: test/test_map.cpp.i
+
+.PHONY : test/test_map.i
+
+# target to preprocess a source file
+test/test_map.cpp.i:
+	$(MAKE) -f CMakeFiles/test_map.dir/build.make CMakeFiles/test_map.dir/test/test_map.cpp.i
+.PHONY : test/test_map.cpp.i
+
+test/test_map.s: test/test_map.cpp.s
+
+.PHONY : test/test_map.s
+
+# target to generate assembly for a file
+test/test_map.cpp.s:
+	$(MAKE) -f CMakeFiles/test_map.dir/build.make CMakeFiles/test_map.dir/test/test_map.cpp.s
+.PHONY : test/test_map.cpp.s
+
+test/test_mapPoint.o: test/test_mapPoint.cpp.o
+
+.PHONY : test/test_mapPoint.o
+
+# target to build an object file
+test/test_mapPoint.cpp.o:
+	$(MAKE) -f CMakeFiles/test_mapPoint.dir/build.make CMakeFiles/test_mapPoint.dir/test/test_mapPoint.cpp.o
+.PHONY : test/test_mapPoint.cpp.o
+
+test/test_mapPoint.i: test/test_mapPoint.cpp.i
+
+.PHONY : test/test_mapPoint.i
+
+# target to preprocess a source file
+test/test_mapPoint.cpp.i:
+	$(MAKE) -f CMakeFiles/test_mapPoint.dir/build.make CMakeFiles/test_mapPoint.dir/test/test_mapPoint.cpp.i
+.PHONY : test/test_mapPoint.cpp.i
+
+test/test_mapPoint.s: test/test_mapPoint.cpp.s
+
+.PHONY : test/test_mapPoint.s
+
+# target to generate assembly for a file
+test/test_mapPoint.cpp.s:
+	$(MAKE) -f CMakeFiles/test_mapPoint.dir/build.make CMakeFiles/test_mapPoint.dir/test/test_mapPoint.cpp.s
+.PHONY : test/test_mapPoint.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -358,8 +465,10 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... edit_cache"
+	@echo "... test_mapPoint"
 	@echo "... rebuild_cache"
 	@echo "... test_feature"
+	@echo "... test_map"
 	@echo "... test_frame"
 	@echo "... test_keyFrame"
 	@echo "... lvio"
@@ -372,6 +481,9 @@ help:
 	@echo "... src/keyFrame.o"
 	@echo "... src/keyFrame.i"
 	@echo "... src/keyFrame.s"
+	@echo "... src/map.o"
+	@echo "... src/map.i"
+	@echo "... src/map.s"
 	@echo "... src/mapPoint.o"
 	@echo "... src/mapPoint.i"
 	@echo "... src/mapPoint.s"
@@ -384,6 +496,12 @@ help:
 	@echo "... test/test_keyFrame.o"
 	@echo "... test/test_keyFrame.i"
 	@echo "... test/test_keyFrame.s"
+	@echo "... test/test_map.o"
+	@echo "... test/test_map.i"
+	@echo "... test/test_map.s"
+	@echo "... test/test_mapPoint.o"
+	@echo "... test/test_mapPoint.i"
+	@echo "... test/test_mapPoint.s"
 .PHONY : help
 
 
