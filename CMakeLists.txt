@@ -1,10 +1,11 @@
 cmake_minimum_required(VERSION 3.10)
 project(lvio)
+# add_compile_definitions(_GLIBCXX_USE_CXX11_ABI=0)
 
 set(CMAKE_BUILD_TYPE Release)
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_FLAGS "-w")
-set(CMAKE_CXX_FLAGS_RELEASE "-O3 -g -ggdb ${CMAKE_CXX_FLAGS} -lpthread")
+set(CMAKE_CXX_FLAGS_RELEASE "-O0 -g -ggdb ${CMAKE_CXX_FLAGS} -lpthread")
 set(CMAKE_CXX_FLAGS_DEBUG "-g ${CMAKE_CXX_FLAGS}")
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/bin)
@@ -33,16 +34,25 @@ include_directories(${GTEST_INCLUDE_DIRS})
 
 add_library(lvio SHARED
     src/frame.cpp
+    src/feature.cpp
+    src/mapPoint.cpp
+    src/keyFrame.cpp
 )
-
+set(dbow_libs ${PROJECT_SOURCE_DIR}/thirdparty/DBoW2/lib/libDBoW2.so)
 target_link_libraries(lvio glog)
 
 # 添加测试用例
 add_executable( test_frame test/test_frame.cpp )
-target_link_libraries( test_frame gtest gtest_main ${OpenCV_LIBS} Threads::Threads lvio)
+target_link_libraries( test_frame gtest gtest_main ${OpenCV_LIBS} Threads::Threads lvio ${dbow_libs})
+
+add_executable(test_keyFrame test/test_keyFrame.cpp)
+target_link_libraries(test_keyFrame gtest gtest_main ${OpenCV_LIBS} Threads::Threads lvio ${dbow_libs})
 
 add_executable(test_feature test/test_feature.cpp)
-target_link_libraries(test_feature gtest gtest_main ${OpenCV_LIBS} Threads::Threads lvio)
+target_link_libraries(test_feature gtest gtest_main ${OpenCV_LIBS} Threads::Threads lvio ${dbow_libs})
+
+# add_executable(test_mapPoint test/test_mapPoint.cpp)
+# target_link_libraries(test_mapPoint gtest gtest_main ${OpenCV_LIBS} Threads::Threads lvio ${dbow_libs})
 
 # 添加测试
 add_test( NAME test_frame COMMAND test_frame )

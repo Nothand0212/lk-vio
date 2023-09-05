@@ -2,4 +2,5 @@
 /home/lin/Projects/vio_ws/src/lvio/build/CMakeFiles/rebuild_cache.dir
 /home/lin/Projects/vio_ws/src/lvio/build/CMakeFiles/test_feature.dir
 /home/lin/Projects/vio_ws/src/lvio/build/CMakeFiles/test_frame.dir
+/home/lin/Projects/vio_ws/src/lvio/build/CMakeFiles/test_keyFrame.dir
 /home/lin/Projects/vio_ws/src/lvio/build/CMakeFiles/lvio.dir

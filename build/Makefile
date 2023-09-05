@@ -137,6 +137,19 @@ test_frame/fast:
 .PHONY : test_frame/fast
 
 #=============================================================================
+# Target rules for targets named test_keyFrame
+
+# Build rule for target.
+test_keyFrame: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test_keyFrame
+.PHONY : test_keyFrame
+
+# fast build rule for target.
+test_keyFrame/fast:
+	$(MAKE) -f CMakeFiles/test_keyFrame.dir/build.make CMakeFiles/test_keyFrame.dir/build
+.PHONY : test_keyFrame/fast
+
+#=============================================================================
 # Target rules for targets named lvio
 
 # Build rule for target.
@@ -148,6 +161,33 @@ lvio: cmake_check_build_system
 lvio/fast:
 	$(MAKE) -f CMakeFiles/lvio.dir/build.make CMakeFiles/lvio.dir/build
 .PHONY : lvio/fast
+
+src/feature.o: src/feature.cpp.o
+
+.PHONY : src/feature.o
+
+# target to build an object file
+src/feature.cpp.o:
+	$(MAKE) -f CMakeFiles/lvio.dir/build.make CMakeFiles/lvio.dir/src/feature.cpp.o
+.PHONY : src/feature.cpp.o
+
+src/feature.i: src/feature.cpp.i
+
+.PHONY : src/feature.i
+
+# target to preprocess a source file
+src/feature.cpp.i:
+	$(MAKE) -f CMakeFiles/lvio.dir/build.make CMakeFiles/lvio.dir/src/feature.cpp.i
+.PHONY : src/feature.cpp.i
+
+src/feature.s: src/feature.cpp.s
+
+.PHONY : src/feature.s
+
+# target to generate assembly for a file
+src/feature.cpp.s:
+	$(MAKE) -f CMakeFiles/lvio.dir/build.make CMakeFiles/lvio.dir/src/feature.cpp.s
+.PHONY : src/feature.cpp.s
 
 src/frame.o: src/frame.cpp.o
 
@@ -175,6 +215,60 @@ src/frame.s: src/frame.cpp.s
 src/frame.cpp.s:
 	$(MAKE) -f CMakeFiles/lvio.dir/build.make CMakeFiles/lvio.dir/src/frame.cpp.s
 .PHONY : src/frame.cpp.s
+
+src/keyFrame.o: src/keyFrame.cpp.o
+
+.PHONY : src/keyFrame.o
+
+# target to build an object file
+src/keyFrame.cpp.o:
+	$(MAKE) -f CMakeFiles/lvio.dir/build.make CMakeFiles/lvio.dir/src/keyFrame.cpp.o
+.PHONY : src/keyFrame.cpp.o
+
+src/keyFrame.i: src/keyFrame.cpp.i
+
+.PHONY : src/keyFrame.i
+
+# target to preprocess a source file
+src/keyFrame.cpp.i:
+	$(MAKE) -f CMakeFiles/lvio.dir/build.make CMakeFiles/lvio.dir/src/keyFrame.cpp.i
+.PHONY : src/keyFrame.cpp.i
+
+src/keyFrame.s: src/keyFrame.cpp.s
+
+.PHONY : src/keyFrame.s
+
+# target to generate assembly for a file
+src/keyFrame.cpp.s:
+	$(MAKE) -f CMakeFiles/lvio.dir/build.make CMakeFiles/lvio.dir/src/keyFrame.cpp.s
+.PHONY : src/keyFrame.cpp.s
+
+src/mapPoint.o: src/mapPoint.cpp.o
+
+.PHONY : src/mapPoint.o
+
+# target to build an object file
+src/mapPoint.cpp.o:
+	$(MAKE) -f CMakeFiles/lvio.dir/build.make CMakeFiles/lvio.dir/src/mapPoint.cpp.o
+.PHONY : src/mapPoint.cpp.o
+
+src/mapPoint.i: src/mapPoint.cpp.i
+
+.PHONY : src/mapPoint.i
+
+# target to preprocess a source file
+src/mapPoint.cpp.i:
+	$(MAKE) -f CMakeFiles/lvio.dir/build.make CMakeFiles/lvio.dir/src/mapPoint.cpp.i
+.PHONY : src/mapPoint.cpp.i
+
+src/mapPoint.s: src/mapPoint.cpp.s
+
+.PHONY : src/mapPoint.s
+
+# target to generate assembly for a file
+src/mapPoint.cpp.s:
+	$(MAKE) -f CMakeFiles/lvio.dir/build.make CMakeFiles/lvio.dir/src/mapPoint.cpp.s
+.PHONY : src/mapPoint.cpp.s
 
 test/test_feature.o: test/test_feature.cpp.o
 
@@ -230,6 +324,33 @@ test/test_frame.cpp.s:
 	$(MAKE) -f CMakeFiles/test_frame.dir/build.make CMakeFiles/test_frame.dir/test/test_frame.cpp.s
 .PHONY : test/test_frame.cpp.s
 
+test/test_keyFrame.o: test/test_keyFrame.cpp.o
+
+.PHONY : test/test_keyFrame.o
+
+# target to build an object file
+test/test_keyFrame.cpp.o:
+	$(MAKE) -f CMakeFiles/test_keyFrame.dir/build.make CMakeFiles/test_keyFrame.dir/test/test_keyFrame.cpp.o
+.PHONY : test/test_keyFrame.cpp.o
+
+test/test_keyFrame.i: test/test_keyFrame.cpp.i
+
+.PHONY : test/test_keyFrame.i
+
+# target to preprocess a source file
+test/test_keyFrame.cpp.i:
+	$(MAKE) -f CMakeFiles/test_keyFrame.dir/build.make CMakeFiles/test_keyFrame.dir/test/test_keyFrame.cpp.i
+.PHONY : test/test_keyFrame.cpp.i
+
+test/test_keyFrame.s: test/test_keyFrame.cpp.s
+
+.PHONY : test/test_keyFrame.s
+
+# target to generate assembly for a file
+test/test_keyFrame.cpp.s:
+	$(MAKE) -f CMakeFiles/test_keyFrame.dir/build.make CMakeFiles/test_keyFrame.dir/test/test_keyFrame.cpp.s
+.PHONY : test/test_keyFrame.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -240,16 +361,29 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... test_feature"
 	@echo "... test_frame"
+	@echo "... test_keyFrame"
 	@echo "... lvio"
+	@echo "... src/feature.o"
+	@echo "... src/feature.i"
+	@echo "... src/feature.s"
 	@echo "... src/frame.o"
 	@echo "... src/frame.i"
 	@echo "... src/frame.s"
+	@echo "... src/keyFrame.o"
+	@echo "... src/keyFrame.i"
+	@echo "... src/keyFrame.s"
+	@echo "... src/mapPoint.o"
+	@echo "... src/mapPoint.i"
+	@echo "... src/mapPoint.s"
 	@echo "... test/test_feature.o"
 	@echo "... test/test_feature.i"
 	@echo "... test/test_feature.s"
 	@echo "... test/test_frame.o"
 	@echo "... test/test_frame.i"
 	@echo "... test/test_frame.s"
+	@echo "... test/test_keyFrame.o"
+	@echo "... test/test_keyFrame.i"
+	@echo "... test/test_keyFrame.s"
 .PHONY : help
 
 

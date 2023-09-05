@@ -109,6 +109,7 @@ test_frame_EXTERNAL_OBJECTS =
 ../bin/test_frame: /usr/lib/x86_64-linux-gnu/libopencv_xobjdetect.so.4.2.0
 ../bin/test_frame: /usr/lib/x86_64-linux-gnu/libopencv_xphoto.so.4.2.0
 ../bin/test_frame: ../lib/liblvio.so
+../bin/test_frame: ../thirdparty/DBoW2/lib/libDBoW2.so
 ../bin/test_frame: /usr/lib/x86_64-linux-gnu/libopencv_highgui.so.4.2.0
 ../bin/test_frame: /usr/lib/x86_64-linux-gnu/libopencv_datasets.so.4.2.0
 ../bin/test_frame: /usr/lib/x86_64-linux-gnu/libopencv_plot.so.4.2.0

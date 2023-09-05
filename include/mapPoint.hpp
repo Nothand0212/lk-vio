@@ -5,8 +5,6 @@
 #include <memory>
 #include <vector>
 
-#include "frame.hpp"
-
 namespace lvio
 {
 class MapPoint
@@ -14,15 +12,18 @@ class MapPoint
 public:
   EIGEN_MAKE_ALIGNED_OPERATOR_NEW
   typedef std::shared_ptr<MapPoint> Ptr;
-  MapPoint() = default;
-  MapPoint( const std::size_t &id, const Vector3d &position );
+  MapPoint();
+  MapPoint( const std::size_t &id, const Eigen::Vector3d &position );
   ~MapPoint() = default;
+
+  void        setId( const std::size_t &id );
+  std::size_t getId();
 
   void            setPosition( const Eigen::Vector3d &position );
   Eigen::Vector3d getPosition();
 
-  void        setId( const std::size_t &id );
-  std::size_t getId();
+  int getObservedTimes();
+  int getActiveObservedTimes();
 
   void addObservation( std::shared_ptr<Feature> feature );
   void addActiveObservation( std::shared_ptr<Feature> feature );

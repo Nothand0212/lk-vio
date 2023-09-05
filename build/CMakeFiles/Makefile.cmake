@@ -64,5 +64,6 @@ set(CMAKE_MAKEFILE_PRODUCTS
 set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/test_feature.dir/DependInfo.cmake"
   "CMakeFiles/test_frame.dir/DependInfo.cmake"
+  "CMakeFiles/test_keyFrame.dir/DependInfo.cmake"
   "CMakeFiles/lvio.dir/DependInfo.cmake"
   )

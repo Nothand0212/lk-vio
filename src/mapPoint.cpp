@@ -11,17 +11,17 @@ MapPoint::MapPoint()
   setId( nextMapPointId++ );
 }
 
-/**
- * @brief Construct a new Map Point:: Map Point object
- * 
- * @param    id        地图点的id
- * @param    position  地图点的位置(xyz)
- */
-MapPoint::MapPoint( const size_t &id, const Vector3d &position )
-{
-  setId( id );
-  setPosition( position );
-}
+// /**
+//  * @brief Construct a new Map Point:: Map Point object
+//  * 不要用这种构造方法，会导致地图点的id不连续
+//  * @param    id        地图点的id
+//  * @param    position  地图点的位置(xyz)
+//  */
+// MapPoint::MapPoint( const size_t &id, const Eigen::Vector3d &position )
+// {
+//   setId( id );
+//   setPosition( position );
+// }
 
 // @brief: 设置地图点的id
 void MapPoint::setId( const size_t &id )
@@ -33,6 +33,20 @@ void MapPoint::setId( const size_t &id )
 size_t MapPoint::getId()
 {
   return id_;
+}
+
+//@brief: 获取地图点的观测次数
+int MapPoint::getObservedTimes()
+{
+  std::unique_lock<std::mutex> lock( update_observation_mutex_ );
+  return observed_times_;
+}
+
+// @brief: 获取地图点的激活观测次数
+int MapPoint::getActiveObservedTimes()
+{
+  std::unique_lock<std::mutex> lock( update_observation_mutex_ );
+  return active_observed_times_;
 }
 
 // @brief: 设置地图点的位置(xyz)
@@ -81,8 +95,8 @@ void MapPoint::removeObservation( std::shared_ptr<Feature> feature )
   {
     if ( iter->lock() == feature )
     {
-      observations_.erase( iter );  // 删除观测到该地图点的特征点
-      feature->map_point_.reset();  // 删除该特征点观测到的地图点
+      observations_.erase( iter );        // 删除观测到该地图点的特征点
+      feature->getMapPointPtr().reset();  // 删除该特征点观测到的地图点
       observed_times_--;
       break;
     }
@@ -98,7 +112,7 @@ void MapPoint::removeActiveObservation( std::shared_ptr<Feature> feature )
     if ( iter->lock() == feature )
     {
       active_observations_.erase( iter );  // 删除观测到该地图点的特征点
-      feature->map_point_.reset();         // 删除该特征点观测到的地图点
+      feature->getMapPointPtr().reset();   // 删除该特征点观测到的地图点
       active_observed_times_--;
       break;
     }

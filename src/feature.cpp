@@ -9,8 +9,18 @@ Feature::Feature( const cv::KeyPoint &key_point )
 
 Feature::Feature( std::shared_ptr<KeyFrame> key_frame, const cv::KeyPoint &key_point )
 {
-  setKeyFrame( key_frame );
+  setKeyFramePtr( key_frame );
+  setKeyPoint( key_point );
+}
+
+void Feature::setKeyPoint( const cv::KeyPoint &key_point )
+{
   key_point_ = key_point;
+}
+
+cv::KeyPoint Feature::getKeyPoint()
+{
+  return key_point_;
 }
 
 void Feature::setOutlierFlag( bool &is_outlier )
@@ -33,22 +43,22 @@ bool Feature::getLeftImageFlag()
   return is_on_left_image_;
 }
 
-void Feature::setKeyFrame( std::shared_ptr<KeyFrame> key_frame )
+void Feature::setKeyFramePtr( std::shared_ptr<KeyFrame> key_frame )
 {
   key_frame_wptr_ = key_frame;
 }
 
-std::shared_ptr<KeyFrame> Feature::getKeyFrame()
+std::shared_ptr<KeyFrame> Feature::getKeyFramePtr()
 {
   return key_frame_wptr_.lock();
 }
 
-void Feature::setMapPoint( std::shared_ptr<MapPoint> map_point )
+void Feature::setMapPointPtr( std::shared_ptr<MapPoint> map_point )
 {
   map_point_wprt_ = map_point;
 }
 
-std::shared_ptr<MapPoint> Feature::getMapPoint()
+std::shared_ptr<MapPoint> Feature::getMapPointPtr()
 {
   return map_point_wprt_.lock();
 }

@@ -33,6 +33,12 @@ TEST( FrameTest, Basic )
   Sophus::SE3d    T_c_k( R_c_k, t_c_k );
   frame.setRelatitvePose( T_c_k );
   EXPECT_TRUE( T_c_k.matrix().isApprox( frame.getRelativePose().matrix() ) );
+
+  // 测试帧的特征点是否正确
+  std::vector<std::shared_ptr<lvio::Feature>> left_features;
+  left_features.resize( 3 );
+  frame.setLeftFeatures( left_features );
+  EXPECT_EQ( frame.getLeftFeatures().size(), 3 );
 }
 
 int main( int argc, char **argv )

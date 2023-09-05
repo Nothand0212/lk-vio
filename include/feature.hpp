@@ -28,11 +28,14 @@ public:
   Feature( std::shared_ptr<KeyFrame> key_frame, const cv::KeyPoint &key_point );
   ~Feature() = default;
 
-  void                      setKeyFrame( std::shared_ptr<KeyFrame> key_frame );
-  std::shared_ptr<KeyFrame> getKeyFrame();
+  void         setKeyPoint( const cv::KeyPoint &key_point );
+  cv::KeyPoint getKeyPoint();
 
-  void                      setMapPoint( std::shared_ptr<MapPoint> map_point );
-  std::shared_ptr<MapPoint> getMapPoint();
+  void                      setKeyFramePtr( std::shared_ptr<KeyFrame> key_frame );
+  std::shared_ptr<KeyFrame> getKeyFramePtr();
+
+  void                      setMapPointPtr( std::shared_ptr<MapPoint> map_point );
+  std::shared_ptr<MapPoint> getMapPointPtr();
 
   void setOutlierFlag( bool &is_outlier );
   bool getOutlierFlag();
@@ -40,11 +43,9 @@ public:
   void setLeftImageFlag( bool &is_on_left_image );
   bool getLeftImageFlag();
 
-  /* 变量 */
-public:
-  cv::KeyPoint key_point_;
 
 private:
+  cv::KeyPoint            key_point_;
   std::weak_ptr<KeyFrame> key_frame_wptr_;
   std::weak_ptr<MapPoint> map_point_wprt_;
 

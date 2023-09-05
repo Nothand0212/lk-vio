@@ -70,17 +70,62 @@ CMakeFiles/lvio.dir/src/frame.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/lvio.dir/src/frame.cpp.s"
 	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/lin/Projects/vio_ws/src/lvio/src/frame.cpp -o CMakeFiles/lvio.dir/src/frame.cpp.s
 
+CMakeFiles/lvio.dir/src/feature.cpp.o: CMakeFiles/lvio.dir/flags.make
+CMakeFiles/lvio.dir/src/feature.cpp.o: ../src/feature.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/lin/Projects/vio_ws/src/lvio/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/lvio.dir/src/feature.cpp.o"
+	/usr/bin/g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/lvio.dir/src/feature.cpp.o -c /home/lin/Projects/vio_ws/src/lvio/src/feature.cpp
+
+CMakeFiles/lvio.dir/src/feature.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/lvio.dir/src/feature.cpp.i"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/lin/Projects/vio_ws/src/lvio/src/feature.cpp > CMakeFiles/lvio.dir/src/feature.cpp.i
+
+CMakeFiles/lvio.dir/src/feature.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/lvio.dir/src/feature.cpp.s"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/lin/Projects/vio_ws/src/lvio/src/feature.cpp -o CMakeFiles/lvio.dir/src/feature.cpp.s
+
+CMakeFiles/lvio.dir/src/mapPoint.cpp.o: CMakeFiles/lvio.dir/flags.make
+CMakeFiles/lvio.dir/src/mapPoint.cpp.o: ../src/mapPoint.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/lin/Projects/vio_ws/src/lvio/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/lvio.dir/src/mapPoint.cpp.o"
+	/usr/bin/g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/lvio.dir/src/mapPoint.cpp.o -c /home/lin/Projects/vio_ws/src/lvio/src/mapPoint.cpp
+
+CMakeFiles/lvio.dir/src/mapPoint.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/lvio.dir/src/mapPoint.cpp.i"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/lin/Projects/vio_ws/src/lvio/src/mapPoint.cpp > CMakeFiles/lvio.dir/src/mapPoint.cpp.i
+
+CMakeFiles/lvio.dir/src/mapPoint.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/lvio.dir/src/mapPoint.cpp.s"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/lin/Projects/vio_ws/src/lvio/src/mapPoint.cpp -o CMakeFiles/lvio.dir/src/mapPoint.cpp.s
+
+CMakeFiles/lvio.dir/src/keyFrame.cpp.o: CMakeFiles/lvio.dir/flags.make
+CMakeFiles/lvio.dir/src/keyFrame.cpp.o: ../src/keyFrame.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/lin/Projects/vio_ws/src/lvio/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/lvio.dir/src/keyFrame.cpp.o"
+	/usr/bin/g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/lvio.dir/src/keyFrame.cpp.o -c /home/lin/Projects/vio_ws/src/lvio/src/keyFrame.cpp
+
+CMakeFiles/lvio.dir/src/keyFrame.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/lvio.dir/src/keyFrame.cpp.i"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/lin/Projects/vio_ws/src/lvio/src/keyFrame.cpp > CMakeFiles/lvio.dir/src/keyFrame.cpp.i
+
+CMakeFiles/lvio.dir/src/keyFrame.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/lvio.dir/src/keyFrame.cpp.s"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/lin/Projects/vio_ws/src/lvio/src/keyFrame.cpp -o CMakeFiles/lvio.dir/src/keyFrame.cpp.s
+
 # Object files for target lvio
 lvio_OBJECTS = \
-"CMakeFiles/lvio.dir/src/frame.cpp.o"
+"CMakeFiles/lvio.dir/src/frame.cpp.o" \
+"CMakeFiles/lvio.dir/src/feature.cpp.o" \
+"CMakeFiles/lvio.dir/src/mapPoint.cpp.o" \
+"CMakeFiles/lvio.dir/src/keyFrame.cpp.o"
 
 # External object files for target lvio
 lvio_EXTERNAL_OBJECTS =
 
 ../lib/liblvio.so: CMakeFiles/lvio.dir/src/frame.cpp.o
+../lib/liblvio.so: CMakeFiles/lvio.dir/src/feature.cpp.o
+../lib/liblvio.so: CMakeFiles/lvio.dir/src/mapPoint.cpp.o
+../lib/liblvio.so: CMakeFiles/lvio.dir/src/keyFrame.cpp.o
 ../lib/liblvio.so: CMakeFiles/lvio.dir/build.make
 ../lib/liblvio.so: CMakeFiles/lvio.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/lin/Projects/vio_ws/src/lvio/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX shared library ../lib/liblvio.so"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/lin/Projects/vio_ws/src/lvio/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX shared library ../lib/liblvio.so"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/lvio.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

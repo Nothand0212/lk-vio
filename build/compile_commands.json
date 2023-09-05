@@ -1,17 +1,37 @@
 [
 {
   "directory": "/home/lin/Projects/vio_ws/src/lvio/build",
-  "command": "/usr/bin/g++   -I/home/lin/Projects/vio_ws/src/lvio/include -I/home/lin/Projects/vio_ws/src/lvio/thirdparty/eigen -I/home/lin/Projects/vio_ws/src/lvio/thirdparty/sophus -I/home/lin/Projects/vio_ws/src/lvio/thirdparty/g2o -I/home/lin/Projects/vio_ws/src/lvio/thirdparty -isystem /usr/include/opencv4  -w -O3 -g -ggdb -w -lpthread   -std=gnu++17 -o CMakeFiles/test_feature.dir/test/test_feature.cpp.o -c /home/lin/Projects/vio_ws/src/lvio/test/test_feature.cpp",
+  "command": "/usr/bin/g++   -I/home/lin/Projects/vio_ws/src/lvio/include -I/home/lin/Projects/vio_ws/src/lvio/thirdparty/eigen -I/home/lin/Projects/vio_ws/src/lvio/thirdparty/sophus -I/home/lin/Projects/vio_ws/src/lvio/thirdparty/g2o -I/home/lin/Projects/vio_ws/src/lvio/thirdparty -isystem /usr/include/opencv4  -w -O0 -g -ggdb -w -lpthread   -std=gnu++14 -o CMakeFiles/test_feature.dir/test/test_feature.cpp.o -c /home/lin/Projects/vio_ws/src/lvio/test/test_feature.cpp",
   "file": "/home/lin/Projects/vio_ws/src/lvio/test/test_feature.cpp"
 },
 {
   "directory": "/home/lin/Projects/vio_ws/src/lvio/build",
-  "command": "/usr/bin/g++   -I/home/lin/Projects/vio_ws/src/lvio/include -I/home/lin/Projects/vio_ws/src/lvio/thirdparty/eigen -I/home/lin/Projects/vio_ws/src/lvio/thirdparty/sophus -I/home/lin/Projects/vio_ws/src/lvio/thirdparty/g2o -I/home/lin/Projects/vio_ws/src/lvio/thirdparty -isystem /usr/include/opencv4  -w -O3 -g -ggdb -w -lpthread   -std=gnu++17 -o CMakeFiles/test_frame.dir/test/test_frame.cpp.o -c /home/lin/Projects/vio_ws/src/lvio/test/test_frame.cpp",
+  "command": "/usr/bin/g++   -I/home/lin/Projects/vio_ws/src/lvio/include -I/home/lin/Projects/vio_ws/src/lvio/thirdparty/eigen -I/home/lin/Projects/vio_ws/src/lvio/thirdparty/sophus -I/home/lin/Projects/vio_ws/src/lvio/thirdparty/g2o -I/home/lin/Projects/vio_ws/src/lvio/thirdparty -isystem /usr/include/opencv4  -w -O0 -g -ggdb -w -lpthread   -std=gnu++14 -o CMakeFiles/test_frame.dir/test/test_frame.cpp.o -c /home/lin/Projects/vio_ws/src/lvio/test/test_frame.cpp",
   "file": "/home/lin/Projects/vio_ws/src/lvio/test/test_frame.cpp"
 },
 {
   "directory": "/home/lin/Projects/vio_ws/src/lvio/build",
-  "command": "/usr/bin/g++  -Dlvio_EXPORTS -I/home/lin/Projects/vio_ws/src/lvio/include -I/usr/include/opencv4 -I/home/lin/Projects/vio_ws/src/lvio/thirdparty/eigen -I/home/lin/Projects/vio_ws/src/lvio/thirdparty/sophus -I/home/lin/Projects/vio_ws/src/lvio/thirdparty/g2o -I/home/lin/Projects/vio_ws/src/lvio/thirdparty  -w -O3 -g -ggdb -w -lpthread -fPIC   -std=gnu++17 -o CMakeFiles/lvio.dir/src/frame.cpp.o -c /home/lin/Projects/vio_ws/src/lvio/src/frame.cpp",
+  "command": "/usr/bin/g++   -I/home/lin/Projects/vio_ws/src/lvio/include -I/home/lin/Projects/vio_ws/src/lvio/thirdparty/eigen -I/home/lin/Projects/vio_ws/src/lvio/thirdparty/sophus -I/home/lin/Projects/vio_ws/src/lvio/thirdparty/g2o -I/home/lin/Projects/vio_ws/src/lvio/thirdparty -isystem /usr/include/opencv4  -w -O0 -g -ggdb -w -lpthread   -std=gnu++14 -o CMakeFiles/test_keyFrame.dir/test/test_keyFrame.cpp.o -c /home/lin/Projects/vio_ws/src/lvio/test/test_keyFrame.cpp",
+  "file": "/home/lin/Projects/vio_ws/src/lvio/test/test_keyFrame.cpp"
+},
+{
+  "directory": "/home/lin/Projects/vio_ws/src/lvio/build",
+  "command": "/usr/bin/g++  -Dlvio_EXPORTS -I/home/lin/Projects/vio_ws/src/lvio/include -I/usr/include/opencv4 -I/home/lin/Projects/vio_ws/src/lvio/thirdparty/eigen -I/home/lin/Projects/vio_ws/src/lvio/thirdparty/sophus -I/home/lin/Projects/vio_ws/src/lvio/thirdparty/g2o -I/home/lin/Projects/vio_ws/src/lvio/thirdparty  -w -O0 -g -ggdb -w -lpthread -fPIC   -std=gnu++14 -o CMakeFiles/lvio.dir/src/frame.cpp.o -c /home/lin/Projects/vio_ws/src/lvio/src/frame.cpp",
   "file": "/home/lin/Projects/vio_ws/src/lvio/src/frame.cpp"
+},
+{
+  "directory": "/home/lin/Projects/vio_ws/src/lvio/build",
+  "command": "/usr/bin/g++  -Dlvio_EXPORTS -I/home/lin/Projects/vio_ws/src/lvio/include -I/usr/include/opencv4 -I/home/lin/Projects/vio_ws/src/lvio/thirdparty/eigen -I/home/lin/Projects/vio_ws/src/lvio/thirdparty/sophus -I/home/lin/Projects/vio_ws/src/lvio/thirdparty/g2o -I/home/lin/Projects/vio_ws/src/lvio/thirdparty  -w -O0 -g -ggdb -w -lpthread -fPIC   -std=gnu++14 -o CMakeFiles/lvio.dir/src/feature.cpp.o -c /home/lin/Projects/vio_ws/src/lvio/src/feature.cpp",
+  "file": "/home/lin/Projects/vio_ws/src/lvio/src/feature.cpp"
+},
+{
+  "directory": "/home/lin/Projects/vio_ws/src/lvio/build",
+  "command": "/usr/bin/g++  -Dlvio_EXPORTS -I/home/lin/Projects/vio_ws/src/lvio/include -I/usr/include/opencv4 -I/home/lin/Projects/vio_ws/src/lvio/thirdparty/eigen -I/home/lin/Projects/vio_ws/src/lvio/thirdparty/sophus -I/home/lin/Projects/vio_ws/src/lvio/thirdparty/g2o -I/home/lin/Projects/vio_ws/src/lvio/thirdparty  -w -O0 -g -ggdb -w -lpthread -fPIC   -std=gnu++14 -o CMakeFiles/lvio.dir/src/mapPoint.cpp.o -c /home/lin/Projects/vio_ws/src/lvio/src/mapPoint.cpp",
+  "file": "/home/lin/Projects/vio_ws/src/lvio/src/mapPoint.cpp"
+},
+{
+  "directory": "/home/lin/Projects/vio_ws/src/lvio/build",
+  "command": "/usr/bin/g++  -Dlvio_EXPORTS -I/home/lin/Projects/vio_ws/src/lvio/include -I/usr/include/opencv4 -I/home/lin/Projects/vio_ws/src/lvio/thirdparty/eigen -I/home/lin/Projects/vio_ws/src/lvio/thirdparty/sophus -I/home/lin/Projects/vio_ws/src/lvio/thirdparty/g2o -I/home/lin/Projects/vio_ws/src/lvio/thirdparty  -w -O0 -g -ggdb -w -lpthread -fPIC   -std=gnu++14 -o CMakeFiles/lvio.dir/src/keyFrame.cpp.o -c /home/lin/Projects/vio_ws/src/lvio/src/keyFrame.cpp",
+  "file": "/home/lin/Projects/vio_ws/src/lvio/src/keyFrame.cpp"
 }
 ]
