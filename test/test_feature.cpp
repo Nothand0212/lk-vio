@@ -1,6 +1,9 @@
 #include <gtest/gtest.h>
 
 #include "feature.hpp"
+#include "frame.hpp"
+#include "keyFrame.hpp"
+#include "mapPoint.hpp"
 
 TEST( FeatureTest, Basic )
 {
@@ -25,15 +28,36 @@ TEST( FeatureTest, Basic )
   feature.setLeftImageFlag( is_on_left_image );
   EXPECT_EQ( feature.getLeftImageFlag(), is_on_left_image );
 
-  // // 测试特征点的关键帧指针是否正确
-  // std::shared_ptr<lvio::KeyFrame> key_frame = std::make_shared<lvio::KeyFrame>();
-  // feature.setKeyFramePtr( key_frame );
-  // EXPECT_EQ( feature.getKeyFramePtr(), key_frame );
+  // 测试特征点的关键帧指针是否正确
 
-  // // 测试特征点的地图点指针是否正确
-  // std::shared_ptr<lvio::MapPoint> map_point = std::make_shared<lvio::MapPoint>();
-  // feature.setMapPointPtr( map_point );
-  // EXPECT_EQ( feature.getMapPointPtr(), map_point );
+  // 创建一个 Frame 对象
+  cv::Mat          left_image  = cv::imread( "/home/lin/Pictures/left.png" );
+  cv::Mat          right_image = cv::imread( "/home/lin/Pictures/right.png" );
+  double           time_stamp  = 0.0;
+  lvio::Frame::Ptr frame;
+  frame.reset( new lvio::Frame( left_image, right_image, time_stamp ) );
+
+  // 测试帧的特征点是否正确
+  std::vector<std::shared_ptr<lvio::Feature>> left_features;
+
+  auto feature_ptr = std::make_shared<lvio::Feature>( feature );
+  *feature_ptr     = feature;
+
+  left_features.push_back( feature_ptr );
+  frame->setLeftFeatures( left_features );
+
+  // 创建一个 KeyFrame 对象
+  std::shared_ptr<lvio::KeyFrame> key_frame = lvio::KeyFrame::createKeyFramePtrFromFramPtr( frame );
+  feature.setKeyFramePtr( key_frame );
+  EXPECT_EQ( feature.getKeyFramePtr().get(), key_frame.get() );
+
+  // 测试特征点的地图点指针是否正确
+  Eigen::Vector3d     position( 1.0, 2.0, 3.0 );
+  lvio::MapPoint::Ptr map_point_ptr;
+  map_point_ptr.reset( new lvio::MapPoint() );
+  map_point_ptr->setPosition( position );
+  feature.setMapPointPtr( map_point_ptr );
+  EXPECT_EQ( feature.getMapPointPtr().get(), map_point_ptr.get() );
 }
 
 int main( int argc, char **argv )

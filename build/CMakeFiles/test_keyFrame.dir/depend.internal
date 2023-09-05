@@ -227,7 +227,7 @@ CMakeFiles/test_keyFrame.dir/test/test_keyFrame.cpp.o
  ../thirdparty/sophus/sophus/so2.hpp
  ../thirdparty/sophus/sophus/so3.hpp
  ../thirdparty/sophus/sophus/types.hpp
- /home/lin/Projects/vio_ws/src/lvio/test/test_keyFrame.cpp
+ /home/oem/Projects/lvio/test/test_keyFrame.cpp
  /usr/include/opencv4/opencv2/calib3d.hpp
  /usr/include/opencv4/opencv2/core.hpp
  /usr/include/opencv4/opencv2/core/affine.hpp

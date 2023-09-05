@@ -77,5 +77,6 @@
         "codecvt": "cpp",
         "span": "cpp",
         "valarray": "cpp"
-    }
+    },
+    "ros.distro": "noetic"
 }

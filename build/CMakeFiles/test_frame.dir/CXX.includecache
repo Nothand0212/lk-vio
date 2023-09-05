@@ -1130,11 +1130,11 @@ type_traits
 common.hpp
 ../thirdparty/sophus/sophus/common.hpp
 
-/home/lin/Projects/vio_ws/src/lvio/test/test_frame.cpp
+/home/oem/Projects/lvio/test/test_frame.cpp
 gtest/gtest.h
 -
 frame.hpp
-/home/lin/Projects/vio_ws/src/lvio/test/frame.hpp
+/home/oem/Projects/lvio/test/frame.hpp
 
 /usr/include/opencv4/opencv2/calib3d.hpp
 opencv2/core.hpp
