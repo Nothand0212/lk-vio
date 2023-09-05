@@ -77,7 +77,10 @@
         "codecvt": "cpp",
         "span": "cpp",
         "valarray": "cpp",
-        "forward_list": "cpp"
+        "forward_list": "cpp",
+        "*.expression": "cpp",
+        "alignedvector3": "cpp",
+        "fft": "cpp"
     },
     "ros.distro": "noetic"
 }

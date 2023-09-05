@@ -1,0 +1,113 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.10"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6
+					]
+				}
+			],
+			"name" : "Release",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "lvio",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "lvio::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-lvio-Release-f1652de7949a60409c32.json",
+					"name" : "lvio",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "test_camera::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-test_camera-Release-e6cd28666e6b419f80d2.json",
+					"name" : "test_camera",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "test_feature::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-test_feature-Release-0187a3b3f7c2269691e4.json",
+					"name" : "test_feature",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "test_frame::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-test_frame-Release-c971391f65a9c0e83d89.json",
+					"name" : "test_frame",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "test_keyFrame::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-test_keyFrame-Release-756ffb624c73b1d63d14.json",
+					"name" : "test_keyFrame",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "test_map::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-test_map-Release-f01c0a30b4557cf785f6.json",
+					"name" : "test_map",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "test_mapPoint::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-test_mapPoint-Release-f702cff7225b44f0b91c.json",
+					"name" : "test_mapPoint",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/lin/Projects/vio_ws/src/lvio/build",
+		"source" : "/home/lin/Projects/vio_ws/src/lvio"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 0
+	}
+}
