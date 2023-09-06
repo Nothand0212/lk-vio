@@ -286,5 +286,313 @@ static bool isFastCorner( cv::mat &image, cv::KeyPoint &key_point, int threshold
   return false;
 }
 
+static void computeOrientation( const Mat &image, std::vector<cv::KeyPoint> &key_points, const std::vector<int> &umax )
+{
+  for ( auto &key_point : key_points )
+  {
+    key_point.angle = IC_Angle( image, key_point.pt, umax );
+  }
+}
+
+void ExtractorNode::divideNode( ExtractorNode &n1, ExtractorNode &n2, ExtractorNode &n3, ExtractorNode &n4 )
+{
+  const int half_x = ceil( static_cast<float>( up_right_.x - up_left_.x ) / 2 );
+  const int half_y = ceil( static_cast<float>( below_right_.y - below_left.y ) / 2 );
+
+  // 分裂成四个子节点
+  n1.up_left_     = up_left_;
+  n1.up_right_    = cv::Point2i( up_left_.x + half_x, up_left_.y );
+  n1.below_left_  = cv::Point2i( up_left_.x, up_left_.y + half_y );
+  n1.below_right_ = cv::Point2i( up_left_.x + half_x, up_left_.y + half_y );
+  n1.key_points_vec_.reserve( key_points_vec_.size() );
+
+  n2.up_left_     = n1.up_right_;
+  n2.up_right_    = up_right_;
+  n2.below_left_  = n1.below_right_;
+  n2.below_right_ = cv::Point2i( up_right_.x, up_right_.y + half_y );
+  n2.key_points_vec_.reserve( key_points_vec_.size() );
+
+  n3.up_left_     = n1.below_left_;
+  n3.up_right_    = n1.below_right_;
+  n3.below_left_  = below_left_;
+  n3.below_right_ = cv::Point2i( below_left_.x + half_x, below_left_.y );
+  n3.key_points_vec_.reserve( key_points_vec_.size() );
+
+  n4.up_left_     = n3.up_right_;
+  n4.up_right_    = n2.below_right_;
+  n4.below_left_  = n3.below_right_;
+  n4.below_right_ = below_right_;
+  n4.key_points_vec_.reserve( key_points_vec_.size() );
+
+  // 将母节点的key points 分配给四个子节点
+  for ( std::sizt_t i = 0; i < key_points_vec_size(); i++ )
+  {
+    const cv::KeyPoint &key_point = key_points_vec_[ i ];
+    if ( key_point.pt.x < n1.below_right_.x )
+    {
+      if ( key_point.pt.y < n1.below_right_.y )
+      {
+        n1.key_points_vec_.push_back( key_point );
+      }
+      else
+      {
+        n3.key_points_vec_.push_back( key_point );
+      }
+    }
+    else if ( key_point.pt.y < n1.below_right_.y )
+    {
+      n2.key_points_vec_.push_back( key_point );
+    }
+    else
+    {
+      n4.key_points_vec_.push_back( key_point );
+    }
+  }
+
+  if ( n1.key_points_vec_.size() == 1 )
+  {
+    n1.no_more_ = true;
+  }
+  if ( n2.key_points_vec_.size() == 1 )
+  {
+    n2.no_more_ = true;
+  }
+  if ( n3.key_points_vec_.size() == 1 )
+  {
+    n3.no_more_ = true;
+  }
+  if ( n4.key_points_vec_.size() == 1 )
+  {
+    n4.no_more_ = true;
+  }
+}
+
+std::vector<cv::KeyPoint> ORBextractor::distributeOctTree( const std::vector<cv::KeyPoint> &key_points_to_distribute,
+                                                           const int &min_x, const int &max_x,
+                                                           const int &min_y, const int &max_y,
+                                                           const int &features_num, const int &level );
+{
+  const int   initial_node_num = std::round( static_cast<float>( max_x - min_x ) / ( max_y - min_y ) );
+  const float node_width       = static_cast<float>( max_x - min_x ) / initial_node_num;
+
+  std::list<ExtractorNode>     nodes_list;
+  std::vector<ExtractorNode *> initial_nodes_vec_ptr;
+  initial_nodes_vec_ptr.resize( initial_node_num );
+
+  for ( int i = 0; i < initial_node_num; i++ )
+  {
+    ExtractorNode ni;
+    ni.up_left_     = cv::Point2i( node_width * static_cast<float>( i ), 0 );
+    ni.up_right_    = cv::Point2i( node_width * static_cast<float>( i + 1 ), 0 );
+    ni.below_left_  = cv::Point2i( ni.up_left_.x, max_y - min_y );
+    ni.below_right_ = cv::Point2i( ni.up_right_.x, max_y - min_y );
+    ni.key_points_vec_.reserve( key_points_to_distribute.size() );
+
+    nodes_list.push_back( ni );
+    initial_nodes_vec_ptr[ i ] = &nodes_list.back();
+  }
+
+  // 分配key points
+  for ( std::size_t i = 0; i < key_points_to_distribute.size(); i++ )
+  {
+    const cv::KeyPoint &key_point = key_points_to_distribute[ i ];
+    initial_nodes_vec_ptr[ key_point.pt.x / node_width ]->key_points_vec_.push_back( key_point );
+  }
+
+  // 检查节点
+  std::list<ExtractorNode>::iterator list_iter = nodes_list.begin();
+  while ( list_iter != nodes_list.end() )
+  {
+    if ( list_iter->key_points_vec_.size() == 1 )  // 只有一个key point的节点，不用再考虑了
+    {
+      list_iter->no_more_ = true;
+      list_iter++;
+    }
+    else if ( list_iter->key_points_vec_.empty() )  // 找不出key points的节点，不用再考虑了
+    {
+      list_iter = nodes_list.erase( list_iter );
+    }
+    else
+    {
+      list_iter++;
+    }
+  }
+
+  bool finish     = false;
+  int  interation = 0;
+
+  std::vector<std::pair<int, ExtractorNode *>> key_points_num_and_node_ptr_vec;
+  key_points_num_and_node_ptr_vec.reserve( nodes_list.size() * 4 );
+
+  while ( !finish )
+  {
+    iteration++;
+
+    int prev_size = nodes_list.size();
+
+    list_iter = nodes_list.begin();
+
+    int to_expand_nodes_num = 0;
+
+    key_points_num_and_node_ptr_vec.clear();
+
+    while ( list_iter != nodes_list.end() )
+    {
+      if ( list_iter->no_more_ )
+      {
+        // 只有一个key point的节点，不用再考虑了
+        list_iter++;
+        continue;
+      }
+      else
+      {
+        ExtractorNode n1, n2, n3, n4;
+        list_iter->divideNode( n1, n2, n3, n4 );
+
+        if ( n1.key_points_vec_.size() > 0 )
+        {
+          node_list.push_front( n1 );
+          if ( n1.key_points_vec_.size() > 1 )
+          {
+            to_expand_nodes_num++;
+            key_points_num_and_node_ptr_vec.push_back( std::make_pair( n1.key_points_vec_.size(), &node_list.front() ) );
+            nodes_list.front().list_iterator_ = node_list.begin();
+          }
+        }
+        if ( n2.key_points_vec_.size() > 0 )
+        {
+          node_list.push_front( n2 );
+          if ( n2.key_points_vec_.size() > 1 )
+          {
+            to_expand_nodes_num++;
+            key_points_num_and_node_ptr_vec.push_back( std::make_pair( n2.key_points_vec_.size(), &node_list.front() ) );
+            nodes_list.front().list_iterator_ = node_list.begin();
+          }
+        }
+        if ( n3.key_points_vec_.size() > 0 )
+        {
+          node_list.push_front( n3 );
+          if ( n3.key_points_vec_.size() > 1 )
+          {
+            to_expand_nodes_num++;
+            key_points_num_and_node_ptr_vec.push_back( std::make_pair( n3.key_points_vec_.size(), &node_list.front() ) );
+            nodes_list.front().list_iterator_ = node_list.begin();
+          }
+        }
+        if ( n4.key_points_vec_.size() > 0 )
+        {
+          node_list.push_front( n4 );
+          if ( n4.key_points_vec_.size() > 1 )
+          {
+            to_expand_nodes_num++;
+            key_points_num_and_node_ptr_vec.push_back( std::make_pair( n4.key_points_vec_.size(), &node_list.front() ) );
+            nodes_list.front().list_iterator_ = node_list.begin();
+          }
+        }
+
+        list_iter = nodes_list.erase( list_iter );  // 当前节点已经分裂成四个子节点，因此可以删除了
+        continue;
+      }
+    }
+
+    // 检查节点特征数 是否满足要求
+    // 检查节点数 是否满足要求
+    int nodes_num = static_cast<int>( nodes_list.size() );
+    if ( nodes_num >= features_num || nodes_num == prev_size )
+    {
+      finish = true;
+    }
+    else if ( ( nodes_num + to_expand_nodes_num * 3 ) > features_num )
+    {
+      while ( !finish )
+      {
+        prev_size                                                                         = nodes_list.size();
+        std::vector<std::pair<int, ExtractorNode *>> prev_key_points_num_and_node_ptr_vec = key_points_num_and_node_ptr_vec;
+        key_points_num_and_node_ptr_vec.clear();
+
+        std::sort( prev_key_points_num_and_node_ptr_vec.begin(), prev_key_points_num_and_node_ptr_vec.end() );
+
+        for ( int j = prev_key_points_num_and_node_ptr_vec.size() - 1; j >= 0; j-- )
+        {
+          ExtractorNode n1, n2, n3, n4;
+          prev_key_points_num_and_node_ptr_vec[ j ].second->divideNode( n1, n2, n3, n4 );
+
+          if ( n1.key_points_vec_.size() > 0 )
+          {
+            node_list.push_front( n1 );
+            if ( n1.key_points_vec_.size() > 1 )
+            {
+              key_points_num_and_node_ptr_vec.push_back( std::make_pair( n1.key_points_vec_.size(), &node_list.front() ) );
+              nodes_list.front().list_iterator_ = node_list.begin();
+            }
+          }
+          if ( n2.key_points_vec_.size() > 0 )
+          {
+            node_list.push_front( n2 );
+            if ( n2.key_points_vec_.size() > 1 )
+            {
+              key_points_num_and_node_ptr_vec.push_back( std::make_pair( n2.key_points_vec_.size(), &node_list.front() ) );
+              nodes_list.front().list_iterator_ = node_list.begin();
+            }
+          }
+          if ( n3.key_points_vec_.size() > 0 )
+          {
+            node_list.push_front( n3 );
+            if ( n3.key_points_vec_.size() > 1 )
+            {
+              key_points_num_and_node_ptr_vec.push_back( std::make_pair( n3.key_points_vec_.size(), &node_list.front() ) );
+              nodes_list.front().list_iterator_ = node_list.begin();
+            }
+          }
+          if ( n4.key_points_vec_.size() > 0 )
+          {
+            node_list.push_front( n4 );
+            if ( n4.key_points_vec_.size() > 1 )
+            {
+              key_points_num_and_node_ptr_vec.push_back( std::make_pair( n4.key_points_vec_.size(), &node_list.front() ) );
+              nodes_list.front().list_iterator_ = node_list.begin();
+            }
+          }
+
+          nodes_list.erase( prev_key_points_num_and_node_ptr_vec[ j ].second->list_iterator_ );
+
+          if ( static_cast<int>( nodes_list.size() ) >= features_num )
+          {
+            break;
+          }
+        }
+
+        if ( static_cast<int>( nodes_list.size() ) >= features_num || static_cast<int>( nodes_list.size() ) == prev_size )
+        {
+          finish = true;
+        }
+      }
+    }
+  }
+
+  // 取每个节点的最大响应的key point
+  std::vector<cv::KeyPoint> result_key_points_vec;
+  result_key_points_vec.reserve( features_num );
+  for ( auto &node : nodes_list )
+  {
+    std::vector<cv::KeyPoint> &node_key_points_vec = node.key_points_vec_;
+
+    cv::KeyPoint *key_point = &node_key_points_vec[ 0 ];
+
+    float max_response = key_point->response;
+
+    for ( std::size_t k = 1; k < node_key_points_vec.size(); k++ )
+    {
+      if ( node_key_points_vec[ k ].response > max_response )
+      {
+        key_point    = &node_key_points_vec[ k ];
+        max_response = node_key_points_vec[ k ].response;
+      }
+    }
+
+    result_key_points_vec.push_back( *key_point );
+  }
+  return result_key_points_vec;
+}
 
 }  // namespace lvio

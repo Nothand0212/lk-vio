@@ -18,12 +18,12 @@ class ExtractorNode
 public:
   ExtractorNode() : bNoMore( false ) {}
 
-  void DivideNode( ExtractorNode& n1, ExtractorNode& n2, ExtractorNode& n3, ExtractorNode& n4 );
+  void divideNode( ExtractorNode& n1, ExtractorNode& n2, ExtractorNode& n3, ExtractorNode& n4 );
 
-  std::vector<cv::KeyPoint>          vKeys;
-  cv::Point2i                        UL, UR, BL, BR;
-  std::list<ExtractorNode>::iterator list_iterator;
-  bool                               bNoMore;
+  std::vector<cv::KeyPoint>          key_points_vec_;
+  cv::Point2i                        up_left_, up_right, below_left_, below_right_;
+  std::list<ExtractorNode>::iterator list_iterator_;
+  bool                               no_more_;
 };
 
 class ORBextractor
