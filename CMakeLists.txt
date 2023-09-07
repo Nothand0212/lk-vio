@@ -39,7 +39,9 @@ add_library(lvio SHARED
     src/keyFrame.cpp
     src/map.cpp
     src/camera.cpp
+    src/orbExtractor.cpp
 )
+
 set(dbow_libs ${PROJECT_SOURCE_DIR}/thirdparty/DBoW2/lib/libDBoW2.so)
 target_link_libraries(lvio glog)
 
@@ -61,6 +63,9 @@ target_link_libraries(test_map gtest gtest_main ${OpenCV_LIBS} Threads::Threads 
 
 add_executable(test_camera test/test_camera.cpp)
 target_link_libraries(test_camera gtest gtest_main ${OpenCV_LIBS} Threads::Threads lvio ${dbow_libs})
+
+add_executable(test_orbExtractor test/test_orbExtractor.cpp)
+target_link_libraries(test_orbExtractor gtest gtest_main ${OpenCV_LIBS} Threads::Threads lvio ${dbow_libs})
 
 # 添加测试
 add_test( NAME test_frame COMMAND test_frame )

@@ -1,27 +1,32 @@
 #ifndef LVIO_ORB_EXTRACTOR_HPP
 #define LVIO_ORB_EXTRACTOR_HPP
 
+#include <opencv4/opencv2/core/hal/interface.h>
+
 #include <iostream>
+#include <list>
 #include <memory>
-#include <opencv2/core/core.hpp>
-#include <opencv2/features2d/features2d.hpp>
-#include <opencv2/imgproc/imgproc.hpp>
+#include <opencv4/opencv2/core/core.hpp>
+#include <opencv4/opencv2/core/types.hpp>
+#include <opencv4/opencv2/features2d/features2d.hpp>
+#include <opencv4/opencv2/imgproc/imgproc.hpp>
+#include <opencv4/opencv2/opencv.hpp>
 #include <vector>
 
 #include "glog/logging.h"
-#include "ssvio/orbpattern.hpp"
+#include "thirdparty/orb/orbPattern.hpp"
 
 namespace lvio
 {
 class ExtractorNode
 {
 public:
-  ExtractorNode() : bNoMore( false ) {}
+  ExtractorNode() : no_more_( false ) {}
 
   void divideNode( ExtractorNode& n1, ExtractorNode& n2, ExtractorNode& n3, ExtractorNode& n4 );
 
   std::vector<cv::KeyPoint>          key_points_vec_;
-  cv::Point2i                        up_left_, up_right, below_left_, below_right_;
+  cv::Point2i                        up_left_, up_right_, below_left_, below_right_;
   std::list<ExtractorNode>::iterator list_iterator_;
   bool                               no_more_;
 };
@@ -39,7 +44,7 @@ public:
 
   void detectFeaturesOnPyramid( const cv::Mat& image, const cv::Mat& mask, std::vector<cv::KeyPoint>& keypoints );
 
-  void optimizeKeyPoints( const cv::Mat& image, const std::vector<cv::KeyPoint>& keypoints_in, std::vector<cv::KeyPoint>& keypoints_out );
+  void filterKeyPoints( const cv::Mat& image, std::vector<cv::KeyPoint>& keypoints_in, std::vector<cv::KeyPoint>& keypoints_out );
 
 private:
   std::vector<cv::Mat> image_pyramid_vec_;
@@ -52,7 +57,7 @@ protected:
   void computeKeyPointsOctTree( std::vector<std::vector<cv::KeyPoint>>& all_keypoints );
 
   std::vector<cv::KeyPoint> distributeOctTree( const std::vector<cv::KeyPoint>& key_points_to_distribute, const int& min_x, const int& max_x,
-                                               const int& min_y, const int& max_y, const int& n_features, const int& level );
+                                               const int& min_y, const int& max_y, const int& features_num, const int& level );
 
   std::vector<cv::Point> pattern_;
 
