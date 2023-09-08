@@ -40,6 +40,7 @@ add_library(lvio SHARED
     src/map.cpp
     src/camera.cpp
     src/orbExtractor.cpp
+    src/setting.cpp
 )
 
 set(dbow_libs ${PROJECT_SOURCE_DIR}/thirdparty/DBoW2/lib/libDBoW2.so)
