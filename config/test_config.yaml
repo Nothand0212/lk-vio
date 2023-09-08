@@ -1,0 +1,4 @@
+%YAML:1.0
+int_param: 123
+float_param: 3.14
+string_param: "hello world"
