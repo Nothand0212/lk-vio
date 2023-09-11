@@ -91,7 +91,7 @@ public:
 
   virtual void computeError() override
   {
-    const VertexPose* vertex_pose = static_cast<VertexPose*>( _vertices( 0 ) );
+    const VertexPose* vertex_pose = static_cast<VertexPose*>( _vertices[ 0 ] );
 
     Sophus::SE3d T = vertex_pose->estimate();
 
@@ -102,7 +102,7 @@ public:
 
   virtual void linearizeOplus() override
   {
-    const VertexPose* vertex_pose = static_cast<VertexPose*>( _vertices( 0 ) );
+    const VertexPose* vertex_pose = static_cast<VertexPose*>( _vertices[ 0 ] );
     Sophus::SE3d      T           = vertex_pose->estimate();
     Eigen::Vector3d   pose_camera = T * _pose3d;
     double            fx          = _K( 0, 0 );
@@ -147,10 +147,10 @@ public:
   {
   }
 
-  virtual computeError() override
+  virtual void computeError() override
   {
-    const VertexPose*  vertex_pose  = static_cast<VertexPose*>( _vertices( 0 ) );
-    const VertexPoint* vertex_point = static_cast<VertexPoint*>( _vertices( 1 ) );
+    const VertexPose*  vertex_pose  = static_cast<VertexPose*>( _vertices[ 0 ] );
+    const VertexPoint* vertex_point = static_cast<VertexPoint*>( _vertices[ 1 ] );
 
     Sophus::SE3d    T          = vertex_pose->estimate();
     Eigen::Vector3d pose_pixel = _K * ( _camera_ext * T * vertex_point->estimate() );
@@ -185,8 +185,8 @@ public:
   EIGEN_MAKE_ALIGNED_OPERATOR_NEW
   virtual void computeError() override
   {
-    const VertexPose* vertex_pose_0 = static_cast<VertexPose*>( _vertices( 0 ) );
-    const VertexPose* vertex_pose_1 = static_cast<VertexPose*>( _vertices( 1 ) );
+    const VertexPose* vertex_pose_0 = static_cast<VertexPose*>( _vertices[ 0 ] );
+    const VertexPose* vertex_pose_1 = static_cast<VertexPose*>( _vertices[ 1 ] );
 
     Sophus::SE3d T_0 = vertex_pose_0->estimate();
     Sophus::SE3d T_1 = vertex_pose_1->estimate();

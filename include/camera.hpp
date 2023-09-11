@@ -4,9 +4,9 @@
 #include <memory>
 
 #include "Eigen/Core"
+#include "frame.hpp"
 #include "opencv2/opencv.hpp"
 #include "sophus/se3.hpp"
-
 namespace lvio
 {
 class Camera
@@ -51,6 +51,7 @@ public:
   Eigen::Vector2d worldToPixel( const Eigen::Vector3d &point_world, const Sophus::SE3d &T_c_w );
 
   void unDistortImage( cv::Mat &src, cv::Mat &dst );
+  void unDistortImage( std::shared_ptr<Frame> frame, bool is_right = false );
 
   double          getFx() const;
   double          getFy() const;

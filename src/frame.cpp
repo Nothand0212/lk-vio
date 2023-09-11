@@ -24,7 +24,7 @@ Sophus::SE3d Frame::getPose()
   return T_c_w_;
 }
 
-void Frame::setRelatitvePose( const Sophus::SE3d &T_c_k )
+void Frame::setRelativePose( const Sophus::SE3d &T_c_k )
 {
   std::unique_lock<std::mutex> lock( updating_relative_pose_mutex_ );
   T_c_k_ = T_c_k;
@@ -58,22 +58,22 @@ std::size_t Frame::getFrameId()
 
 void Frame::setLeftImage( const cv::Mat &left_img )
 {
-  left_img_ = left_img;
+  left_image_ = left_img;
 }
 
 cv::Mat Frame::getLeftImage()
 {
-  return left_img_;
+  return left_image_;
 }
 
 void Frame::setRightImage( const cv::Mat &right_img )
 {
-  right_img_ = right_img;
+  right_image_ = right_img;
 }
 
 cv::Mat Frame::getRightImage()
 {
-  return right_img_;
+  return right_image_;
 }
 
 void Frame::setLeftFeatures( const std::vector<std::shared_ptr<Feature>> &left_features )

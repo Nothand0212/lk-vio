@@ -28,6 +28,7 @@ include_directories(${PROJECT_SOURCE_DIR}/thirdparty/sophus)
 include_directories(${PROJECT_SOURCE_DIR}/thirdparty/g2o)
 include_directories(${PROJECT_SOURCE_DIR}/thirdparty)
 
+include_directories(/usr/include/suitesparse)
 # GTest
 find_package(GTest REQUIRED)
 include_directories(${GTEST_INCLUDE_DIRS})
@@ -42,6 +43,32 @@ add_library(lvio SHARED
     src/orbPattern.cpp
     src/orbExtractor.cpp
     src/setting.cpp
+    src/frontEnd.cpp
+)
+
+# sudo apt install -y qt5-qmake qt5-default libqglviewer-dev-qt5 libsuitesparse-dev libcxsparse3 libcholmod3
+# csparse
+set(CSparse_INCLUDE_DIR /usr/include/suitesparse)
+# set(CSparse_DIR /usr/include)
+set(CSparse_LIBRARY /usr/lib/x86_64-linux-gnu/libsuitesparse.so)
+# set(CMAKE_PREFIX_PATH /usr)
+# find_package(CSparse REQUIRED)
+# include_directories(${CSPARSE_INCLUDE_DIR})
+
+# # cholmod
+# find_package(Cholmod REQUIRED)
+# include_directories(${CHOLMOD_INCLUDE_DIRS})
+set(Cholmod_INCLUDE_DIR /usr/include/suitesparse)
+set(Cholmod_LIBRARY /usr/lib/x86_64-linux-gnu/libsuitesparse.so)
+
+set(g2o_libs
+        ${CSPARSE_LIBRARY} ${CHOLMOD_LIBRARY}
+        ${PROJECT_SOURCE_DIR}/thirdparty/g2o/lib/libg2o_stuff.so
+        ${PROJECT_SOURCE_DIR}/thirdparty/g2o/lib/libg2o_core.so
+        ${PROJECT_SOURCE_DIR}/thirdparty/g2o/lib/libg2o_solver_dense.so
+        ${PROJECT_SOURCE_DIR}/thirdparty/g2o/lib/libg2o_solver_csparse.so
+        ${PROJECT_SOURCE_DIR}/thirdparty/g2o/lib/libg2o_csparse_extension.so
+        ${PROJECT_SOURCE_DIR}/thirdparty/g2o/lib/libg2o_types_sba.so
 )
 
 set(dbow_libs ${PROJECT_SOURCE_DIR}/thirdparty/DBoW2/lib/libDBoW2.so)

@@ -6,7 +6,7 @@
 
 #include "camera.hpp"
 #include "thirdparty/g2o/g2oTypes.hpp"
-#include "ui/pangolin_window.hpp"
+// #include "ui/pangolin_window.hpp"
 #include "utility.hpp"
 
 
@@ -36,13 +36,13 @@ public:
 
   void setCamera( const Camera::Ptr &left_camera, const Camera::Ptr &right_camera );
 
-  void setViewUI( const std::shared_ptr<ui::PangolinViewer> &viewerUI );
+  //   void setViewUI( const std::shared_ptr<ui::PangolinViewer> &viewerUI );
 
-  void setORBextractor( const ORBextractor::Ptr &orb_extractor );
+  void setORBextractor( const std::shared_ptr<ORBextractor> &orb_extractor );
 
-  void setInitORBextractor( const ORBextractor::Ptr &init_orb_extractor );
+  void setInitORBextractor( const std::shared_ptr<ORBextractor> &init_orb_extractor );
 
-  void setMap( const Map::Ptr &map );
+  void setMap( const std::shared_ptr<Map> &map );
 
   // @brief 获取双目图像，并继续畸变矫正
   bool grabImageStereo( const cv::Mat &left_image, const cv::Mat &right_image, const double &time_stamp );
@@ -78,7 +78,7 @@ public:
 
   std::shared_ptr<KeyFrame> getReferenceKeyFrame()
   {
-    std::unique_lock<std::mutex> lock( update_key_frame_mutex_ );
+    std::unique_lock<std::mutex> lock( update_key_frame_map_point_mutex_ );
     return reference_key_frame_ptr_;
   }
 
@@ -97,10 +97,10 @@ private:
 
   FrontEndStatus tracking_status_ = FrontEndStatus::INITING;
 
-  std::shared_ptr<Camera> left_camera_  = nullptr;
-  std::shared_ptr<Camera> right_camera_ = nullptr;
+  std::shared_ptr<Camera> left_camera_ptr_  = nullptr;
+  std::shared_ptr<Camera> right_camera_ptr_ = nullptr;
 
-  std::shared_ptr<ui::PangolinWindow> viewer_ui_ = nullptr;
+  //   std::shared_ptr<ui::PangolinWindow> viewer_ui_ = nullptr;
 
   std::shared_ptr<Frame>    current_frame_ptr_       = nullptr;
   std::shared_ptr<Frame>    last_frame_ptr_          = nullptr;

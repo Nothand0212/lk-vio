@@ -31,7 +31,7 @@ TEST( FrameTest, Basic )
   Eigen::Matrix3d R_c_k = Eigen::Matrix3d::Identity();
   Eigen::Vector3d t_c_k = Eigen::Vector3d::Random();
   Sophus::SE3d    T_c_k( R_c_k, t_c_k );
-  frame.setRelatitvePose( T_c_k );
+  frame.setRelativePose( T_c_k );
   EXPECT_TRUE( T_c_k.matrix().isApprox( frame.getRelativePose().matrix() ) );
 
   // 测试帧的特征点是否正确

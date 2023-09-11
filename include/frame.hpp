@@ -33,7 +33,7 @@ public:
   Sophus::SE3d getPose();
 
   // @brief 设置该帧的相对于参考关键帧的位姿T_c_k
-  void setRelatitvePose( const Sophus::SE3d &T_c_k );
+  void setRelativePose( const Sophus::SE3d &T_c_k );
 
   // @brief 返回该帧的相对于参考关键帧的位姿T_c_k
   Sophus::SE3d getRelativePose();
@@ -74,6 +74,9 @@ public:
   // @brief 返回该帧的右图特征点
   std::vector<std::shared_ptr<Feature>> getRightFeatures();
 
+public:
+  cv::Mat left_image_;   // 该帧的左图
+  cv::Mat right_image_;  // 该帧的右图
 private:
   Sophus::SE3d T_c_w_;  // 该帧的世界位姿
   Sophus::SE3d T_c_k_;  // 该帧的相对于参考关键帧的位姿
@@ -84,8 +87,6 @@ private:
   std::size_t frame_id_;    // 该帧的id
   double      time_stamp_;  // 该帧的时间戳
 
-  cv::Mat left_img_;   // 该帧的左图
-  cv::Mat right_img_;  // 该帧的右图
 
   std::vector<std::shared_ptr<Feature>> left_features_;   // 该帧的左图特征点
   std::vector<std::shared_ptr<Feature>> right_features_;  // 该帧的右图特征点

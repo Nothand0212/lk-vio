@@ -51,6 +51,24 @@ void Camera::unDistortImage( cv::Mat &src, cv::Mat &dst )
   cv::undistort( distorted_image, dst, K_cv, dist_coef_ );
 }
 
+void Camera::unDistortImage( std::shared_ptr<Frame> frame, bool is_right )
+{
+  cv::Mat K_cv           = cv::Mat::zeros( 3, 3, CV_32F );
+  K_cv.at<float>( 0, 0 ) = fx_;
+  K_cv.at<float>( 1, 1 ) = fy_;
+  K_cv.at<float>( 0, 2 ) = cx_;
+  K_cv.at<float>( 1, 2 ) = cy_;
+  K_cv.at<float>( 2, 2 ) = 1.0f;
+  if ( !is_right )
+  {
+    cv::undistort( frame->left_image_, frame->left_image_, K_cv, dist_coef_ );
+  }
+  else
+  {
+    cv::undistort( frame->right_image_, frame->right_image_, K_cv, dist_coef_ );
+  }
+}
+
 double Camera::getFx() const
 {
   return fx_;
