@@ -14,6 +14,9 @@ TEST( FrontEndTest, TestGrabImageStereo )
 TEST( FrontEndTest, TestDetectFeatures )
 {
   lvio::FrontEnd front_end;
+  cv::Mat        left_image, right_image;
+  double         time_stamp   = 0.0;
+  bool           result       = front_end.grabImageStereo( left_image, right_image, time_stamp );
   int            num_features = front_end.detectFeatures();
   EXPECT_GT( num_features, 0 );
 }
