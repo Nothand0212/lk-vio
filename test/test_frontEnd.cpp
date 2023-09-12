@@ -56,7 +56,7 @@ TEST( FrontEndTest, TestTrack )
 TEST( FrontEndTest, TestTriangulateNewPoints )
 {
   lvio::FrontEnd front_end;
-  int            num_points = front_end.triangulateNewPoints();
+  int            num_points = front_end.triangulateNewMapPoints();
   EXPECT_GT( num_points, 0 );
 }
 
@@ -69,12 +69,24 @@ TEST( FrontEndTest, TestEstimateCurrentPose )
 
 TEST( FrontEndTest, TestSetCamera )
 {
+  // 创建一个相机对象
+  double       fx = 640, fy = 480, cx = 320, cy = 240, baseline = 500.0;
+  Sophus::SE3d pose;
+  cv::Mat      dist_coef = cv::Mat::zeros( 4, 1, CV_32F );
+  // 对dist_coef赋值
+  for ( int i = 0; i < dist_coef.rows; i++ )
+  {
+    dist_coef.at<float>( i, 0 ) = 0.1 * i;
+  }
+  lvio::Camera      camera( fx, fy, cx, cy, baseline, pose, dist_coef );
+  lvio::Camera::Ptr camera_ptr = std::make_shared<lvio::Camera>( camera );
   lvio::FrontEnd    front_end;
-  lvio::Camera::Ptr left_camera  = std::make_shared<lvio::Camera>();
-  lvio::Camera::Ptr right_camera = std::make_shared<lvio::Camera>();
-  front_end.setCamera( left_camera, right_camera );
-  EXPECT_EQ( front_end.left_camera_, left_camera );
-  EXPECT_EQ( front_end.right_camera_, right_camera );
+
+  front_end.setCamera( camera_ptr, camera_ptr );
+  // EXPECT_EQ( front_end.left_camera_ptr_, camera_ptr );
+  // EXPECT_EQ( front_end.right_camera_ptr_, camera_ptr );
+  EXPECT_TRUE( front_end.left_camera_ptr_ == camera_ptr );
+  EXPECT_TRUE( front_end.right_camera_ptr_ == camera_ptr );
 }
 
 int main( int argc, char **argv )

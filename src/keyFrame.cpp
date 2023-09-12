@@ -158,6 +158,14 @@ DBoW2::BowVector KeyFrame::getBowVec()
   return bow_vec_;
 }
 
+void KeyFrame::setLastKeyFramePtr( std::shared_ptr<KeyFrame> last_key_frame )
+{
+  last_key_frame_wptr_ = last_key_frame;
+}
 
+std::shared_ptr<KeyFrame> KeyFrame::getLastKeyFramePtr()
+{
+  return last_key_frame_wptr_.lock();
+}
 //
 }  // namespace lvio

@@ -23,7 +23,7 @@ cv::KeyPoint Feature::getKeyPoint()
   return key_point_;
 }
 
-void Feature::setOutlierFlag( bool &is_outlier )
+void Feature::setOutlierFlag( bool is_outlier )
 {
   is_outlier_ = is_outlier;
 }
@@ -33,7 +33,7 @@ bool Feature::getOutlierFlag()
   return is_outlier_;
 }
 
-void Feature::setLeftImageFlag( bool &is_on_left_image )
+void Feature::setLeftImageFlag( bool is_on_left_image )
 {
   is_on_left_image_ = is_on_left_image;
 }

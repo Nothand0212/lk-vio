@@ -37,10 +37,10 @@ public:
   void                      setMapPointPtr( std::shared_ptr<MapPoint> map_point );
   std::shared_ptr<MapPoint> getMapPointPtr();
 
-  void setOutlierFlag( bool &is_outlier );
+  void setOutlierFlag( bool is_outlier );
   bool getOutlierFlag();
 
-  void setLeftImageFlag( bool &is_on_left_image );
+  void setLeftImageFlag( bool is_on_left_image );
   bool getLeftImageFlag();
 
 

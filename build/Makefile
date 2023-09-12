@@ -111,6 +111,19 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named test_frontEnd
+
+# Build rule for target.
+test_frontEnd: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test_frontEnd
+.PHONY : test_frontEnd
+
+# fast build rule for target.
+test_frontEnd/fast:
+	$(MAKE) -f CMakeFiles/test_frontEnd.dir/build.make CMakeFiles/test_frontEnd.dir/build
+.PHONY : test_frontEnd/fast
+
+#=============================================================================
 # Target rules for targets named test_setting
 
 # Build rule for target.
@@ -565,6 +578,33 @@ test/test_frame.cpp.s:
 	$(MAKE) -f CMakeFiles/test_frame.dir/build.make CMakeFiles/test_frame.dir/test/test_frame.cpp.s
 .PHONY : test/test_frame.cpp.s
 
+test/test_frontEnd.o: test/test_frontEnd.cpp.o
+
+.PHONY : test/test_frontEnd.o
+
+# target to build an object file
+test/test_frontEnd.cpp.o:
+	$(MAKE) -f CMakeFiles/test_frontEnd.dir/build.make CMakeFiles/test_frontEnd.dir/test/test_frontEnd.cpp.o
+.PHONY : test/test_frontEnd.cpp.o
+
+test/test_frontEnd.i: test/test_frontEnd.cpp.i
+
+.PHONY : test/test_frontEnd.i
+
+# target to preprocess a source file
+test/test_frontEnd.cpp.i:
+	$(MAKE) -f CMakeFiles/test_frontEnd.dir/build.make CMakeFiles/test_frontEnd.dir/test/test_frontEnd.cpp.i
+.PHONY : test/test_frontEnd.cpp.i
+
+test/test_frontEnd.s: test/test_frontEnd.cpp.s
+
+.PHONY : test/test_frontEnd.s
+
+# target to generate assembly for a file
+test/test_frontEnd.cpp.s:
+	$(MAKE) -f CMakeFiles/test_frontEnd.dir/build.make CMakeFiles/test_frontEnd.dir/test/test_frontEnd.cpp.s
+.PHONY : test/test_frontEnd.cpp.s
+
 test/test_keyFrame.o: test/test_keyFrame.cpp.o
 
 .PHONY : test/test_keyFrame.o
@@ -679,6 +719,7 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
+	@echo "... test_frontEnd"
 	@echo "... test_setting"
 	@echo "... test_camera"
 	@echo "... edit_cache"
@@ -728,6 +769,9 @@ help:
 	@echo "... test/test_frame.o"
 	@echo "... test/test_frame.i"
 	@echo "... test/test_frame.s"
+	@echo "... test/test_frontEnd.o"
+	@echo "... test/test_frontEnd.i"
+	@echo "... test/test_frontEnd.s"
 	@echo "... test/test_keyFrame.o"
 	@echo "... test/test_keyFrame.i"
 	@echo "... test/test_keyFrame.s"

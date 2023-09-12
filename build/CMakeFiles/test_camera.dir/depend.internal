@@ -3,6 +3,7 @@
 
 CMakeFiles/test_camera.dir/test/test_camera.cpp.o
  ../include/camera.hpp
+ ../include/frame.hpp
  ../thirdparty/eigen/Eigen/Cholesky
  ../thirdparty/eigen/Eigen/Core
  ../thirdparty/eigen/Eigen/Dense

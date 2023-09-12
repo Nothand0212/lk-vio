@@ -214,6 +214,12 @@ lvio_EXTERNAL_OBJECTS =
 ../lib/liblvio.so: CMakeFiles/lvio.dir/src/setting.cpp.o
 ../lib/liblvio.so: CMakeFiles/lvio.dir/src/frontEnd.cpp.o
 ../lib/liblvio.so: CMakeFiles/lvio.dir/build.make
+../lib/liblvio.so: ../thirdparty/g2o/lib/libg2o_stuff.so
+../lib/liblvio.so: ../thirdparty/g2o/lib/libg2o_core.so
+../lib/liblvio.so: ../thirdparty/g2o/lib/libg2o_solver_dense.so
+../lib/liblvio.so: ../thirdparty/g2o/lib/libg2o_solver_csparse.so
+../lib/liblvio.so: ../thirdparty/g2o/lib/libg2o_csparse_extension.so
+../lib/liblvio.so: ../thirdparty/g2o/lib/libg2o_types_sba.so
 ../lib/liblvio.so: CMakeFiles/lvio.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/oem/Projects/lvio/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Linking CXX shared library ../lib/liblvio.so"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/lvio.dir/link.txt --verbose=$(VERBOSE)

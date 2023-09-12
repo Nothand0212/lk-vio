@@ -64,6 +64,11 @@ public:
   void             setBowVec( const DBoW2::BowVector& bow_vec );
   DBoW2::BowVector getBowVec();
 
+  void                      setLastKeyFramePtr( std::shared_ptr<KeyFrame> last_key_frame );
+  std::shared_ptr<KeyFrame> getLastKeyFramePtr();
+
+  void                      setLoopKeyFramePtr( std::shared_ptr<KeyFrame> loop_key_frame );
+  std::shared_ptr<KeyFrame> getLoopKeyFramePtr();
 
 private:
   std::size_t frame_id_;
@@ -75,6 +80,9 @@ private:
   Sophus::SE3d pose_;                    // T_c_w
   Sophus::SE3d pose_to_last_key_frame_;  // T_c_kf_last
   Sophus::SE3d pose_to_loop_key_frame_;  // T_c_kf_loop
+
+  std::weak_ptr<KeyFrame> last_key_frame_wptr_;
+  std::weak_ptr<KeyFrame> loop_key_frame_wptr_;
 
   std::vector<cv::KeyPoint>             pyramid_key_points_;  // 计算ORB特征点时，使用的金字塔特征点
   std::vector<std::shared_ptr<Feature>> features_in_left_image_;

@@ -225,7 +225,7 @@ OpenCV_DIR:PATH=/usr/lib/x86_64-linux-gnu/cmake/opencv4
 lvio_BINARY_DIR:STATIC=/home/oem/Projects/lvio/build
 
 //Dependencies for the target
-lvio_LIB_DEPENDS:STATIC=general;glog;
+lvio_LIB_DEPENDS:STATIC=general;glog;general;/home/oem/Projects/lvio/thirdparty/g2o/lib/libg2o_stuff.so;general;/home/oem/Projects/lvio/thirdparty/g2o/lib/libg2o_core.so;general;/home/oem/Projects/lvio/thirdparty/g2o/lib/libg2o_solver_dense.so;general;/home/oem/Projects/lvio/thirdparty/g2o/lib/libg2o_solver_csparse.so;general;/home/oem/Projects/lvio/thirdparty/g2o/lib/libg2o_csparse_extension.so;general;/home/oem/Projects/lvio/thirdparty/g2o/lib/libg2o_types_sba.so;
 
 //Value Computed by CMake
 lvio_SOURCE_DIR:STATIC=/home/oem/Projects/lvio

@@ -133,6 +133,17 @@ std::list<std::weak_ptr<Feature>> MapPoint::getActiveObservations()
   return active_observations_;
 }
 
+// @brief 设置地图点的外点标志位
+void MapPoint::setOutlierFlag( bool is_outlier )
+{
+  is_outlier_ = is_outlier;
+}
+
+// @brief 获取地图点的外点标志位
+bool MapPoint::getOutlierFlag()
+{
+  return is_outlier_;
+}
 
 //
 }  // namespace lvio

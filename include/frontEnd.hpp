@@ -68,7 +68,7 @@ public:
   int trackLastFrame();
 
   // @brief 在丢失定位时，尝试重定位 --> 初始化时在buildInitMap里也有三角化
-  int triangulateNewPoints();
+  int triangulateNewMapPoints();
 
   // @brief 用经过光流法匹配成功的特征点，用g2o进行优化，计算位姿
   int estimateCurrentPose();
@@ -92,13 +92,15 @@ public:
     return last_frame_ptr_;
   }
 
+public:
+  std::shared_ptr<Camera> left_camera_ptr_  = nullptr;
+  std::shared_ptr<Camera> right_camera_ptr_ = nullptr;
+
 private:
   std::mutex update_key_frame_map_point_mutex_;
 
   FrontEndStatus tracking_status_ = FrontEndStatus::INITING;
 
-  std::shared_ptr<Camera> left_camera_ptr_  = nullptr;
-  std::shared_ptr<Camera> right_camera_ptr_ = nullptr;
 
   //   std::shared_ptr<ui::PangolinWindow> viewer_ui_ = nullptr;
 

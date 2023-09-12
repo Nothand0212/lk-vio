@@ -34,6 +34,9 @@ public:
   void removeObservation( std::shared_ptr<Feature> feature );
   void removeActiveObservation( std::shared_ptr<Feature> feature );
 
+  void setOutlierFlag( bool is_outlier );
+  bool getOutlierFlag();
+
 private:
   std::size_t id_;
 

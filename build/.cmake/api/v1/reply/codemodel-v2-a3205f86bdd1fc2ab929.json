@@ -1,0 +1,131 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.10"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8
+					]
+				}
+			],
+			"name" : "Release",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "lvio",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "lvio::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-lvio-Release-245e261ac48faab21568.json",
+					"name" : "lvio",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "test_camera::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-test_camera-Release-630c20ff8d748c2f2540.json",
+					"name" : "test_camera",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "test_feature::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-test_feature-Release-b282cd620a3a03e363c8.json",
+					"name" : "test_feature",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "test_frame::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-test_frame-Release-26a84ba65347fbf89a7b.json",
+					"name" : "test_frame",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "test_frontEnd::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-test_frontEnd-Release-9ae6208514a8ff767181.json",
+					"name" : "test_frontEnd",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "test_keyFrame::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-test_keyFrame-Release-5c16aaa6c01429e7ff7a.json",
+					"name" : "test_keyFrame",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "test_map::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-test_map-Release-ac2483081fb41c5b9ddc.json",
+					"name" : "test_map",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "test_mapPoint::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-test_mapPoint-Release-fe4d79e04a43ad3e958d.json",
+					"name" : "test_mapPoint",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "test_setting::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-test_setting-Release-3d6b22847e4e33f6a8f9.json",
+					"name" : "test_setting",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/oem/Projects/lvio/build",
+		"source" : "/home/oem/Projects/lvio"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 0
+	}
+}

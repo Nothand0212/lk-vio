@@ -72,7 +72,7 @@ set(g2o_libs
 )
 
 set(dbow_libs ${PROJECT_SOURCE_DIR}/thirdparty/DBoW2/lib/libDBoW2.so)
-target_link_libraries(lvio glog)
+target_link_libraries(lvio glog ${g2o_libs})
 
 # 添加测试用例
 add_executable( test_frame test/test_frame.cpp )
@@ -98,6 +98,9 @@ target_link_libraries(test_camera gtest gtest_main ${OpenCV_LIBS} Threads::Threa
 
 add_executable(test_setting test/test_setting.cpp)
 target_link_libraries(test_setting gtest gtest_main ${OpenCV_LIBS} Threads::Threads lvio  ${dbow_libs})
+
+add_executable(test_frontEnd test/test_frontEnd.cpp)
+target_link_libraries(test_frontEnd gtest gtest_main ${OpenCV_LIBS} Threads::Threads lvio  ${dbow_libs})
 
 # 添加测试
 add_test( NAME test_frame COMMAND test_frame )

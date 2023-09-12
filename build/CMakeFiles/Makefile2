@@ -53,6 +53,7 @@ CMAKE_BINARY_DIR = /home/oem/Projects/lvio/build
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
+all: CMakeFiles/test_frontEnd.dir/all
 all: CMakeFiles/test_setting.dir/all
 all: CMakeFiles/test_camera.dir/all
 all: CMakeFiles/test_mapPoint.dir/all
@@ -70,6 +71,7 @@ preinstall:
 .PHONY : preinstall
 
 # The main recursive "clean" target.
+clean: CMakeFiles/test_frontEnd.dir/clean
 clean: CMakeFiles/test_setting.dir/clean
 clean: CMakeFiles/test_camera.dir/clean
 clean: CMakeFiles/test_mapPoint.dir/clean
@@ -82,13 +84,40 @@ clean: CMakeFiles/lvio.dir/clean
 .PHONY : clean
 
 #=============================================================================
+# Target rules for target CMakeFiles/test_frontEnd.dir
+
+# All Build rule for target.
+CMakeFiles/test_frontEnd.dir/all: CMakeFiles/lvio.dir/all
+	$(MAKE) -f CMakeFiles/test_frontEnd.dir/build.make CMakeFiles/test_frontEnd.dir/depend
+	$(MAKE) -f CMakeFiles/test_frontEnd.dir/build.make CMakeFiles/test_frontEnd.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/oem/Projects/lvio/build/CMakeFiles --progress-num=18,19 "Built target test_frontEnd"
+.PHONY : CMakeFiles/test_frontEnd.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/test_frontEnd.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/oem/Projects/lvio/build/CMakeFiles 13
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/test_frontEnd.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/oem/Projects/lvio/build/CMakeFiles 0
+.PHONY : CMakeFiles/test_frontEnd.dir/rule
+
+# Convenience name for target.
+test_frontEnd: CMakeFiles/test_frontEnd.dir/rule
+
+.PHONY : test_frontEnd
+
+# clean rule for target.
+CMakeFiles/test_frontEnd.dir/clean:
+	$(MAKE) -f CMakeFiles/test_frontEnd.dir/build.make CMakeFiles/test_frontEnd.dir/clean
+.PHONY : CMakeFiles/test_frontEnd.dir/clean
+
+#=============================================================================
 # Target rules for target CMakeFiles/test_setting.dir
 
 # All Build rule for target.
 CMakeFiles/test_setting.dir/all: CMakeFiles/lvio.dir/all
 	$(MAKE) -f CMakeFiles/test_setting.dir/build.make CMakeFiles/test_setting.dir/depend
 	$(MAKE) -f CMakeFiles/test_setting.dir/build.make CMakeFiles/test_setting.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/oem/Projects/lvio/build/CMakeFiles --progress-num=24,25 "Built target test_setting"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/oem/Projects/lvio/build/CMakeFiles --progress-num=26,27 "Built target test_setting"
 .PHONY : CMakeFiles/test_setting.dir/all
 
 # Build rule for subdir invocation for target.
@@ -142,7 +171,7 @@ CMakeFiles/test_camera.dir/clean:
 CMakeFiles/test_mapPoint.dir/all: CMakeFiles/lvio.dir/all
 	$(MAKE) -f CMakeFiles/test_mapPoint.dir/build.make CMakeFiles/test_mapPoint.dir/depend
 	$(MAKE) -f CMakeFiles/test_mapPoint.dir/build.make CMakeFiles/test_mapPoint.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/oem/Projects/lvio/build/CMakeFiles --progress-num=22,23 "Built target test_mapPoint"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/oem/Projects/lvio/build/CMakeFiles --progress-num=24,25 "Built target test_mapPoint"
 .PHONY : CMakeFiles/test_mapPoint.dir/all
 
 # Build rule for subdir invocation for target.
@@ -196,7 +225,7 @@ CMakeFiles/test_feature.dir/clean:
 CMakeFiles/test_map.dir/all: CMakeFiles/lvio.dir/all
 	$(MAKE) -f CMakeFiles/test_map.dir/build.make CMakeFiles/test_map.dir/depend
 	$(MAKE) -f CMakeFiles/test_map.dir/build.make CMakeFiles/test_map.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/oem/Projects/lvio/build/CMakeFiles --progress-num=20,21 "Built target test_map"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/oem/Projects/lvio/build/CMakeFiles --progress-num=22,23 "Built target test_map"
 .PHONY : CMakeFiles/test_map.dir/all
 
 # Build rule for subdir invocation for target.
@@ -250,7 +279,7 @@ CMakeFiles/test_frame.dir/clean:
 CMakeFiles/test_keyFrame.dir/all: CMakeFiles/lvio.dir/all
 	$(MAKE) -f CMakeFiles/test_keyFrame.dir/build.make CMakeFiles/test_keyFrame.dir/depend
 	$(MAKE) -f CMakeFiles/test_keyFrame.dir/build.make CMakeFiles/test_keyFrame.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/oem/Projects/lvio/build/CMakeFiles --progress-num=18,19 "Built target test_keyFrame"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/oem/Projects/lvio/build/CMakeFiles --progress-num=20,21 "Built target test_keyFrame"
 .PHONY : CMakeFiles/test_keyFrame.dir/all
 
 # Build rule for subdir invocation for target.

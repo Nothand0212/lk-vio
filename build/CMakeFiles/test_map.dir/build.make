@@ -129,6 +129,12 @@ test_map_EXTERNAL_OBJECTS =
 ../bin/test_map: /usr/lib/x86_64-linux-gnu/libopencv_photo.so.4.2.0
 ../bin/test_map: /usr/lib/x86_64-linux-gnu/libopencv_imgproc.so.4.2.0
 ../bin/test_map: /usr/lib/x86_64-linux-gnu/libopencv_core.so.4.2.0
+../bin/test_map: ../thirdparty/g2o/lib/libg2o_stuff.so
+../bin/test_map: ../thirdparty/g2o/lib/libg2o_core.so
+../bin/test_map: ../thirdparty/g2o/lib/libg2o_solver_dense.so
+../bin/test_map: ../thirdparty/g2o/lib/libg2o_solver_csparse.so
+../bin/test_map: ../thirdparty/g2o/lib/libg2o_csparse_extension.so
+../bin/test_map: ../thirdparty/g2o/lib/libg2o_types_sba.so
 ../bin/test_map: CMakeFiles/test_map.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/oem/Projects/lvio/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable ../bin/test_map"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/test_map.dir/link.txt --verbose=$(VERBOSE)
