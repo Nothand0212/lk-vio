@@ -82,7 +82,8 @@
         "alignedvector3": "cpp",
         "fft": "cpp",
         "*.ipp": "cpp",
-        "filesystem": "cpp"
+        "filesystem": "cpp",
+        "core": "cpp"
     },
     "ros.distro": "noetic"
 }

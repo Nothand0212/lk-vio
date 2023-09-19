@@ -1,0 +1,1 @@
+/usr/bin/c++  -Wall -Wextra  -O3 -DNDEBUG  -rdynamic CMakeFiles/VideoConvert.dir/main.cpp.o  -o VideoConvert  -Wl,-rpath,/home/oem/Projects/lvio/thirdparty/Pangolin-0.6/build/src: ../../src/libpangolin.so -lrt -lpthread -lOpenGL -lGLX -lGLU -lGLEW -lEGL -lSM -lICE -lX11 -lXext -lrt -lpthread -lOpenGL -lGLX -lGLU -lGLEW -lEGL -lSM -lICE -lX11 -lXext 

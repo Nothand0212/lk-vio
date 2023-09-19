@@ -5,6 +5,8 @@
 #include <memory>
 #include <vector>
 
+#include "feature.hpp"
+
 namespace lvio
 {
 class MapPoint
@@ -25,14 +27,14 @@ public:
   int getObservedTimes();
   int getActiveObservedTimes();
 
-  void addObservation( std::shared_ptr<Feature> feature );
-  void addActiveObservation( std::shared_ptr<Feature> feature );
+  void addObservation( std::shared_ptr<lvio::Feature> feature );
+  void addActiveObservation( std::shared_ptr<lvio::Feature> feature );
 
-  std::list<std::weak_ptr<Feature>> getObservations();
-  std::list<std::weak_ptr<Feature>> getActiveObservations();
+  std::list<std::weak_ptr<lvio::Feature>> getObservations();
+  std::list<std::weak_ptr<lvio::Feature>> getActiveObservations();
 
-  void removeObservation( std::shared_ptr<Feature> feature );
-  void removeActiveObservation( std::shared_ptr<Feature> feature );
+  void removeObservation( std::shared_ptr<lvio::Feature> feature );
+  void removeActiveObservation( std::shared_ptr<lvio::Feature> feature );
 
   void setOutlierFlag( bool is_outlier );
   bool getOutlierFlag();

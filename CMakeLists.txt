@@ -18,11 +18,19 @@ include_directories(${PROJECT_SOURCE_DIR}/include)
 # OpenCV 
 find_package(OpenCV REQUIRED)
 include_directories(${OpenCV_INCLUDE_DIRS})
+message(STATUS "OpenCV_INCLUDE_DIRS ${OpenCV_INCLUDE_DIRS}")
 
 # 链接pthread库
 find_package(Threads REQUIRED)
 
+# Pangolin
+find_package(Pangolin REQUIRED)
+set(Pangolin_INCLUDE_DIRS /usr/local/include/pangolin)
+include_directories(${Pangolin_INCLUDE_DIRS})
+message(STATUS "Pangolin_INCLUDE_DIRS ${Pangolin_INCLUDE_DIRS}")
+message(STATUS "Pangolin Version ${Pangolin_VERSION}")
 # third party include path
+
 include_directories(${PROJECT_SOURCE_DIR}/thirdparty/eigen)
 include_directories(${PROJECT_SOURCE_DIR}/thirdparty/sophus)
 include_directories(${PROJECT_SOURCE_DIR}/thirdparty/g2o)
@@ -32,6 +40,15 @@ include_directories(/usr/include/suitesparse)
 # GTest
 find_package(GTest REQUIRED)
 include_directories(${GTEST_INCLUDE_DIRS})
+
+add_library(ui SHARED
+        src/ui/pangolinWindowImpl.cpp
+        src/ui/pangolinWindow.cpp
+        src/ui/trajectoryUI.cpp
+        src/ui/cloudUI.cpp
+)
+
+target_link_libraries(ui ${pangolin_libs} ${g2o_libs} ${dbow_libs})
 
 add_library(lvio SHARED
     src/frame.cpp
