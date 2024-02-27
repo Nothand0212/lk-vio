@@ -12,47 +12,47 @@
 
 namespace lvio
 {
-class MapPoint;
-class KeyFrame;
+  class MapPoint;
+  class KeyFrame;
 
-class Feature
-{
-  /* 方法 */
-public:
-  EIGEN_MAKE_ALIGNED_OPERATOR_NEW
+  class Feature
+  {
+    /* 方法 */
+  public:
+    EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
-  // 重命名智能指针
-  typedef std::shared_ptr<Feature> Ptr;
-  Feature() = default;
-  Feature( const cv::KeyPoint &key_point );
-  Feature( std::shared_ptr<KeyFrame> key_frame, const cv::KeyPoint &key_point );
-  ~Feature() = default;
+    // 重命名智能指针
+    typedef std::shared_ptr<Feature> Ptr;
+    Feature() = default;
+    Feature( const cv::KeyPoint &key_point );
+    Feature( std::shared_ptr<KeyFrame> key_frame, const cv::KeyPoint &key_point );
+    ~Feature() = default;
 
-  void         setKeyPoint( const cv::KeyPoint &key_point );
-  cv::KeyPoint getKeyPoint();
+    void         setKeyPoint( const cv::KeyPoint &key_point );
+    cv::KeyPoint getKeyPoint();
 
-  void                      setKeyFramePtr( std::shared_ptr<KeyFrame> key_frame );
-  std::shared_ptr<KeyFrame> getKeyFramePtr();
+    void                      setKeyFramePtr( std::shared_ptr<KeyFrame> key_frame );
+    std::shared_ptr<KeyFrame> getKeyFramePtr();
 
-  void                      setMapPointPtr( std::shared_ptr<MapPoint> map_point );
-  std::shared_ptr<MapPoint> getMapPointPtr();
+    void                      setMapPointPtr( std::shared_ptr<MapPoint> map_point );
+    std::shared_ptr<MapPoint> getMapPointPtr();
 
-  void setOutlierFlag( bool is_outlier );
-  bool getOutlierFlag();
+    void setOutlierFlag( bool is_outlier );
+    bool getOutlierFlag();
 
-  void setLeftImageFlag( bool is_on_left_image );
-  bool getLeftImageFlag();
+    void setLeftImageFlag( bool is_on_left_image );
+    bool getLeftImageFlag();
 
 
-private:
-  cv::KeyPoint            key_point_;
-  std::weak_ptr<KeyFrame> key_frame_wptr_;
-  std::weak_ptr<MapPoint> map_point_wprt_;
+  private:
+    cv::KeyPoint            key_point_;
+    std::weak_ptr<KeyFrame> key_frame_wptr_;
+    std::weak_ptr<MapPoint> map_point_wprt_;
 
-  bool is_outlier_       = false;
-  bool is_on_left_image_ = true;  // 是否在左图像中
-};
-//
+    bool is_outlier_       = false;
+    bool is_on_left_image_ = true;  // 是否在左图像中
+  };
+  //
 }  // namespace lvio
 
 #endif  // LVIO_FEATURE_HPP

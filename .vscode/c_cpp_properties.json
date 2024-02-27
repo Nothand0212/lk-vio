@@ -4,7 +4,9 @@
             "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/**",
-                "/home/lin/Projects/vio_ws/src/lvio/include"
+                "${workspaceFolder}/include/**",
+                "/usr/include/opencv4",
+                "/usr/local/include/**"
             ],
             "defines": [],
             "cStandard": "c17",

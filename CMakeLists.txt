@@ -37,9 +37,20 @@ include_directories(${PROJECT_SOURCE_DIR}/thirdparty/g2o)
 include_directories(${PROJECT_SOURCE_DIR}/thirdparty)
 
 include_directories(/usr/include/suitesparse)
+
 # GTest
 find_package(GTest REQUIRED)
 include_directories(${GTEST_INCLUDE_DIRS})
+
+# ONNX Runtime
+set(ONNXRUNTIME_ROOTDIR /home/lin/Projects/onnxruntime-linux-x64-gpu-1.16.3)
+message(STATUS "ONNXRUNTIME_ROOTDIR: ${ONNXRUNTIME_ROOTDIR}")
+include_directories(${ONNXRUNTIME_ROOTDIR}/include)
+link_directories(${ONNXRUNTIME_ROOTDIR}/lib)
+
+# spd log
+find_package(spdlog REQUIRED)
+message(spdlog_VERSION: ${spdlog_VERSION})
 
 add_library(ui SHARED
         src/ui/pangolinWindowImpl.cpp
