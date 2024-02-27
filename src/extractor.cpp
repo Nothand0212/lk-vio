@@ -582,7 +582,8 @@ namespace lvio
 #ifdef DEBUG
       INFO( logger, "inference image time consumed: {0}", timer.tocGetDuration() );
 #endif
-      key_frame.setDescriptors( this->m_key_points );
+      key_frame.setDescriptors( this->m_key_points.getDescriptor() );
+      key_frame.setKeyPoints( this->m_key_points.getKeyPoints() );
 
       return true;
     }
