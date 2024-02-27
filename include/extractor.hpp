@@ -19,6 +19,7 @@
 #include "configuration.h"
 #include "data/key_points.h"
 #include "image_process.h"
+#include "keyFrame.hpp"
 #include "utilities/accumulate_average.h"
 #include "utilities/color.h"
 #include "utilities/timer.h"
@@ -42,6 +43,7 @@ namespace lvio
     std::vector<char*>                m_vec_output_names;
     std::vector<std::vector<int64_t>> m_vec_output_shapes;
 
+    // TODO: change this data struct
     KeyPoints m_key_points;
 
     Timer             m_timer;
@@ -66,6 +68,9 @@ namespace lvio
     int initOrtEnv( const Config& config ) override;
 
     KeyPoints inferenceImage( const Config& config, const cv::Mat& image );
+    bool      inferenceKeyFrame( const Config& config, KeyFrame& key_frame );
+
+
     KeyPoints getKeyPoints() const;
     float     getScale() const;
     int       getHeightTransformed() const;

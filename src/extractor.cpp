@@ -564,6 +564,36 @@ namespace lvio
     }
   }
 
+
+  KeyPoints Extracotr::inferenceKeyFrame( const Config& config, KeyFrame& key_frame )
+  {
+    INFO( logger, "**** Inferencing key frame ****" );
+
+
+#ifdef DEBUG
+    Timer timer;
+    timer.tic();
+#endif
+
+    cv::Mat image_temp = prePorcess( config, key_frame.getLeftImage(), m_scale );
+
+    if ( inference( config, image_temp ) == EXIT_SUCCESS )
+    {
+#ifdef DEBUG
+      INFO( logger, "inference image time consumed: {0}", timer.tocGetDuration() );
+#endif
+      key_frame.setDescriptors( this->m_key_points );
+
+      return true;
+    }
+    else
+    {
+      ERROR( logger, "Failed to inference image" );
+      return false;
+    }
+  }
+
+
   KeyPoints Extracotr::getKeyPoints() const
   {
     return m_key_points;

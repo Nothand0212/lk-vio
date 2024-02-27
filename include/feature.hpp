@@ -45,12 +45,12 @@ namespace lvio
 
 
   private:
-    cv::KeyPoint            key_point_;
-    std::weak_ptr<KeyFrame> key_frame_wptr_;
-    std::weak_ptr<MapPoint> map_point_wprt_;
+    cv::KeyPoint            m_key_point;
+    std::weak_ptr<KeyFrame> m_wptr_key_frame;
+    std::weak_ptr<MapPoint> m_wptr_map_point;
 
-    bool is_outlier_       = false;
-    bool is_on_left_image_ = true;  // 是否在左图像中
+    bool is_outlier_        = false;
+    bool is_on_m_left_image = true;  // 是否在左图像中
   };
   //
 }  // namespace lvio

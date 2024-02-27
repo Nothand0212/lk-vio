@@ -21,22 +21,22 @@ namespace lvio
     // 这样可以避免不必要的构造函数调用和内存分配，从而提高程序的性能。此外，使用成员初始化列表的方式还可以确保所有成员变量都被正确地初始化，从而避免了一些潜在的错误。
     Camera( double fx, double fy, double cx, double cy, double baseline,
             const Sophus::SE3d &pose, const cv::Mat dist_coef )
-        : fx_( fx ), fy_( fy ), cx_( cx ), cy_( cy ), baseline_( baseline ), pose_( pose ), dist_coef_( dist_coef )
+        : fx_( fx ), fy_( fy ), cx_( cx ), cy_( cy ), baseline_( baseline ), m_pose( pose ), dist_coef_( dist_coef )
     {
       K_ << fx_, 0, cx_, 0, fy_, cy_, 0, 0, 1;
-      pose_inv_ = pose_.inverse();
+      pose_inv_ = m_pose.inverse();
     }
 
     Camera( const Eigen::Matrix3d &K, const double &baseline,
             const Sophus::SE3d &pose, const cv::Mat &dist_coef )
-        : K_( K ), baseline_( baseline ), pose_( pose ), dist_coef_( dist_coef )
+        : K_( K ), baseline_( baseline ), m_pose( pose ), dist_coef_( dist_coef )
     {
       fx_ = K_( 0, 0 );
       fy_ = K_( 1, 1 );
       cx_ = K_( 0, 2 );
       cy_ = K_( 1, 2 );
 
-      pose_inv_ = pose_.inverse();
+      pose_inv_ = m_pose.inverse();
     }
 
     void         setPose( const Sophus::SE3d &pose );
@@ -72,7 +72,7 @@ namespace lvio
   private:
     double          fx_ = 0, fy_ = 0, cx_ = 0, cy_ = 0;
     double          baseline_ = 0;
-    Sophus::SE3d    pose_;
+    Sophus::SE3d    m_pose;
     Sophus::SE3d    pose_inv_;
     Eigen::Matrix3d K_;
     cv::Mat         dist_coef_;

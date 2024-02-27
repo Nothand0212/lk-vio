@@ -34,8 +34,8 @@ std::vector<cv::Point2f> normalizeKeyPoints( std::vector<cv::Point2f> key_points
 
   for ( const cv::Point2f& key_point : key_points )
   {
-    cv::Point2f key_point_normalized = ( key_point - shift ) / scale;
-    key_points_normalized.push_back( key_point_normalized );
+    cv::Point2f m_key_pointnormalized = ( key_point - shift ) / scale;
+    key_points_normalized.push_back( m_key_pointnormalized );
   }
   return key_points_normalized;
 }
