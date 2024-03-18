@@ -1,4 +1,7 @@
-# LK_VIO
+# LK-VIO
+
+[![Mail Badge](https://img.shields.io/badge/-linzeshi@foxmail.com-c14438?style=flat&logo=Gmail&logoColor=white&link=mailto:linzeshi@foxmail.com)](mailto:linzeshi@foxmail.com)
+[![B站](https://img.shields.io/badge/BiLiBiLi-%E5%AD%A6%E4%B9%9C%E9%87%8E-yellow)](https://space.bilibili.com/22863858?spm_id_from=333.788.0.0)
 
 一个简单的视觉SLAM项目。
 
@@ -9,6 +12,8 @@
 ## 实验结果 📈
 
 ### KITTI数据集
+
+b站视频： [kitti_00](https://b23.tv/xFHpiMm)
 
 在kitti00上跑，纯VO时间消耗如下：
 
