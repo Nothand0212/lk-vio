@@ -1,0 +1,73 @@
+{
+    "path": {
+        "data_set_path": "/home/lin/Datasets/kitti/data_odometry_gray/00",
+        "trajectory_path": "/home/lin/Projects/lk_ws/src/lk-vio/result/kitti_00.txt",
+        "dbow2_voc_path": "/home/lin/Projects/lk_ws/src/lk-vio/vocabulary/ORBvoc.bin",
+        "log_data_path": "/home/lin/Projects/lk_ws/src/lk-vio/log_data/test_system.log"
+    },
+    "camera": {
+        "left": {
+            "fx": 718.856,
+            "fy": 718.856,
+            "cx": 607.1928,
+            "cy": 185.2157,
+            "k1": 0.0,
+            "k2": 0.0,
+            "p1": 0.0,
+            "p2": 0.0,
+            "k3": 0.0
+        },
+        "right": {
+            "fx": 718.856,
+            "fy": 718.856,
+            "cx": 607.1928,
+            "cy": 185.2157,
+            "k1": 0.0,
+            "k2": 0.0,
+            "p1": 0.0,
+            "p2": 0.0,
+            "k3": 0.0
+        },
+        "baseline": 386.1448,
+        "width": 1241,
+        "height": 376,
+        "need_undistortion": false
+    },
+    "map": {
+        "active_map_size": 12,
+        "init_landmark_size": 200
+    },
+    "tracking_status": {
+        "init_good": 100,
+        "track_good": 50,
+        "track_bad": 10
+    },
+    "extractor": {
+        "init_features_num": 300,
+        "track_features_num": 2000,
+        "scale_factor": 1.2,
+        "pyramid_level": 8,
+        "init_fast_threshold": 20,
+        "min_fast_threshold": 7
+    },
+    "back_end": {
+        "activate": true
+    },
+    "loop_closure": {
+        "activate": true,
+        "show_result": false,
+        "max_threshold": 0.027,
+        "min_threshold": 0.02,
+        "min_database_size": 50,
+        "pyramid_level": 8
+    },
+    "viewer": {
+        "view_point_x": 0,
+        "view_point_y": 1000,
+        "view_point_z": 0,
+        "camera_focus": 5000,
+        "axis_direction": 6,
+        "show_extractor_result_cv": false,
+        "show_lk_matcher_result_cv": false
+    }
+}

@@ -24,15 +24,15 @@
 // NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+#include <Eigen/Core>
+#include <Eigen/StdVector>
 #include <cmath>
 #include <fstream>
 #include <iostream>
 #include <vector>
 
-#include <Eigen/Core>
-#include <Eigen/StdVector>
-
 #include "g2o/core/block_solver.h"
+#include "g2o/core/factory.h"
 #include "g2o/core/optimization_algorithm_gauss_newton.h"
 #include "g2o/core/optimization_algorithm_levenberg.h"
 #include "g2o/core/robust_kernel_impl.h"
@@ -44,8 +44,6 @@
 #include "g2o/types/slam3d/edge_se3.h"
 #include "g2o/types/slam3d/types_slam3d.h"
 #include "g2o/types/slam3d/vertex_se3.h"
-
-#include "g2o/core/factory.h"
 
 using namespace std;
 using namespace g2o;
@@ -90,7 +88,7 @@ void ToEdgeSim3(const g2o::EdgeSE3& e_se3, g2o::EdgeSim3* const e_sim3) {
 // This example optimize the data created by create_sphere.
 // Because the data is recore by VertexSE3 and EdgeSE3, SE3 is used for
 // interface and Sim is used for optimization.
-// g2o_viewer is avaliable to the result.
+// g2o_viewer is available to the result.
 
 int main(int argc, char** argv) {
   g2o_type_VertexSE3();
@@ -109,7 +107,7 @@ int main(int argc, char** argv) {
   typedef g2o::LinearSolverEigen<BlockSolverType::PoseMatrixType>
       LinearSolverType;
   auto solver = new g2o::OptimizationAlgorithmLevenberg(
-      g2o::make_unique<BlockSolverType>(g2o::make_unique<LinearSolverType>()));
+      std::make_unique<BlockSolverType>(std::make_unique<LinearSolverType>()));
 
   g2o::SparseOptimizer optimizer;
   optimizer.setAlgorithm(solver);

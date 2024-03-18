@@ -1,134 +1,33 @@
 cmake_minimum_required(VERSION 3.10)
-project(lvio)
-# add_compile_definitions(_GLIBCXX_USE_CXX11_ABI=0)
+project(lk_vio)
 
 set(CMAKE_BUILD_TYPE Release)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_FLAGS "-w")
-set(CMAKE_CXX_FLAGS_RELEASE "-O0 -g -ggdb ${CMAKE_CXX_FLAGS} -lpthread")
-set(CMAKE_CXX_FLAGS_DEBUG "-g ${CMAKE_CXX_FLAGS}")
+set(CMAKE_CXX_FLAGS_RELEASE "-O3 ${CMAKE_CXX_FLAGS} -lpthread")
+set(CMAKE_CXX_FLAGS_DEBUG "-g -ggdb ${CMAKE_CXX_FLAGS}")
+
+set(CMAKE_INSTALL_RPATH "/home/lin/Projects/opencv-4.2.0/install/lib")
+
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/bin)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lib)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/lib)
 
+# set(OpenCV_DIR /home/lin/Projects/opencv-4.2.0/install/share/OpenCV)
+# find_package(OpenCV REQUIRED)
+# include_directories(${OpenCV_INCLUDE_DIRS})
+# link_directories(${OpenCV_LIB_DIR})
+# message("---- LK-VIO ----")
+# message(STATUS "OpenCV version: ${OpenCV_VERSION}")
+# message(STATUS "OpenCV include dirs: ${OpenCV_INCLUDE_DIRS}")
+# message(STATUS "OpenCV libraries: ${OpenCV_LIBS}")
 
-include_directories(${PROJECT_SOURCE_DIR}/include)
 
-# OpenCV 
-find_package(OpenCV REQUIRED)
-include_directories(${OpenCV_INCLUDE_DIRS})
-message(STATUS "OpenCV_INCLUDE_DIRS ${OpenCV_INCLUDE_DIRS}")
+include(cmake/packages.cmake)
 
-# 链接pthread库
-find_package(Threads REQUIRED)
+include_directories( ${PROJECT_SOURCE_DIR}/include)
 
-# Pangolin
-find_package(Pangolin REQUIRED)
-set(Pangolin_INCLUDE_DIRS /usr/local/include/pangolin)
-include_directories(${Pangolin_INCLUDE_DIRS})
-message(STATUS "Pangolin_INCLUDE_DIRS ${Pangolin_INCLUDE_DIRS}")
-message(STATUS "Pangolin Version ${Pangolin_VERSION}")
-# third party include path
+add_subdirectory(src)
+add_subdirectory(node)
 
-include_directories(${PROJECT_SOURCE_DIR}/thirdparty/eigen)
-include_directories(${PROJECT_SOURCE_DIR}/thirdparty/sophus)
-include_directories(${PROJECT_SOURCE_DIR}/thirdparty/g2o)
-include_directories(${PROJECT_SOURCE_DIR}/thirdparty)
-
-include_directories(/usr/include/suitesparse)
-
-# GTest
-find_package(GTest REQUIRED)
-include_directories(${GTEST_INCLUDE_DIRS})
-
-# ONNX Runtime
-set(ONNXRUNTIME_ROOTDIR /home/lin/Projects/onnxruntime-linux-x64-gpu-1.16.3)
-message(STATUS "ONNXRUNTIME_ROOTDIR: ${ONNXRUNTIME_ROOTDIR}")
-include_directories(${ONNXRUNTIME_ROOTDIR}/include)
-link_directories(${ONNXRUNTIME_ROOTDIR}/lib)
-
-# spd log
-find_package(spdlog REQUIRED)
-message(spdlog_VERSION: ${spdlog_VERSION})
-
-add_library(ui SHARED
-        src/ui/pangolinWindowImpl.cpp
-        src/ui/pangolinWindow.cpp
-        src/ui/trajectoryUI.cpp
-        src/ui/cloudUI.cpp
-)
-
-target_link_libraries(ui ${pangolin_libs} ${g2o_libs} ${dbow_libs})
-
-add_library(lvio SHARED
-    src/frame.cpp
-    src/feature.cpp
-    src/mapPoint.cpp
-    src/keyFrame.cpp
-    src/map.cpp
-    src/camera.cpp
-    src/orbPattern.cpp
-    src/orbExtractor.cpp
-    src/setting.cpp
-    src/frontEnd.cpp
-)
-
-# sudo apt install -y qt5-qmake qt5-default libqglviewer-dev-qt5 libsuitesparse-dev libcxsparse3 libcholmod3
-# csparse
-set(CSparse_INCLUDE_DIR /usr/include/suitesparse)
-# set(CSparse_DIR /usr/include)
-set(CSparse_LIBRARY /usr/lib/x86_64-linux-gnu/libsuitesparse.so)
-# set(CMAKE_PREFIX_PATH /usr)
-# find_package(CSparse REQUIRED)
-# include_directories(${CSPARSE_INCLUDE_DIR})
-
-# # cholmod
-# find_package(Cholmod REQUIRED)
-# include_directories(${CHOLMOD_INCLUDE_DIRS})
-set(Cholmod_INCLUDE_DIR /usr/include/suitesparse)
-set(Cholmod_LIBRARY /usr/lib/x86_64-linux-gnu/libsuitesparse.so)
-
-set(g2o_libs
-        ${CSPARSE_LIBRARY} ${CHOLMOD_LIBRARY}
-        ${PROJECT_SOURCE_DIR}/thirdparty/g2o/lib/libg2o_stuff.so
-        ${PROJECT_SOURCE_DIR}/thirdparty/g2o/lib/libg2o_core.so
-        ${PROJECT_SOURCE_DIR}/thirdparty/g2o/lib/libg2o_solver_dense.so
-        ${PROJECT_SOURCE_DIR}/thirdparty/g2o/lib/libg2o_solver_csparse.so
-        ${PROJECT_SOURCE_DIR}/thirdparty/g2o/lib/libg2o_csparse_extension.so
-        ${PROJECT_SOURCE_DIR}/thirdparty/g2o/lib/libg2o_types_sba.so
-)
-
-set(dbow_libs ${PROJECT_SOURCE_DIR}/thirdparty/DBoW2/lib/libDBoW2.so)
-target_link_libraries(lvio glog ${g2o_libs})
-
-# 添加测试用例
-add_executable( test_frame test/test_frame.cpp )
-target_link_libraries( test_frame gtest gtest_main ${OpenCV_LIBS} Threads::Threads lvio ${dbow_libs})
-
-add_executable(test_keyFrame test/test_keyFrame.cpp)
-target_link_libraries(test_keyFrame gtest gtest_main ${OpenCV_LIBS} Threads::Threads lvio ${dbow_libs})
-
-add_executable(test_feature test/test_feature.cpp)
-target_link_libraries(test_feature gtest gtest_main ${OpenCV_LIBS} Threads::Threads lvio ${dbow_libs})
-
-add_executable(test_mapPoint test/test_mapPoint.cpp)
-target_link_libraries(test_mapPoint gtest gtest_main ${OpenCV_LIBS} Threads::Threads lvio ${dbow_libs})
-
-add_executable(test_map test/test_map.cpp)
-target_link_libraries(test_map gtest gtest_main ${OpenCV_LIBS} Threads::Threads lvio ${dbow_libs})
-
-add_executable(test_camera test/test_camera.cpp)
-target_link_libraries(test_camera gtest gtest_main ${OpenCV_LIBS} Threads::Threads lvio ${dbow_libs})
-
-# add_executable(test_orbExtractor test/test_orbExtractor.cpp)
-# target_link_libraries(test_orbExtractor gtest gtest_main ${OpenCV_LIBS} Threads::Threads lvio ${dbow_libs})
-
-add_executable(test_setting test/test_setting.cpp)
-target_link_libraries(test_setting gtest gtest_main ${OpenCV_LIBS} Threads::Threads lvio  ${dbow_libs})
-
-add_executable(test_frontEnd test/test_frontEnd.cpp)
-target_link_libraries(test_frontEnd gtest gtest_main ${OpenCV_LIBS} Threads::Threads lvio  ${dbow_libs})
-
-# 添加测试
-add_test( NAME test_frame COMMAND test_frame )

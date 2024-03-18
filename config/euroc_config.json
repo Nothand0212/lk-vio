@@ -1,0 +1,92 @@
+{
+    "path": {
+        "data_set_path": "/home/lin/Datasets/kitti/data_odometry_gray/00",
+        "trajectory_path": "/home/lin/Projects/lk-vio/result/kitti_00.txt",
+        "dbow2_voc_path": "/home/lin/Projects/ssvio/vocabulary/ORBvoc.bin",
+        "log_data_path": "/home/lin/Projects/lk-vio/log_data/test_system.log"
+    },
+    "camera": {
+        "left": {
+            "fx": 435.2046959714599,
+            "fy": 435.2046959714599,
+            "cx": 367.4517211914062,
+            "cy": 252.2008514404297,
+            "k1": -0.28340811,
+            "k2": 0.07395907,
+            "p1": 0.00019359,
+            "p2": 1.76187114e-05,
+            "k3": 0.0,
+            "distortion_matrix" : [-0.28340811, 0.07395907, 0.00019359, 1.76187114e-05, 0.0],
+            "intrinsics_matrix" :[458.654, 0.0, 367.215, 0.0, 457.296, 248.375, 0.0, 0.0, 1.0],
+            "rotation_matrix" : [0.999966347530033, -0.001422739138722922, 0.008079580483432283, 0.001365741834644127, 0.9999741760894847, 0.007055629199258132, -0.008089410156878961, -0.007044357138835809, 0.9999424675829176],
+            "projection_matrix" : [435.2046959714599, 0, 367.4517211914062, 0,  0, 435.2046959714599, 252.2008514404297, 0,  0, 0, 1, 0]
+        },
+        "right": {
+            "fx": 435.2046959714599,
+            "fy": 435.2046959714599,
+            "cx": 367.4517211914062,
+            "cy": 252.2008514404297,
+            "k1": -0.28368365,
+            "k2": 0.07451284,
+            "p1": -0.00010473,
+            "p2": -3.555907e-05,
+            "k3": 0.0,
+            "distortion_matrix" : [-0.28368365, 0.07451284, -0.00010473, -3.555907e-05, 0.0],
+            "intrinsics_matrix" : [457.587, 0.0, 379.999, 0.0, 456.134, 255.238, 0.0, 0.0, 1],
+            "rotation_matrix" :  [0.9999633526194376, -0.003625811871560086, 0.007755443660172947, 0.003680398547259526, 0.9999684752771629, -0.007035845251224894, -0.007729688520722713, 0.007064130529506649, 0.999945173484644],
+            "projection_matrix" : [435.2046959714599, 0, 367.4517211914062, -47.90639384423901, 0, 435.2046959714599, 252.2008514404297, 0, 0, 0, 1, 0]
+        },
+        "transformation_to_imu": [0.0148655429818, -0.999880929698, 0.00414029679422, -0.0216401454975,
+                                  0.999557249008, 0.0149672133247, 0.025715529948, -0.064676986768,
+                                 -0.0257744366974, 0.00375618835797, 0.999660727178, 0.00981073058949,
+                                  0.0, 0.0, 0.0, 1.0],
+        "baseline": 47.90639384423901,
+        "width": 752,
+        "height": 480,
+        "need_undistortion": false
+    },
+    "imu":{
+        "acc_noise": 2.0e-03,
+        "gyro_noise": 1.7e-04,
+        "acc_bias": 3.0e-03,
+        "gyro_bias": 1.9393e-05,
+        "frequency": 200
+    },
+    "map": {
+        "active_map_size": 12,
+        "init_landmark_size": 200
+    },
+    "tracking_status": {
+        "init_good": 100,
+        "track_good": 50,
+        "track_bad": 10
+    },
+    "extractor": {
+        "init_features_num": 300,
+        "track_features_num": 100,
+        "scale_factor": 1.2,
+        "pyramid_level": 8,
+        "init_fast_threshold": 20,
+        "min_fast_threshold": 7
+    },
+    "back_end": {
+        "activate": true
+    },
+    "loop_closure": {
+        "activate": true,
+        "show_result": false,
+        "max_threshold": 0.027,
+        "min_threshold": 0.02,
+        "min_database_size": 50,
+        "pyramid_level": 8
+    },
+    "viewer": {
+        "view_point_x": 0,
+        "view_point_y": 1000,
+        "view_point_z": 0,
+        "camera_focus": 5000,
+        "axis_direction": 6,
+        "show_extractor_result_cv": false,
+        "show_lk_matcher_result_cv": false
+    }
+}

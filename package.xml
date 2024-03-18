@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<package>
+    <name>lk_vio</name>
+    <description>lk_vio</description>   
+    <version>1.0.0</version>
+    <maintainer email="linzeshi@foxmail.com">linzeshi</maintainer>
+
+    <license>GPL</license>
+
+    <buildtool_depend>catkin</buildtool_depend> 
+    <build_depend>roscpp</build_depend>
+    <build_depend>std_msgs</build_depend>
+    <build_depend>sensor_msgs</build_depend>
+    <build_depend>geometry_msgs</build_depend>
+    <build_depend>nav_msgs</build_depend>
+
+    <run_depend>roscpp</run_depend>
+    <run_depend>std_msgs</run_depend>
+    <run_depend>sensor_msgs</run_depend>
+    <run_depend>geometry_msgs</run_depend>
+    <run_depend>nav_msgs</run_depend>
+
+    <build_depend>g2o_libs</build_depend>
+    <run_depend>g2o_libs</run_depend>
+
+    <build_depend>dbow_libs</build_depend>
+    <run_depend>dbow_libs</run_depend>
+
+
+</package>

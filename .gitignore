@@ -1,4 +1,11 @@
-/.vscode/
-/bin/
-/build/
-/lib/
+build/
+log_data/
+.vscode/
+.idea/
+thirdparty/g2o/build/
+thirdparty/DBoW2/build/
+kittidataset/
+bin/
+lib/
+result/*.txt
+vocabulary/ORBvoc.txt
