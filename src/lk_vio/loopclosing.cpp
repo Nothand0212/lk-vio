@@ -208,13 +208,16 @@ namespace lk_vio
     cv::eigen2cv( left_camera_->getK(), K );
     Eigen::Matrix3d Reigen;
     Eigen::Vector3d teigen;
-    // use "try - catch" since cv::solvePnPRansac may fail because of terrible match result
-    // and I don't know why the result of solvePnPRansac() is sometimes not reliable
-    //      even the reprojection error of inlier is high
+    
+    // TODO: change to MLPnP like ORB-SLAM3
     try
     {
-      cv::solvePnPRansac(
-          loop_point3f, current_point2f, K, cv::Mat(), rvec, tvec, false, 100, 5.991, 0.99 );
+      cv::solvePnPRansac( loop_point3f, current_point2f, K, cv::Mat(), rvec, tvec, false, 100, 5.991, 0.99 );
+    }
+    catch ( const std::exception &e )
+    {
+      ERROR( lk_vio::logger, "LoopClosing: cv::solvePnPRansac() failed with exception: {0}", e.what() );
+      return false;
     }
     catch ( ... )
     {
@@ -237,13 +240,14 @@ namespace lk_vio
 
     double error = ( current_keyframe_->getPose() * corrected_current_pose_.inverse() ).log().norm();
 
-    if ( error > 1 && error < 15 )
+    if ( error > 1.0f && error < 15.0f )
     {
-      INFO( lk_vio::logger, "Loop Error: {0}", error );
+      WARN( lk_vio::logger, "Loop Error: {0} --> Need To Correct Loop Pose", error );
       need_correct_loop_pose_ = true;
     }
     else
     {
+      INFO( lk_vio::logger, "Loop Error: {0} --> No Need to Correct Loop Pose.", error );
       need_correct_loop_pose_ = false;
     }
 
