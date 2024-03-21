@@ -23,3 +23,5 @@ message(STATUS "----DBoW Libs: ${dbow_libs}")
 message(STATUS "----OpenCV Libs: ${OpenCV_LIBS}")
 target_link_libraries(lk_vio ${g2o_libs} ${dbow_libs}  ${GLOG_LIBRARIES} ${OpenCV_LIBS} ${catkin_LIBRARIES} pthread logger configuration )
 
+add_library(imu_preintegration SHARED lk_vio/imu_preintegration.cpp)
+target_link_libraries(imu_preintegration  ${OpenCV_LIBS}  pthread   )
