@@ -1,15 +1,24 @@
 #include "logger/logger.h"
+
+#include "common/color.hpp"
 namespace lk_vio
 {
-std::shared_ptr<spdlog::logger> logger;
+  std::shared_ptr<spdlog::logger> logger;
 
-void initLogger( const std::string& log_path )
-{
-  auto console_logger_sptr = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
-  auto file_logger_sptr    = std::make_shared<spdlog::sinks::basic_file_sink_mt>( log_path, true );
-  logger                   = std::make_shared<spdlog::logger>( "MineLog", spdlog::sinks_init_list{ console_logger_sptr, file_logger_sptr } );
+  void initLogger( const std::string& log_path )
+  {
+    auto console_logger_sptr = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
+    console_logger_sptr->set_color( spdlog::level::info, GREEN );
+    console_logger_sptr->set_color( spdlog::level::debug, REDPURPLE );
+    console_logger_sptr->set_color( spdlog::level::trace, CYAN );
+    console_logger_sptr->set_color( spdlog::level::warn, BOLDYELLOW );
+    console_logger_sptr->set_color( spdlog::level::err, BOLDRED );
 
-  // Set the log format
-  logger->set_pattern( "[%Y-%m-%d %H:%M:%S.%e] [%n] [%^%l%$] [%@:%#] %v" );
-}
+
+    auto file_logger_sptr = std::make_shared<spdlog::sinks::basic_file_sink_mt>( log_path, true );
+    logger                = std::make_shared<spdlog::logger>( "MineLog", spdlog::sinks_init_list{ console_logger_sptr, file_logger_sptr } );
+
+    // Set the log format
+    logger->set_pattern( "[%Y-%m-%d %H:%M:%S.%e] [%n] [%^%l%$] [%@:%#] %v" );
+  }
 }  // namespace lk_vio
