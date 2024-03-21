@@ -13,7 +13,7 @@
 
 ### KITTI数据集
 
-b站视频： [kitti_00](https://b23.tv/xFHpiMm)
+Video On Bilibili: [kitti_00](https://b23.tv/xFHpiMm)
 
 在kitti00上跑，纯VO时间消耗如下：
 
@@ -21,8 +21,9 @@ b站视频： [kitti_00](https://b23.tv/xFHpiMm)
 [2024-03-16 23:51:54.863] [MineLog] [info] [/home/lin/Projects/lk-vio/node/offline_kitti_ros_node.cpp:59:59] Has processed 4500 frames.
 [2024-03-16 23:51:54.863] [MineLog] [info] [/home/lin/Projects/lk-vio/node/offline_kitti_ros_node.cpp:60:60] Time Comsumed: 18.191437 ms, Average Time Consumed: 14.930101216270316 ms
 ```
-
-![kitti-00-vo](doc/kitti-00-VO.png)
+<div align="center">
+    <img src=doc/kitti-00-VO.png height="320">
+</div>
 
 前端+后端+回环，时间消耗如下：
 
@@ -31,7 +32,10 @@ b站视频： [kitti_00](https://b23.tv/xFHpiMm)
 [2024-03-17 00:02:50.250] [MineLog] [info] [/home/lin/Projects/lk-vio/node/offline_kitti_ros_node.cpp:60:60] Time Comsumed: 24.216882 ms, Average Time Consumed: 18.16421585418985 ms
 ```
 
-![kitti-00-vo+backend+loop](doc/kitti-00-vo(backen+loopclose).png)
+<div align="center">
+    <img src=doc/kitti-00-VO.gif height="320">
+</div>
+
 
 ## 安装 🛠️
 
