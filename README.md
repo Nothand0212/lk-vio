@@ -136,7 +136,7 @@ catkin_make
 运行需要带上`.json`参数文件。
 
 ```sh
-./bin/offline_node_ros_kitti /home/lin/Projects/ssvio/config/config.json
+./bin/offline_node_ros_kitti /home/lin/Projects/lk_vio/config/config.json
 ```
 
 - 如果想用roslanch，需要手动修改`launch/offline_kitti.launch`文件，修改`args`参数为你的`.json`文件路径。
