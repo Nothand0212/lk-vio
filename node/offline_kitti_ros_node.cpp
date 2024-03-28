@@ -4,13 +4,14 @@
 
 #include "chrono"
 #include "common/configuration.hpp"
+#include "common/param_server.hpp"
 #include "common/read_kitii_dataset.hpp"
 #include "common/statisticsOnline.h"
 #include "common/timer.hpp"
 #include "lk_vio/system.hpp"
 #include "logger/logger.h"
 using namespace spdlog;
-int main( int argc, char **argv )
+int main( int argc, char** argv )
 {
   if ( argc < 2 )
   {
@@ -21,7 +22,9 @@ int main( int argc, char **argv )
   ros::init( argc, argv, "lk_vio", ros::init_options::NoSigintHandler );
 
 
-  common::Configuration config;
+  // common::Configuration config;
+  // config.readConfigFile( argv[ 1 ] );
+  lk_vio::common::ParamServer& config = lk_vio::common::ParamServer::getInstance();
   config.readConfigFile( argv[ 1 ] );
 
   lk_vio::initLogger( config.log_data_path );

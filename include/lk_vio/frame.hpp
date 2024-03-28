@@ -1,46 +1,66 @@
 #pragma once
 #include "Eigen/Core"
+#include "lk_vio/feature.hpp"
+#include "lk_vio/imu_frame.hpp"
+#include "lk_vio/imu_preintegration.hpp"
 #include "memory"
 #include "mutex"
 #include "opencv2/opencv.hpp"
 #include "sophus/se3.hpp"
-
 namespace lk_vio
 {
-class Feature;
+  class Feature;
+  class IMUBias;
+  class IMUCalibration;
+  class IntegratedRotation;
+  class Preintegrated;
 
-class Frame
-{
-public:
-  EIGEN_MAKE_ALIGNED_OPERATOR_NEW;
-  typedef std::shared_ptr<Frame> Ptr;
-  Frame()  = default;
-  ~Frame() = default;
+  class Frame
+  {
+  public:
+    EIGEN_MAKE_ALIGNED_OPERATOR_NEW;
+    typedef std::shared_ptr<Frame> Ptr;
+    Frame()  = default;
+    ~Frame() = default;
 
-  Frame( const cv::Mat &leftImg, const cv::Mat &rightImg, const double &dTimeStamp );
-  void SetPose( const Sophus::SE3d &pose );
-  /// the relative pose to the reference KF
-  void         SetRelativePose( const Sophus::SE3d &relativePose );
-  Sophus::SE3d getPose();
-  Sophus::SE3d getRelativePose();
+    // withou imu
+    Frame( const cv::Mat &leftImg, const cv::Mat &rightImg, const double &dTimeStamp );
 
-public:
-  unsigned long frame_id_;
-  double        timestamp_;
+    // with imu
+    Frame( const cv::Mat &leftImg, const cv::Mat &rightImg, const double &dTimeStamp, const IMUCalibration &imuCalib );
+    void SetPose( const Sophus::SE3d &pose );
+    /// the relative pose to the reference KF
+    void         SetRelativePose( const Sophus::SE3d &relativePose );
+    Sophus::SE3d getPose();
+    Sophus::SE3d getRelativePose();
 
-  cv::Mat left_image_, right_image_;
+    // related with IMU
+    void setVelocity( const Eigen::Vector3d &velocity );
 
-  std::vector<std::shared_ptr<Feature>> features_left_;
-  std::vector<std::shared_ptr<Feature>> features_right_;
+  public:
+    unsigned long frame_id_;
+    double        timestamp_;
 
-private:
-  Sophus::SE3d pose_;
-  /// for tracking, What is stored is the pose relative to the previous keyframe T_{c_i {i-t}}
-  /// Here we regard the moment i-t as a key frame, and i is the current moment
-  Sophus::SE3d relative_pose_to_kf_;
+    cv::Mat left_image_, right_image_;
 
-  std::mutex update_pose_;
-  std::mutex update_realteive_pose_;
-};
+    std::vector<std::shared_ptr<Feature>> features_left_;
+    std::vector<std::shared_ptr<Feature>> features_right_;
+
+  private:
+    Sophus::SE3d pose_;
+    /// for tracking, What is stored is the pose relative to the previous keyframe T_{c_i {i-t}}
+    /// Here we regard the moment i-t as a key frame, and i is the current moment
+    Sophus::SE3d relative_pose_to_kf_;
+
+    std::mutex update_pose_;
+    std::mutex update_realteive_pose_;
+
+    // related with IMU
+    IMUCalibration imu_calib_;
+    IMUBias        imu_bias_;
+    IMUBias        pre_imu_bias_;
+    Preintegrated *imu_preintegration_kf_;
+    Preintegrated *imu_preintegration_lf_;
+  };
 
 }  // namespace lk_vio

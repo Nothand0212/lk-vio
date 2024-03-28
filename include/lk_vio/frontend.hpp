@@ -4,9 +4,11 @@
 #include <thread>
 
 #include "common/configuration.hpp"
+#include "common/param_server.hpp"
 #include "lk_vio/algorithm.hpp"
 #include "lk_vio/camera.hpp"
 #include "lk_vio/g2otypes.hpp"
+#include "lk_vio/imu_frame.hpp"
 #include "lk_vio/ros_utilities.hpp"
 #include "mutex"
 #include "opencv2/opencv.hpp"
@@ -35,7 +37,8 @@ namespace lk_vio
   public:
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW;
     // EIGEN_DONT_ALIGN;
-    FrontEnd( const common::Configuration &config );
+    // FrontEnd( const common::Configuration &config );
+    FrontEnd( const common::ParamServer &config );
     ~FrontEnd() = default;
     void SetCamera( const Camera::Ptr &left, const Camera::Ptr &right );
     // void SetViewUI( const std::shared_ptr<ui::PangolinWindow> &ui );
@@ -56,6 +59,7 @@ namespace lk_vio
     int  EstimateCurrentPose();
     bool GrabSteroImage( const cv::Mat &left_img, const cv::Mat &right_img,
                          const double timestamp );
+    void GrabIMUData( const std::vector<ImuFrame> &imu_measures );  // for imu_preintegration,
 
   public:
     std::vector<uchar>        lk_status_;
@@ -100,5 +104,8 @@ namespace lk_vio
     bool show_orb_detect_result_    = false;
     bool show_lk_result_            = false;
     bool open_backend_optimization_ = true;
+
+    // related with imu preintegration
+    // std::vector<IMUFrame>
   };
 }  // namespace lk_vio

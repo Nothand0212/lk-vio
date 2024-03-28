@@ -6,7 +6,12 @@
 
 namespace lk_vio
 {
-  Map::Map( const common::Configuration &config )
+  // Map::Map( const common::Configuration &config )
+  // {
+  //   num_active_key_frames_ = config.map_params.active_map_size;
+  // }
+
+  Map::Map( const common::ParamServer &config )
   {
     num_active_key_frames_ = config.map_params.active_map_size;
   }

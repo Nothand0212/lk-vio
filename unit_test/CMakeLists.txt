@@ -1,0 +1,2 @@
+add_executable(param_server_test param_server_test.cpp)
+target_link_libraries(param_server_test  param_server)

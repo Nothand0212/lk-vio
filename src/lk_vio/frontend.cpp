@@ -1,9 +1,8 @@
-#include "lk_vio/frontend.hpp"
-
 #include "common/utilities.hpp"
 #include "lk_vio/backend.hpp"
 #include "lk_vio/feature.hpp"
 #include "lk_vio/frame.hpp"
+#include "lk_vio/frontend.hpp"
 #include "lk_vio/keyframe.hpp"
 #include "lk_vio/map.hpp"
 #include "lk_vio/mappoint.hpp"
@@ -11,7 +10,29 @@
 #include "logger/logger.h"
 namespace lk_vio
 {
-  FrontEnd::FrontEnd( const common::Configuration &config )
+  // FrontEnd::FrontEnd( const common::Configuration &config )
+  // {
+  //   num_features_init_good_     = config.tracking_status_params.init_good;
+  //   num_features_tracking_good_ = config.tracking_status_params.track_good;
+  //   num_features_tracking_bad_  = config.tracking_status_params.track_bad;
+  //   is_need_undistortion_       = config.camera_params.need_undistortion;
+  //   min_init_landmark_          = config.map_params.init_landmark_size;
+  //   open_backend_optimization_  = config.back_end_params.activate;
+  //   show_orb_detect_result_     = config.viewer_params.show_extractor_result_cv;
+  //   show_lk_result_             = config.viewer_params.show_lk_matcher_result_cv;
+
+  //   INFO( lk_vio::logger, "---- ---- FrontEnd Parameters ---- ----" );
+  //   INFO( lk_vio::logger, "Init Good Features: {0}", num_features_init_good_ );
+  //   INFO( lk_vio::logger, "Track Good Features: {0}", num_features_tracking_good_ );
+  //   INFO( lk_vio::logger, "Track Bad Features: {0}", num_features_tracking_bad_ );
+  //   INFO( lk_vio::logger, "Need Undistortion: {0}", is_need_undistortion_ );
+  //   INFO( lk_vio::logger, "Init Landmark Size: {0}", min_init_landmark_ );
+  //   INFO( lk_vio::logger, "Open Backend: {0}", open_backend_optimization_ );
+  //   INFO( lk_vio::logger, "Show ORB Detect Result: {0}", show_orb_detect_result_ );
+  //   INFO( lk_vio::logger, "Show LK Result: {0}", show_lk_result_ );
+  // }
+
+  FrontEnd::FrontEnd( const common::ParamServer &config )
   {
     num_features_init_good_     = config.tracking_status_params.init_good;
     num_features_tracking_good_ = config.tracking_status_params.track_good;
@@ -32,6 +53,8 @@ namespace lk_vio
     INFO( lk_vio::logger, "Show ORB Detect Result: {0}", show_orb_detect_result_ );
     INFO( lk_vio::logger, "Show LK Result: {0}", show_lk_result_ );
   }
+
+
   void FrontEnd::SetCamera( const Camera::Ptr &left, const Camera::Ptr &right )
   {
     assert( left != nullptr && right != nullptr );
@@ -67,25 +90,24 @@ namespace lk_vio
         }
         case FrontendStatus::LOST:
         {
-          /// TODO
+          /// TODO: search for keyframe from KeyFrameDatabase
           break;
         }
       }
     }
 
-    // if ( view_ui_ )
-    // {
-    //   view_ui_->AddCurrentFrame( current_frame_, this->lk_status_ );
-    // }
 
     if ( ros_utilities_ )
     {
       ros_utilities_->addCurrentFrame( current_frame_, this->lk_status_ );
-      // ros_utilities_->addCurrentPose( current_frame_->getPose(), timestamp );
     }
 
     last_frame_ = current_frame_;
     return true;
+  }
+
+  void FrontEnd::GrabIMUData( const std::vector<IMUFrame> &imu_measures )
+  {
   }
 
   bool FrontEnd::Track()
@@ -469,7 +491,9 @@ namespace lk_vio
     for ( size_t i = 0, N = current_frame_->features_left_.size(); i < N; i++ )
     {
       if ( current_frame_->features_right_[ i ] == nullptr )
+      {
         continue;
+      }
       /// create mappoints by triangulation
       std::vector<Eigen::Vector3d> points{
           left_camera_->pixel2camera(
@@ -492,11 +516,6 @@ namespace lk_vio
         {
           map_->InsertMapPoint( new_map_point );
         }
-        // TODO change to ros_utilities_
-        // if ( view_ui_ )
-        // {
-        //   view_ui_->AddShowPointCloud( new_map_point->getPosition() );
-        // }
 
         cnt_init_landmarks++;
       }
@@ -560,10 +579,6 @@ namespace lk_vio
           map_->InsertMapPoint( new_mappoint );
         }
 
-        // if ( view_ui_ )
-        // {
-        //   view_ui_->AddShowPointCloud( new_mappoint->getPosition() );
-        // }
 
         if ( ros_utilities_ )
         {
@@ -623,11 +638,6 @@ namespace lk_vio
     orb_extractor_ = orb;
   }
 
-  // void FrontEnd::SetViewUI( const std::shared_ptr<ui::PangolinWindow> &ui )
-  // {
-  //   assert( ui != nullptr );
-  //   view_ui_ = ui;
-  // }
 
   void FrontEnd::SetOrbInitExtractor( const std::shared_ptr<lk_vio::ORBextractor> &orb )
   {

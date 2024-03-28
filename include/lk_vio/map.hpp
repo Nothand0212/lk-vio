@@ -2,6 +2,7 @@
 
 #include "Eigen/Core"
 #include "common/configuration.hpp"
+#include "common/param_server.hpp"
 #include "list"
 #include "memory"
 #include "mutex"
@@ -19,7 +20,8 @@ namespace lk_vio
     typedef std::unordered_map<unsigned long, std::shared_ptr<KeyFrame>> KeyFramesType;
     typedef std::unordered_map<unsigned long, std::shared_ptr<MapPoint>> MapPointsType;
 
-    Map( const common::Configuration &config );
+    // Map( const common::Configuration &config );
+    Map( const common::ParamServer &config );
 
     /** insert new keyframe to the map and the active keyframes
     * insert new KF's mappoints to active mappoints

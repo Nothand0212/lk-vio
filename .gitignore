@@ -4,6 +4,7 @@ log_data/
 .idea/
 thirdparty/g2o/build/
 thirdparty/DBoW2/build/
+thirdparty/DBoW2/lib/
 kittidataset/
 bin/
 lib/

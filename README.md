@@ -156,6 +156,7 @@ roslaunch lk-vio offline_kitti.launch
 - - [x] 位姿可视化
 - - [x] 轨迹可视化
 - - [x] 图片可视化
+- - [ ] 回环连线可视化
 
 ## 参考
 

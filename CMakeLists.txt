@@ -29,5 +29,6 @@ include(cmake/packages.cmake)
 include_directories( ${PROJECT_SOURCE_DIR}/include)
 
 add_subdirectory(src)
+add_subdirectory(unit_test)
 add_subdirectory(node)
 

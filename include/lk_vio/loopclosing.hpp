@@ -5,6 +5,7 @@
 #include "filesystem"
 // #include "glog/logging.h"
 #include "common/configuration.hpp"
+#include "common/param_server.hpp"
 #include "list"
 #include "lk_vio/orbextractor.hpp"
 #include "lk_vio/orbvocabulary.hpp"
@@ -30,10 +31,13 @@ namespace lk_vio
   public:
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW;
     typedef std::shared_ptr<LoopClosing> Ptr;
-    LoopClosing( const common::Configuration &config );
+    // LoopClosing( const common::Configuration &config );
+    LoopClosing( const common::ParamServer &config );
     ~LoopClosing() = default;
-    void LoadParam( const common::Configuration &config );
-    void GenerateORBextractor( const common::Configuration &config );
+    // void LoadParam( const common::Configuration &config );
+    void LoadParam( const common::ParamServer &config );
+    // void GenerateORBextractor( const common::Configuration &config );
+    void GenerateORBextractor( const common::ParamServer &config );
 
     void LoopClosingThread();
     void ProcessNewKeyframe();

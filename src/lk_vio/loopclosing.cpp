@@ -12,7 +12,44 @@
 #include "logger/logger.h"
 namespace lk_vio
 {
-  LoopClosing::LoopClosing( const common::Configuration &config )
+  // LoopClosing::LoopClosing( const common::Configuration &config )
+  // {
+  //   LoadParam( config );
+  //   GenerateORBextractor( config );
+  //   loop_thread_is_running_.store( true );
+
+  //   cv_matcher_ = cv::DescriptorMatcher::create( "BruteForce-Hamming" );
+
+  //   std::string orb_voc_path = config.dbow2_voc_path;
+
+
+  //   if ( orb_voc_path.empty() )
+
+  //   {
+  //     ERROR( lk_vio::logger, "ORB Vocabulary path is empty. Loop Closing is disabled." );
+  //     return;
+  //   }
+
+  //   if ( !std::filesystem::exists( orb_voc_path ) )
+  //   {
+  //     ERROR( lk_vio::logger, "ORB Vocabulary path does not exist. Loop Closing is disabled." );
+  //     return;
+  //   }
+
+  //   INFO( lk_vio::logger, "orb_voc_path: {0}", orb_voc_path );
+
+
+  //   if ( open_loop_closing_ )
+  //   {
+  //     dbow2_vocabulary_ = std::make_unique<ORBVocabulary>();
+  //     WARN( lk_vio::logger, "Reading ORB Vocabulary txt File, Wait a Second....." );
+  //     // dbow2_vocabulary_->loadFromTextFile( orb_voc_path );
+  //     dbow2_vocabulary_->loadFromBinaryFile( orb_voc_path );
+  //     loop_closing_thread_ = std::thread( &LoopClosing::LoopClosingThread, this );
+  //   }
+  // }
+
+  LoopClosing::LoopClosing( const common::ParamServer &config )
   {
     LoadParam( config );
     GenerateORBextractor( config );
@@ -208,7 +245,7 @@ namespace lk_vio
     cv::eigen2cv( left_camera_->getK(), K );
     Eigen::Matrix3d Reigen;
     Eigen::Vector3d teigen;
-    
+
     // TODO: change to MLPnP like ORB-SLAM3
     try
     {
@@ -724,7 +761,41 @@ namespace lk_vio
     right_camera_ = right;
   }
 
-  void LoopClosing::GenerateORBextractor( const common::Configuration &config )
+  // void LoopClosing::GenerateORBextractor( const common::Configuration &config )
+  // {
+  //   int   num_orb_bew_features = config.extractor_params.track_features_num;
+  //   float scale_factor         = config.extractor_params.scale_factor;
+  //   int   n_levels             = config.extractor_params.pyramid_level;
+  //   int   fIniThFAST           = config.extractor_params.init_fast_threshold;
+  //   int   fMinThFAST           = config.extractor_params.min_fast_threshold;
+
+  //   INFO( lk_vio::logger, "---- ---- LoopClosing: ORBextractor Parameters ---- ----" );
+  //   INFO( lk_vio::logger, "Number of ORB features: {0}", num_orb_bew_features );
+  //   INFO( lk_vio::logger, "Scale factor: {0}", scale_factor );
+  //   INFO( lk_vio::logger, "Number of pyramid levels: {0}", n_levels );
+  //   INFO( lk_vio::logger, "Initial FAST threshold: {0}", fIniThFAST );
+  //   INFO( lk_vio::logger, "Minimum FAST threshold: {0}", fMinThFAST );
+  //   orb_extractor_ = ORBextractor::Ptr( new ORBextractor( num_orb_bew_features, scale_factor, n_levels, fIniThFAST, fMinThFAST ) );
+  // }
+
+  // void LoopClosing::LoadParam( const common::Configuration &config )
+  // {
+  //   open_loop_closing_        = config.loop_closure_params.activate;
+  //   show_loop_closing_result_ = config.loop_closure_params.show_result;
+  //   loop_threshold_heigher_   = config.loop_closure_params.max_threshold;
+  //   loop_threshold_lower_     = config.loop_closure_params.min_threshold;
+  //   pyramid_level_num_        = config.loop_closure_params.pyramid_level;
+
+  //   INFO( lk_vio::logger, "---- ---- LoopClosing Parameters ---- ----" );
+  //   INFO( lk_vio::logger, "Loop.Closing.Open: {0}", open_loop_closing_ );
+  //   INFO( lk_vio::logger, "Loop.Show.Closing.Result: {0}", show_loop_closing_result_ );
+  //   INFO( lk_vio::logger, "Loop.Threshold.Heigher: {0}", loop_threshold_heigher_ );
+  //   INFO( lk_vio::logger, "Loop.Threshold.Lower: {0}", loop_threshold_lower_ );
+  //   INFO( lk_vio::logger, "Pyramid.Level: {0}", pyramid_level_num_ );
+  //   INFO( lk_vio::logger, "Loop.Closig.Keyframe.Database.Min.Size: {0}", keyframe_database_min_size_ );
+  // }
+
+  void LoopClosing::GenerateORBextractor( const common::ParamServer &config )
   {
     int   num_orb_bew_features = config.extractor_params.track_features_num;
     float scale_factor         = config.extractor_params.scale_factor;
@@ -741,7 +812,7 @@ namespace lk_vio
     orb_extractor_ = ORBextractor::Ptr( new ORBextractor( num_orb_bew_features, scale_factor, n_levels, fIniThFAST, fMinThFAST ) );
   }
 
-  void LoopClosing::LoadParam( const common::Configuration &config )
+  void LoopClosing::LoadParam( const common::ParamServer &config )
   {
     open_loop_closing_        = config.loop_closure_params.activate;
     show_loop_closing_result_ = config.loop_closure_params.show_result;
@@ -757,6 +828,4 @@ namespace lk_vio
     INFO( lk_vio::logger, "Pyramid.Level: {0}", pyramid_level_num_ );
     INFO( lk_vio::logger, "Loop.Closig.Keyframe.Database.Min.Size: {0}", keyframe_database_min_size_ );
   }
-
-
 }  // namespace lk_vio

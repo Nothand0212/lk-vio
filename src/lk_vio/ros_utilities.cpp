@@ -1,9 +1,30 @@
-#include "lk_vio/ros_utilities.hpp"
-
 #include <thread>
+
+#include "lk_vio/ros_utilities.hpp"
 namespace lk_vio
 {
-  RosUtilities::RosUtilities( const common::Configuration &config )
+  // RosUtilities::RosUtilities( const common::Configuration &config )
+  // {
+  //   nh_ = ros::NodeHandle( "~" );
+
+  //   pose_pub_ = nh_.advertise<geometry_msgs::PoseStamped>( "/lk_vio/pose", 1 );
+
+  //   static image_transport::ImageTransport it_( nh_ );
+  //   image_pub_ = it_.advertise( "/lk_vio/image", 1 );
+
+  //   current_points_pub_   = nh_.advertise<sensor_msgs::PointCloud>( "/lk_vio/current_points", 1 );
+  //   global_points_pub_    = nh_.advertise<sensor_msgs::PointCloud>( "/lk_vio/global_points", 1 );
+  //   key_frame_points_pub_ = nh_.advertise<sensor_msgs::PointCloud>( "/lk_vio/key_frame_points", 1 );
+
+  //   key_frame_path_pub_ = nh_.advertise<nav_msgs::Path>( "/lk_vio/key_frame_path", 1 );
+  //   current_path_pub_   = nh_.advertise<nav_msgs::Path>( "/lk_vio/path", 1 );
+  //   global_path_        = nav_msgs::Path();
+  //   key_frame_path_     = nav_msgs::Path();
+
+  //   map_ = nullptr;
+  // }
+
+  RosUtilities::RosUtilities( const common::ParamServer &config )
   {
     nh_ = ros::NodeHandle( "~" );
 

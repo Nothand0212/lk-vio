@@ -11,6 +11,7 @@
 #include <opencv2/opencv.hpp>
 
 #include "common/configuration.hpp"
+#include "common/param_server.hpp"
 #include "lk_vio/feature.hpp"
 #include "lk_vio/frame.hpp"
 #include "lk_vio/keyframe.hpp"
@@ -67,7 +68,8 @@ namespace lk_vio
     void publishMap();
 
   public:
-    RosUtilities( const common::Configuration &config );
+    // RosUtilities( const common::Configuration &config );
+    RosUtilities( const common::ParamServer &config );
     ~RosUtilities() = default;
     void publishPointCloud( const std::vector<PointXYZ> &points );
     void addCurrentFrame( const std::shared_ptr<lk_vio::Frame> &frame, const std::vector<uchar> &status );
