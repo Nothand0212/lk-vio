@@ -108,6 +108,71 @@ namespace lk_vio
 
   void FrontEnd::GrabIMUData( const std::vector<IMUFrame> &imu_measures )
   {
+    std::lock_guard<std::mutex> lck( imu_measures_deque_mutex_ );
+    for ( const auto &imu_measure : imu_measures )
+    {
+      this->imu_measures_deque_.push_back( imu_measure );
+    }
+  }
+
+  void FrontEnd::GrabIMUData( const IMUFrame &imu_measure )
+  {
+    std::lock_guard<std::mutex> lck( imu_measures_deque_mutex_ );
+
+    this->imu_measures_deque_.push_back( imu_measure );
+  }
+
+  void FrontEnd::PreintegrateIMU()
+  {
+    // TODO: implement preintegration
+    // 1. When the first StereoFrame(f_1) is grabbed, just return
+    // 2. When the second StereoFrame is grabbed, preintegrate the IMU data and store it in the current_frame_(f_2)
+    //    How? The first StereoFrame's Pose is used as the initial pose for the preintegration.
+    //    The IMU data between f_1 and f_2 is used to preintegrate the pose of f_2.
+
+
+    // step 1:
+    if ( this->current_frame_->getLastFramePtr() == nullptr )
+    {
+      // todo
+      INFO( lk_vio::logger, "No previous frame available for preintegration" );
+      this->current_frame_->setIntegratedFlag();
+      return;
+    }
+
+    if ( this->imu_measures_deque_.size() == 0 )
+    {
+      ERROR( lk_vio::logger, "No IMU data available for preintegration" );
+      return;
+    }
+
+// step 2: did I need to consider the IMU data's timestamp? or suppose that the IMU data is between f_1 and f_2?
+#define TIME_DIFF 0.01
+    while ( true )
+    {
+      bool need_sleep{ false };
+      {
+        std::lock_guard<std::mutex> lock( imu_measures_deque_mutex_ );
+        if ( !this->imu_measures_deque_.empty() )
+        {
+          auto &imu_frame = this->imu_measures_deque_.front();
+          if ( imu_frame.t < this->current_frame_->getLastFramePtr()->timestamp_ - TIME_DIFF )
+          {
+            this->imu_measures_deque_.pop_front();
+          }
+          else if ( imu_frame.t > this->current_frame_->getLastFramePtr()->timestamp_ - TIME_DIFF )
+          {
+            this->imu_measures_vector_from_lk_.push_back( imu_frame );
+            this->imu_measures_deque_.pop_front();
+          }
+          else
+          {
+            this->imu_measures_vector_from_lk_.push_back( imu_frame );
+            break;
+          }
+        }
+      }
+    }
   }
 
   bool FrontEnd::Track()

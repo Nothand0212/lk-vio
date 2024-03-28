@@ -9,6 +9,7 @@
 #include "lk_vio/camera.hpp"
 #include "lk_vio/g2otypes.hpp"
 #include "lk_vio/imu_frame.hpp"
+#include "lk_vio/imu_preintegration.hpp"
 #include "lk_vio/ros_utilities.hpp"
 #include "mutex"
 #include "opencv2/opencv.hpp"
@@ -23,6 +24,10 @@ namespace lk_vio
   class MapPoint;
   class Backend;
   class RosUtilities;
+
+  // related with imu preintegration
+  class IMUFrame;
+  class IMUPreintegration;
 
   enum class FrontendStatus
   {
@@ -57,9 +62,12 @@ namespace lk_vio
     int  TriangulateNewPoints();
     int  TrackLastFrame();
     int  EstimateCurrentPose();
-    bool GrabSteroImage( const cv::Mat &left_img, const cv::Mat &right_img,
-                         const double timestamp );
-    void GrabIMUData( const std::vector<ImuFrame> &imu_measures );  // for imu_preintegration,
+    bool GrabSteroImage( const cv::Mat &left_img, const cv::Mat &right_img, const double timestamp );
+
+    // related with imu preintegration
+    void GrabIMUData( const std::vector<IMUFrame> &imu_measures );  // for imu_preintegration
+    void GrabIMUData( const IMUFrame &imu_measure );
+    void PreintegrateIMU();
 
   public:
     std::vector<uchar>        lk_status_;
@@ -107,5 +115,8 @@ namespace lk_vio
 
     // related with imu preintegration
     // std::vector<IMUFrame>
+    std::mutex            imu_measures_deque_mutex_;
+    std::deque<IMUFrame>  imu_measures_deque_;
+    std::vector<IMUFrame> imu_measures_vector_from_lk_;
   };
 }  // namespace lk_vio

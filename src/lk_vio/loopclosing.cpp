@@ -121,6 +121,7 @@ namespace lk_vio
 
   bool LoopClosing::DetectLoop()
   {
+    // TODO: implement loop detection visualization
     float         max_score     = 0.0;
     unsigned long best_match_id = 0;
 

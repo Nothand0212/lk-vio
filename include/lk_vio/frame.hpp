@@ -1,4 +1,6 @@
 #pragma once
+#include <atomic>
+
 #include "Eigen/Core"
 #include "lk_vio/feature.hpp"
 #include "lk_vio/imu_frame.hpp"
@@ -20,9 +22,9 @@ namespace lk_vio
   public:
     EIGEN_MAKE_ALIGNED_OPERATOR_NEW;
     typedef std::shared_ptr<Frame> Ptr;
-    Frame()  = default;
-    ~Frame() = default;
+    Frame() = default;
 
+    ~Frame();
     // withou imu
     Frame( const cv::Mat &leftImg, const cv::Mat &rightImg, const double &dTimeStamp );
 
@@ -35,6 +37,12 @@ namespace lk_vio
     Sophus::SE3d getRelativePose();
 
     // related with IMU
+    void                   setLastFramePtr( std::shared_ptr<Frame> last_frame_sptr );
+    std::shared_ptr<Frame> getLastFramePtr();
+
+    void setIntegratedFlag();
+    bool getIntegratedFlag();
+
     void setVelocity( const Eigen::Vector3d &velocity );
 
   public:
@@ -56,11 +64,15 @@ namespace lk_vio
     std::mutex update_realteive_pose_;
 
     // related with IMU
+    // Frame *last_frame_{ nullptr };
+    std::shared_ptr<Frame> last_frame_sptr_;
+    std::atomic_bool       is_intigrated_{ false };
+
     IMUCalibration imu_calib_;
     IMUBias        imu_bias_;
     IMUBias        pre_imu_bias_;
-    Preintegrated *imu_preintegration_kf_;
-    Preintegrated *imu_preintegration_lf_;
+    Preintegrated *imu_preintegration_kf_{ nullptr };
+    Preintegrated *imu_preintegration_lf_{ nullptr };
   };
 
 }  // namespace lk_vio
