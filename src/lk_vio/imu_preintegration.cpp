@@ -59,7 +59,7 @@ Eigen::Matrix3f InverseRightJacobianSO3( const Eigen::Vector3f &v )
 }
 
 
-Preintegrated::Preintegrated( const IMUBias &b_, const IMUCalibration &calib )
+IMUPreintegrator::IMUPreintegrator( const IMUBias &b_, const IMUCalibration &calib )
 {
   Nga     = calib.cov;
   NgaWalk = calib.cov_walk;
@@ -67,11 +67,11 @@ Preintegrated::Preintegrated( const IMUBias &b_, const IMUCalibration &calib )
 }
 
 // Copy constructor
-Preintegrated::Preintegrated( Preintegrated *pImuPre ) : dT( pImuPre->dT ), C( pImuPre->C ), Info( pImuPre->Info ), Nga( pImuPre->Nga ), NgaWalk( pImuPre->NgaWalk ), b( pImuPre->b ), dR( pImuPre->dR ), dV( pImuPre->dV ), dP( pImuPre->dP ), JRg( pImuPre->JRg ), JVg( pImuPre->JVg ), JVa( pImuPre->JVa ), JPg( pImuPre->JPg ), JPa( pImuPre->JPa ), avgA( pImuPre->avgA ), avgW( pImuPre->avgW ), bu( pImuPre->bu ), db( pImuPre->db ), mvMeasurements( pImuPre->mvMeasurements )
+IMUPreintegrator::IMUPreintegrator( IMUPreintegrator *pImuPre ) : dT( pImuPre->dT ), C( pImuPre->C ), Info( pImuPre->Info ), Nga( pImuPre->Nga ), NgaWalk( pImuPre->NgaWalk ), b( pImuPre->b ), dR( pImuPre->dR ), dV( pImuPre->dV ), dP( pImuPre->dP ), JRg( pImuPre->JRg ), JVg( pImuPre->JVg ), JVa( pImuPre->JVa ), JPg( pImuPre->JPg ), JPa( pImuPre->JPa ), avgA( pImuPre->avgA ), avgW( pImuPre->avgW ), bu( pImuPre->bu ), db( pImuPre->db ), mvMeasurements( pImuPre->mvMeasurements )
 {
 }
 
-void Preintegrated::CopyFrom( Preintegrated *pImuPre )
+void IMUPreintegrator::CopyFrom( IMUPreintegrator *pImuPre )
 {
   dT      = pImuPre->dT;
   C       = pImuPre->C;
@@ -95,7 +95,7 @@ void Preintegrated::CopyFrom( Preintegrated *pImuPre )
 }
 
 
-void Preintegrated::Initialize( const IMUBias &b_ )
+void IMUPreintegrator::Initialize( const IMUBias &b_ )
 {
   dR.setIdentity();
   dV.setZero();
@@ -116,7 +116,7 @@ void Preintegrated::Initialize( const IMUBias &b_ )
   mvMeasurements.clear();
 }
 
-void Preintegrated::Reintegrate()
+void IMUPreintegrator::Reintegrate()
 {
   std::unique_lock<std::mutex>  lock( mMutex );
   const std::vector<integrable> aux = mvMeasurements;
@@ -125,7 +125,7 @@ void Preintegrated::Reintegrate()
     IntegrateNewMeasurement( aux[ i ].a, aux[ i ].w, aux[ i ].t );
 }
 
-void Preintegrated::IntegrateNewMeasurement( const Eigen::Vector3f &acceleration, const Eigen::Vector3f &angVel, const float &dt )
+void IMUPreintegrator::IntegrateNewMeasurement( const Eigen::Vector3f &acceleration, const Eigen::Vector3f &angVel, const float &dt )
 {
   mvMeasurements.push_back( integrable( acceleration, angVel, dt ) );
 
@@ -185,7 +185,7 @@ void Preintegrated::IntegrateNewMeasurement( const Eigen::Vector3f &acceleration
   dT += dt;
 }
 
-void Preintegrated::MergePrevious( Preintegrated *pPrev )
+void IMUPreintegrator::MergePrevious( IMUPreintegrator *pPrev )
 {
   if ( pPrev == this )
     return;
@@ -210,7 +210,7 @@ void Preintegrated::MergePrevious( Preintegrated *pPrev )
     IntegrateNewMeasurement( aux2[ i ].a, aux2[ i ].w, aux2[ i ].t );
 }
 
-void Preintegrated::SetNewBias( const IMUBias &bu_ )
+void IMUPreintegrator::SetNewBias( const IMUBias &bu_ )
 {
   std::unique_lock<std::mutex> lock( mMutex );
   bu = bu_;
@@ -223,14 +223,14 @@ void Preintegrated::SetNewBias( const IMUBias &bu_ )
   db( 5 ) = bu_.baz - b.baz;
 }
 
-IMUBias Preintegrated::GetDeltaBias( const IMUBias &b_ )
+IMUBias IMUPreintegrator::GetDeltaBias( const IMUBias &b_ )
 {
   std::unique_lock<std::mutex> lock( mMutex );
   return IMUBias( b_.bax - b.bax, b_.bay - b.bay, b_.baz - b.baz, b_.bwx - b.bwx, b_.bwy - b.bwy, b_.bwz - b.bwz );
 }
 
 
-Eigen::Matrix3f Preintegrated::GetDeltaRotation( const IMUBias &b_ )
+Eigen::Matrix3f IMUPreintegrator::GetDeltaRotation( const IMUBias &b_ )
 {
   std::unique_lock<std::mutex> lock( mMutex );
   Eigen::Vector3f              dbg;
@@ -238,7 +238,7 @@ Eigen::Matrix3f Preintegrated::GetDeltaRotation( const IMUBias &b_ )
   return NormalizeRotation( dR * Sophus::SO3f::exp( JRg * dbg ).matrix() );
 }
 
-Eigen::Vector3f Preintegrated::GetDeltaVelocity( const IMUBias &b_ )
+Eigen::Vector3f IMUPreintegrator::GetDeltaVelocity( const IMUBias &b_ )
 {
   std::unique_lock<std::mutex> lock( mMutex );
   Eigen::Vector3f              dbg, dba;
@@ -247,7 +247,7 @@ Eigen::Vector3f Preintegrated::GetDeltaVelocity( const IMUBias &b_ )
   return dV + JVg * dbg + JVa * dba;
 }
 
-Eigen::Vector3f Preintegrated::GetDeltaPosition( const IMUBias &b_ )
+Eigen::Vector3f IMUPreintegrator::GetDeltaPosition( const IMUBias &b_ )
 {
   std::unique_lock<std::mutex> lock( mMutex );
   Eigen::Vector3f              dbg, dba;
@@ -256,55 +256,55 @@ Eigen::Vector3f Preintegrated::GetDeltaPosition( const IMUBias &b_ )
   return dP + JPg * dbg + JPa * dba;
 }
 
-Eigen::Matrix3f Preintegrated::GetUpdatedDeltaRotation()
+Eigen::Matrix3f IMUPreintegrator::GetUpdatedDeltaRotation()
 {
   std::unique_lock<std::mutex> lock( mMutex );
   return NormalizeRotation( dR * Sophus::SO3f::exp( JRg * db.head( 3 ) ).matrix() );
 }
 
-Eigen::Vector3f Preintegrated::GetUpdatedDeltaVelocity()
+Eigen::Vector3f IMUPreintegrator::GetUpdatedDeltaVelocity()
 {
   std::unique_lock<std::mutex> lock( mMutex );
   return dV + JVg * db.head( 3 ) + JVa * db.tail( 3 );
 }
 
-Eigen::Vector3f Preintegrated::GetUpdatedDeltaPosition()
+Eigen::Vector3f IMUPreintegrator::GetUpdatedDeltaPosition()
 {
   std::unique_lock<std::mutex> lock( mMutex );
   return dP + JPg * db.head( 3 ) + JPa * db.tail( 3 );
 }
 
-Eigen::Matrix3f Preintegrated::GetOriginalDeltaRotation()
+Eigen::Matrix3f IMUPreintegrator::GetOriginalDeltaRotation()
 {
   std::unique_lock<std::mutex> lock( mMutex );
   return dR;
 }
 
-Eigen::Vector3f Preintegrated::GetOriginalDeltaVelocity()
+Eigen::Vector3f IMUPreintegrator::GetOriginalDeltaVelocity()
 {
   std::unique_lock<std::mutex> lock( mMutex );
   return dV;
 }
 
-Eigen::Vector3f Preintegrated::GetOriginalDeltaPosition()
+Eigen::Vector3f IMUPreintegrator::GetOriginalDeltaPosition()
 {
   std::unique_lock<std::mutex> lock( mMutex );
   return dP;
 }
 
-IMUBias Preintegrated::GetOriginalBias()
+IMUBias IMUPreintegrator::GetOriginalBias()
 {
   std::unique_lock<std::mutex> lock( mMutex );
   return b;
 }
 
-IMUBias Preintegrated::GetUpdatedBias()
+IMUBias IMUPreintegrator::GetUpdatedBias()
 {
   std::unique_lock<std::mutex> lock( mMutex );
   return bu;
 }
 
-Eigen::Matrix<float, 6, 1> Preintegrated::GetDeltaBias()
+Eigen::Matrix<float, 6, 1> IMUPreintegrator::GetDeltaBias()
 {
   std::unique_lock<std::mutex> lock( mMutex );
   return db;
