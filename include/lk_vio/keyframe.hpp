@@ -1,12 +1,15 @@
 #pragma once
 
 #include "lk_vio/frame.hpp"
+#include "lk_vio/imu_frame.hpp"
+#include "lk_vio/imu_preintegration.hpp"
 #include "lk_vio/orbvocabulary.hpp"
 #include "sophus/se3.hpp"
 
 namespace lk_vio
 {
   class MapPoint;
+  class IMUCalibration;
 
   class KeyFrame
   {
@@ -25,6 +28,18 @@ namespace lk_vio
     Sophus::SE3d getPose();
 
     std::vector<cv::KeyPoint> GetKeyPoints();
+
+
+    void            setVelocity( const Eigen::Vector3d &velocity );
+    Eigen::Vector3d getVelocity() const;
+
+    IMUBias getIMUBias() const;
+
+
+    void                        updatePoseMatrices();
+    Eigen::Matrix<double, 3, 1> getTranslationWorldToCamera() const;
+    Eigen::Matrix<double, 3, 3> getRotationWorldToCamera() const;
+    Sophus::SE3d                getPoseWorldToCamera() const;
 
   public:
     double        timestamp_;
@@ -47,10 +62,21 @@ namespace lk_vio
 
     DBoW2::BowVector bow2_vec_;
 
-  private:
-    Sophus::SE3d pose_;  /// T_cw
+    // related with imu
+    IMUCalibration imu_calib_;
 
-    std::mutex update_get_pose_mutex_;
+  private:
+    std::mutex    update_get_pose_mutex_;
+    Sophus::SE3d  pose_;  /// T_cw
+    Sophus::SE3d &T_cam_w_ = pose_;
+
+    IMUBias                     imu_bias_;
+    Eigen::Matrix<double, 3, 3> r_w_cam_;
+    Eigen::Matrix<double, 3, 3> r_cam_w_;
+    Eigen::Matrix<double, 3, 1> t_w_cam_;
+    Eigen::Matrix<double, 3, 1> t_cam_w_;
+    Eigen::Vector3d             velocity_;
+    bool                        has_velocity_{ false };
   };
 
 }  // namespace lk_vio

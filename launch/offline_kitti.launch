@@ -1,6 +1,6 @@
 <launch>
 
     <node pkg="lk_vio" type="offline_kitti_ros_node" name="lk_vio_offline_kitti_ros_node" output="screen" args="$(find lk_vio)/config/config.json"></node>
-    <!-- <node pkg="rviz" type="rviz" name="lk_vio_rviz" args="-d $(find lk_vio)/config/rviz.rviz" /> -->
+    <node pkg="rviz" type="rviz" name="lk_vio_rviz" args="-d $(find lk_vio)/config/rviz.rviz" />
 
 </launch>
