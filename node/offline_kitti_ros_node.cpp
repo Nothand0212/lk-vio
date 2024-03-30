@@ -63,6 +63,9 @@ int main( int argc, char** argv )
       INFO( lk_vio::logger, "Time Comsumed: {0} ms, Average Time Consumed: {1} ms", timer.time_consumed_ms_double, running_stat.getMean() );
     }
 
+    INFO( lk_vio::logger, "left iamge {0}", image_left_vec_path[ ni ] );
+    INFO( lk_vio::logger, "right iamge {0}", image_right_vec_path[ ni ] );
+
     cv::Mat img_left  = cv::imread( image_left_vec_path[ ni ], cv::IMREAD_GRAYSCALE );
     cv::Mat img_right = cv::imread( image_right_vec_path[ ni ], cv::IMREAD_GRAYSCALE );
     double  timestamp = vec_timestamp[ ni ];

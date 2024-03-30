@@ -30,6 +30,7 @@ namespace lk_vio
       BackEndParams        back_end_params;
       LoopClosureParams    loop_closure_params;
       ViewerParams         viewer_params;
+      IMUParams            imu_params;
 
     private:
       ParamServer();

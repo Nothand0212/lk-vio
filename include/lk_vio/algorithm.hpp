@@ -8,6 +8,8 @@
 
 namespace lk_vio
 {
+  const float ERROR_THRESHOLD = 1e-1;  // 1e-2
+
   typedef Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic> MatXX;
   typedef Eigen::Matrix<double, Eigen::Dynamic, 1>              VecX;
   typedef Eigen::Matrix<double, 3, 4>                           Mat34;
@@ -34,7 +36,7 @@ namespace lk_vio
     auto svd = A.bdcSvd( Eigen::ComputeThinU | Eigen::ComputeThinV );
     pt_world = ( svd.matrixV().col( 3 ) / svd.matrixV()( 3, 3 ) ).head<3>();
 
-    if ( svd.singularValues()[ 3 ] / svd.singularValues()[ 2 ] < 1e-2 )
+    if ( svd.singularValues()[ 3 ] / svd.singularValues()[ 2 ] < ERROR_THRESHOLD )
     {
       return true;
     }

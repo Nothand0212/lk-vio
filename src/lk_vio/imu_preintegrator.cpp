@@ -1,4 +1,4 @@
-#include "lk_vio/imu_preintegration.hpp"
+#include "lk_vio/imu_preintegrator.hpp"
 
 namespace lk_vio
 {

@@ -4,7 +4,7 @@
 #include "Eigen/Core"
 #include "lk_vio/feature.hpp"
 #include "lk_vio/imu_frame.hpp"
-#include "lk_vio/imu_preintegration.hpp"
+#include "lk_vio/imu_preintegrator.hpp"
 #include "memory"
 #include "mutex"
 #include "opencv2/opencv.hpp"

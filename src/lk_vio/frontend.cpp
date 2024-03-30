@@ -42,6 +42,7 @@ namespace lk_vio
     open_backend_optimization_  = config.back_end_params.activate;
     show_orb_detect_result_     = config.viewer_params.show_extractor_result_cv;
     show_lk_result_             = config.viewer_params.show_lk_matcher_result_cv;
+    is_imu_preintegration_      = config.imu_params.activate;
 
     INFO( lk_vio::logger, "---- ---- FrontEnd Parameters ---- ----" );
     INFO( lk_vio::logger, "Init Good Features: {0}", num_features_init_good_ );
@@ -52,6 +53,7 @@ namespace lk_vio
     INFO( lk_vio::logger, "Open Backend: {0}", open_backend_optimization_ );
     INFO( lk_vio::logger, "Show ORB Detect Result: {0}", show_orb_detect_result_ );
     INFO( lk_vio::logger, "Show LK Result: {0}", show_lk_result_ );
+    INFO( lk_vio::logger, "IMU Preintegration: {0}", is_imu_preintegration_ );
   }
 
 
@@ -269,9 +271,8 @@ namespace lk_vio
     }
 
     // 2. if have last key frame
-    if ( this->reference_kf_ != nullptr )
+    if ( this->reference_kf_ != nullptr && false )  // todo: implement reference_kf_ related operations
     {
-      // todo : implement preintegration
       const Eigen::Vector3d t_w_imu_1 = this->reference_kf_->getTranslationWorldToCamera();
       const Eigen::Matrix3d r_w_imu_1 = this->reference_kf_->getRotationWorldToCamera();
       const Eigen::Vector3d v_w_imu_1 = this->reference_kf_->getVelocity();
@@ -320,6 +321,15 @@ namespace lk_vio
     return false;
   }
 
+  std::vector<float> getEulerAngles( const Eigen::Matrix3d &rotationMatrix )
+  {
+    float roll, pitch, yaw;
+    roll  = atan2( rotationMatrix( 2, 1 ), rotationMatrix( 2, 2 ) ) * 180 / M_PI;
+    pitch = asin( -rotationMatrix( 2, 0 ) ) * 180 / M_PI;
+    yaw   = atan2( rotationMatrix( 1, 0 ), rotationMatrix( 0, 0 ) ) * 180 / M_PI;
+
+    return std::vector<float>( { roll, pitch, yaw } );
+  }
 
   bool FrontEnd::Track()
   {
@@ -333,8 +343,29 @@ namespace lk_vio
       current_frame_->SetRelativePose( relative_motion_ * last_frame_->getRelativePose() );
     }
 
+
+    // fucking crazy, it confuses me...
+    // maybe I should re-think about the whole pipline about the IMU preintegration and the pose estimation...
+    if ( is_imu_preintegration_ && reference_kf_ )
+    {
+      // this will update the current_frame_'s pose and velocity with last_frame_ or reference_kf_'s pose and velocity
+
+      PredictIMUState();
+
+      // T_i_k = T_i_w * T_k_w^-1
+      current_frame_->SetRelativePose( current_frame_->getPose() * reference_kf_->getPose().inverse() );
+    }
+
     TrackLastFrame();
     int inline_pts = EstimateCurrentPose();
+
+    // for debug
+    Sophus::SE3d       pose         = current_frame_->getPose();
+    Eigen::Vector3d    t_cam_w      = pose.translation();
+    Eigen::Matrix3d    r_cam_w      = pose.rotationMatrix();
+    std::vector<float> euler_angles = getEulerAngles( r_cam_w );
+    INFO( lk_vio::logger, "X: {0:.3f} Y: {1:.3f} Z: {2:.3f} Roll: {3:.3f} Pitch: {4:.3f} Yaw: {5:.3f}", t_cam_w.x(), t_cam_w.y(), t_cam_w.z(), euler_angles[ 0 ], euler_angles[ 1 ], euler_angles[ 2 ] );
+
 
     if ( inline_pts > num_features_tracking_good_ )
     {
@@ -352,7 +383,9 @@ namespace lk_vio
     }
     else
     {
-      /// lost
+      // tracking lost
+      // TODO: add lost tracking status, using IMUPreintegration to estimate the pose of the current frame or
+      //       select the best-mathced keyframe from keyframe-database?
       track_status_ = FrontendStatus::LOST;
       WARN( lk_vio::logger, "----------------------" );
       WARN( lk_vio::logger, "--inline_pts:-- {0}", inline_pts );
@@ -697,6 +730,10 @@ namespace lk_vio
 
   bool FrontEnd::BuidInitMap()
   {
+    INFO( lk_vio::logger, "Building initial map..." );
+    INFO( lk_vio::logger, "Detect {0} features in left image", current_frame_->features_left_.size() );
+    INFO( lk_vio::logger, "Detect {0} features in right image", current_frame_->features_right_.size() );
+
     auto cv_point2f_to_vec2 = []( cv::Point2f &pt ) { return Eigen::Vector2d( pt.x, pt.y ); };
 
     std::vector<Sophus::SE3d> poses{ left_camera_->getPose(), right_camera_->getPose() };
@@ -732,8 +769,7 @@ namespace lk_vio
 
     if ( cnt_init_landmarks < min_init_landmark_ )
     {
-      WARN( lk_vio::logger, "Build init map Failed, have {0} points, min is: {1}", cnt_init_landmarks,
-            min_init_landmark_ );
+      WARN( lk_vio::logger, "Build init map Failed, have {0} points, min is: {1}", cnt_init_landmarks, min_init_landmark_ );
       return false;
     }
 

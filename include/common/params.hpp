@@ -71,4 +71,9 @@ namespace lk_vio
     bool show_lk_matcher_result_cv;
   };
 
+  struct IMUParams
+  {
+    bool activate;
+  };
+
 }  // namespace lk_vio

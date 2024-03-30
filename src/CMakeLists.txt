@@ -18,8 +18,7 @@ add_library(lk_vio SHARED
         lk_vio/backend.cpp
         lk_vio/loopclosing.cpp
         lk_vio/ros_utilities.cpp
-        # relate to imu_preintegration
-        lk_vio/imu_preintegration.cpp
+        lk_vio/imu_preintegrator.cpp
 )
 message(STATUS "----G2O Libs: ${g2o_libs}")
 message(STATUS "----DBoW Libs: ${dbow_libs}")

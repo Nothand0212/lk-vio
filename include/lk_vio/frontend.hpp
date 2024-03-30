@@ -9,7 +9,7 @@
 #include "lk_vio/camera.hpp"
 #include "lk_vio/g2otypes.hpp"
 #include "lk_vio/imu_frame.hpp"
-#include "lk_vio/imu_preintegration.hpp"
+#include "lk_vio/imu_preintegrator.hpp"
 #include "lk_vio/ros_utilities.hpp"
 #include "mutex"
 #include "opencv2/opencv.hpp"
@@ -117,6 +117,7 @@ namespace lk_vio
 
     // related with imu preintegration
     // std::vector<IMUFrame>
+    bool                  is_imu_preintegration_ = false;
     std::mutex            imu_measures_deque_mutex_;
     std::deque<IMUFrame>  imu_measures_deque_;
     std::vector<IMUFrame> imu_measures_vector_from_lf_;

@@ -2,7 +2,7 @@
 
 #include "lk_vio/frame.hpp"
 #include "lk_vio/imu_frame.hpp"
-#include "lk_vio/imu_preintegration.hpp"
+#include "lk_vio/imu_preintegrator.hpp"
 #include "lk_vio/orbvocabulary.hpp"
 #include "sophus/se3.hpp"
 

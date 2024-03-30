@@ -1,8 +1,8 @@
 {
     "path": {
-        "data_set_path": "/home/lin/Datasets/kitti/data_odometry_gray/00",
-        "trajectory_path": "/home/lin/Projects/lk-vio/result/kitti_00.txt",
-        "dbow2_voc_path": "/home/lin/Projects/ssvio/vocabulary/ORBvoc.bin",
+        "data_set_path": "/home/lin/Datasets/mav0",
+        "trajectory_path": "/home/lin/Projects/lk-vio/result/euroc_mav0.txt",
+        "dbow2_voc_path": "/home/lin/Projects/lk_ws/src/lk-vio/vocabulary/ORBvoc.bin",
         "log_data_path": "/home/lin/Projects/lk-vio/log_data/test_system.log"
     },
     "camera": {
@@ -46,6 +46,7 @@
         "need_undistortion": false
     },
     "imu":{
+        "activate": false,
         "acc_noise": 2.0e-03,
         "gyro_noise": 1.7e-04,
         "acc_bias": 3.0e-03,
@@ -86,7 +87,7 @@
         "view_point_z": 0,
         "camera_focus": 5000,
         "axis_direction": 6,
-        "show_extractor_result_cv": false,
+        "show_extractor_result_cv": true,
         "show_lk_matcher_result_cv": false
     }
 }
