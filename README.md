@@ -17,7 +17,7 @@ VIO版本还没完全稳定，还在开发中。
 
 ### KITTI数据集
 
-b站视频： [kitti_00](https://b23.tv/xFHpiMm)
+Video On Bilibili: [kitti_00](https://b23.tv/xFHpiMm)
 
 在kitti00上跑，纯VO时间消耗如下：
 
@@ -25,8 +25,9 @@ b站视频： [kitti_00](https://b23.tv/xFHpiMm)
 [2024-03-16 23:51:54.863] [MineLog] [info] [/home/lin/Projects/lk-vio/node/offline_kitti_ros_node.cpp:59:59] Has processed 4500 frames.
 [2024-03-16 23:51:54.863] [MineLog] [info] [/home/lin/Projects/lk-vio/node/offline_kitti_ros_node.cpp:60:60] Time Comsumed: 18.191437 ms, Average Time Consumed: 14.930101216270316 ms
 ```
-
-![kitti-00-vo](doc/kitti-00-VO.png)
+<div align="center">
+    <img src=doc/kitti-00-VO.png height="320">
+</div>
 
 前端+后端+回环，时间消耗如下：
 
@@ -35,7 +36,10 @@ b站视频： [kitti_00](https://b23.tv/xFHpiMm)
 [2024-03-17 00:02:50.250] [MineLog] [info] [/home/lin/Projects/lk-vio/node/offline_kitti_ros_node.cpp:60:60] Time Comsumed: 24.216882 ms, Average Time Consumed: 18.16421585418985 ms
 ```
 
-![kitti-00-vo+backend+loop](doc/kitti-00-vo(backen+loopclose).png)
+<div align="center">
+    <img src=doc/kitti-00-VO.gif height="320">
+</div>
+
 
 ## 安装 🛠️
 
@@ -136,7 +140,7 @@ catkin_make
 运行需要带上`.json`参数文件。
 
 ```sh
-./bin/offline_node_ros_kitti /home/lin/Projects/ssvio/config/config.json
+./bin/offline_node_ros_kitti /home/lin/Projects/lk_vio/config/config.json
 ```
 
 - 如果想用roslanch，需要手动修改`launch/offline_kitti.launch`文件，修改`args`参数为你的`.json`文件路径。
@@ -149,7 +153,9 @@ roslaunch lk-vio offline_kitti.launch
 
 - [ ] 更换LK-FLow为其他基于深度学习的光流估计方法 --> 目前用Opencv的`calcOpticalFlowPyrLK`，可视化查看时，发现有很多误匹配
 - [ ] 添加IMU预积分 --> ORB-SLAM3的太复杂了，看不懂。在参考高博的书coding。
-- [ ] 添加ROS的支持(Doing) --> 也不是为了做ROS，只是为了做可视化。Pangolin的资料太少了，搞了一堆bug出来。
+- [ ] 修改PnP算法 --> 好像还是ORB-SLAM3的MLPnP好一点
+- [ ] 重定位
+- [x] 添加ROS的支持(Doing) --> 也不是为了做ROS，只是为了做可视化。Pangolin的资料太少了，搞了一堆bug出来。
 - - [x] 点云可视化
 - - [x] 位姿可视化
 - - [x] 轨迹可视化
