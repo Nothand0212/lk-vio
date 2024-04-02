@@ -9,6 +9,10 @@
 - 后端: g2o
 - 回环: DBoW2
 
+main分支只有VO，developing分支有VIO。
+
+VIO版本还没完全稳定，还在开发中。
+
 ## 实验结果 📈
 
 ### KITTI数据集
