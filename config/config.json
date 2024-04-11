@@ -69,5 +69,8 @@
         "axis_direction": 6,
         "show_extractor_result_cv": false,
         "show_lk_matcher_result_cv": false
+    },
+    "imu":{
+        "activate": false
     }
 }

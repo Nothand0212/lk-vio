@@ -8,10 +8,6 @@ namespace lk_vio
   Frame::Frame( const cv::Mat &left_image, const cv::Mat &right_image, const double &timestamp )
       : left_image_( left_image ), right_image_( right_image ), timestamp_( timestamp )
   {
-    // left_image_  = left_image;
-    // right_image_ = right_image;
-    // timestamp_   = timestamp;
-
     frame_id_ = FrmaeFactoryId++;
   }
 
@@ -21,7 +17,7 @@ namespace lk_vio
     delete imu_preintegration_kf_;
     delete imu_preintegration_lf_;
 
-    std::cout << "Frame " << frame_id_ << " is deleted." << std::endl;
+    // std::cout << "Frame " << frame_id_ << " is deleted." << std::endl;
   }
 
   Sophus::SE3d Frame::getPose()
@@ -69,5 +65,62 @@ namespace lk_vio
   {
     return this->last_frame_sptr_;
   }
+
+
+  // related with IMU preintegration
+  void Frame::setIMUPoseAndVelocity( const Sophus::SE3d &T_w_imu, const Eigen::Vector3d &velocity )
+  {
+    this->velocity_     = velocity;
+    this->has_velocity_ = true;
+
+    // update pose
+    // T_cam_world = T_cam_imu * T_imu_world
+    this->T_cam_w_ = this->imu_calib_.T_cam_imu * T_w_imu.inverse();
+    this->updatePoseMatrices();
+  }
+
+  void Frame::updatePoseMatrices()
+  {
+    auto T_w_cam = this->T_cam_w_.inverse();
+
+    this->r_cam_w_ = this->T_cam_w_.rotationMatrix();
+    this->t_cam_w_ = this->T_cam_w_.translation();
+
+    this->r_w_cam_ = T_w_cam.rotationMatrix();
+    this->t_w_cam_ = T_w_cam.translation();
+  }
+
+  Eigen::Matrix<double, 3, 1> Frame::getTranslationWorldToCamera() const
+  {
+    // what difference between below and (T_w_cam * T_cam_imu).translation() ?
+    return this->r_w_cam_ * this->imu_calib_.T_cam_imu.translation() + this->t_w_cam_;
+  }
+
+  Eigen::Matrix<double, 3, 3> Frame::getRotationWorldToCamera() const
+  {
+    return this->r_w_cam_ * this->imu_calib_.T_cam_imu.rotationMatrix();
+  }
+
+  Sophus::SE3d Frame::getPoseWorldToCamera() const
+  {
+    return this->T_cam_w_.inverse() * this->imu_calib_.T_cam_imu;
+  }
+
+  void Frame::setVelocity( const Eigen::Vector3d &velocity )
+  {
+    this->velocity_     = velocity;
+    this->has_velocity_ = true;
+  }
+
+  Eigen::Vector3d Frame::getVelocity() const
+  {
+    return this->velocity_;
+  }
+
+  IMUBias Frame::getIMUBias() const
+  {
+    return this->imu_bias_;
+  }
+
 
 }  // namespace lk_vio

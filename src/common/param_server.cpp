@@ -136,6 +136,11 @@ namespace lk_vio
       std::cout << "show_extractor_result_cv: " << viewer_params.show_extractor_result_cv << "\n";
       std::cout << "show_lk_matcher_result_cv: " << viewer_params.show_lk_matcher_result_cv << "\n\n";
 
+
+      // IMU parameters
+      imu_params.activate = config[ "imu" ][ "activate" ];
+
+
       this->initialized = true;
     }
   }  // namespace common

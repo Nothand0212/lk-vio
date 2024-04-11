@@ -15,16 +15,12 @@ namespace lk_vio
     timestamp_     = frame->timestamp_;
     image_left_    = frame->left_image_;
     features_left_ = frame->features_left_;
-    // mvpFeaturesRight = frame->mvpFeaturesRight; // undesired
 
-    // for (size_t i = 0, N = frame->features_left_.size(); i < N; i++)
-    // {
-    //   auto mp = frame->features_left_[i]->map_point_.lock();
-    //   if (mp != nullptr)
-    //   {
-    //     features_left_[i]->map_point_ = mp;
-    //   }
-    // }
+    pose_ = frame->getPose();
+
+    // related with imu
+    imu_calib_ = frame->imu_calib_;
+    velocity_  = frame->getVelocity();
   }
 
   KeyFrame::Ptr KeyFrame::CreateKF( std::shared_ptr<Frame> frame )
@@ -70,5 +66,49 @@ namespace lk_vio
       kps[ i ] = features_left_[ i ]->kp_position_;
     }
     return kps;
+  }
+
+  void KeyFrame::updatePoseMatrices()
+  {
+    auto T_w_cam = this->T_cam_w_.inverse();
+
+    this->r_cam_w_ = this->T_cam_w_.rotationMatrix();
+    this->t_cam_w_ = this->T_cam_w_.translation();
+
+    this->r_w_cam_ = T_w_cam.rotationMatrix();
+    this->t_w_cam_ = T_w_cam.translation();
+  }
+
+  Eigen::Matrix<double, 3, 1> KeyFrame::getTranslationWorldToCamera() const
+  {
+    // what difference between below and (T_w_cam * T_cam_imu).translation() ?
+    return this->r_w_cam_ * this->imu_calib_.T_cam_imu.translation() + this->t_w_cam_;
+  }
+
+  Eigen::Matrix<double, 3, 3> KeyFrame::getRotationWorldToCamera() const
+  {
+    return this->r_w_cam_ * this->imu_calib_.T_cam_imu.rotationMatrix();
+  }
+
+  Sophus::SE3d KeyFrame::getPoseWorldToCamera() const
+  {
+    return this->T_cam_w_.inverse() * this->imu_calib_.T_cam_imu;
+  }
+
+
+  void KeyFrame::setVelocity( const Eigen::Vector3d &velocity )
+  {
+    this->velocity_     = velocity;
+    this->has_velocity_ = true;
+  }
+
+  Eigen::Vector3d KeyFrame::getVelocity() const
+  {
+    return this->velocity_;
+  }
+
+  IMUBias KeyFrame::getIMUBias() const
+  {
+    return this->imu_bias_;
   }
 }  // namespace lk_vio
