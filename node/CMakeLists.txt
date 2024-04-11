@@ -3,3 +3,6 @@ target_link_libraries(offline_kitti_node  lk_vio  ${dbow_libs} ${g2o_libs} ${Ope
 
 add_executable(offline_kitti_ros_node offline_kitti_ros_node.cpp)
 target_link_libraries(offline_kitti_ros_node  lk_vio  ${dbow_libs} ${g2o_libs} ${OpenCV_LIBS} ${catkin_LIBRARIES} logger)
+
+add_executable(online_node online_node.cpp)
+target_link_libraries(online_node  lk_vio  ${dbow_libs} ${g2o_libs} ${OpenCV_LIBS} ${catkin_LIBRARIES} logger)

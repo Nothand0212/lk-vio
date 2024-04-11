@@ -1,0 +1,6 @@
+<launch>
+
+    <node pkg="lk_vio" type="online_node" name="online_node" output="screen" args="$(find lk_vio)/config/config_online.json"></node>
+    <node pkg="rviz" type="rviz" name="lk_vio_rviz" args="-d $(find lk_vio)/config/rviz.rviz" />
+
+</launch>

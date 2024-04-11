@@ -10,6 +10,7 @@
 #include "common/timer.hpp"
 #include "lk_vio/system.hpp"
 #include "logger/logger.h"
+
 using namespace spdlog;
 int main( int argc, char** argv )
 {
